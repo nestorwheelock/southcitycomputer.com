@@ -1,7 +1,7 @@
 // South City Computer - Client Performance & Network Diagnostics Tool
 // Measures load times, runs network diagnostics, and visualizes routes
 
-use std::io::{Read, Write, BufRead, BufReader};
+use std::io::{Read, Write};
 use std::net::{TcpStream, ToSocketAddrs, IpAddr};
 use std::process::{Command, Stdio};
 use std::time::{Duration, Instant};
@@ -41,6 +41,12 @@ struct NetworkDiagnostics {
 
 fn resolve_hostname(hostname: &str) -> Result<(String, f64), String> {
     let start = Instant::now();
+
+    // Check if it's already an IP address
+    if hostname.parse::<IpAddr>().is_ok() {
+        let elapsed = start.elapsed().as_secs_f64() * 1000.0;
+        return Ok((hostname.to_string(), elapsed));
+    }
 
     let addr = format!("{}:80", hostname);
     match addr.to_socket_addrs() {
@@ -448,14 +454,26 @@ fn main() {
             }
             let url = &args[2];
             // Parse URL (simple)
-            let url = url.trim_start_matches("http://").trim_start_matches("https://");
-            let (host, path) = if let Some(pos) = url.find('/') {
-                (&url[..pos], &url[pos..])
+            let url_stripped = url.trim_start_matches("http://").trim_start_matches("https://");
+            let (host_port, path) = if let Some(pos) = url_stripped.find('/') {
+                (&url_stripped[..pos], &url_stripped[pos..])
             } else {
-                (url, "/")
+                (url_stripped, "/")
             };
 
-            match measure_endpoint(host, path, 80) {
+            // Parse host and port
+            let (host, port) = if let Some(pos) = host_port.rfind(':') {
+                let port_str = &host_port[pos+1..];
+                if let Ok(p) = port_str.parse::<u16>() {
+                    (&host_port[..pos], p)
+                } else {
+                    (host_port, 80)
+                }
+            } else {
+                (host_port, 80)
+            };
+
+            match measure_endpoint(host, path, port) {
                 Ok(metrics) => print_performance_metrics(&metrics, &args[2]),
                 Err(e) => eprintln!("Error: {}", e),
             }
@@ -467,5 +485,136 @@ fn main() {
             // Assume it's a host to test
             run_full_performance_test(&args[1]);
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_resolve_hostname_ip_address() {
+        // IP addresses should return immediately without DNS lookup
+        let result = resolve_hostname("127.0.0.1");
+        assert!(result.is_ok());
+        let (ip, dns_time) = result.unwrap();
+        assert_eq!(ip, "127.0.0.1");
+        assert!(dns_time < 1.0); // Should be nearly instant
+    }
+
+    #[test]
+    fn test_resolve_hostname_localhost() {
+        let result = resolve_hostname("localhost");
+        assert!(result.is_ok());
+        let (ip, _) = result.unwrap();
+        // localhost should resolve to 127.0.0.1 or ::1
+        assert!(ip == "127.0.0.1" || ip == "::1");
+    }
+
+    #[test]
+    fn test_resolve_hostname_invalid() {
+        let result = resolve_hostname("this.host.definitely.does.not.exist.invalid");
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_performance_metrics_struct() {
+        let metrics = PerformanceMetrics {
+            dns_lookup_ms: 10.0,
+            tcp_connect_ms: 5.0,
+            tls_handshake_ms: 0.0,
+            ttfb_ms: 20.0,
+            download_ms: 15.0,
+            total_ms: 50.0,
+            response_size: 1024,
+            status_code: 200,
+        };
+
+        assert_eq!(metrics.status_code, 200);
+        assert_eq!(metrics.response_size, 1024);
+        assert_eq!(metrics.total_ms, 50.0);
+    }
+
+    #[test]
+    fn test_trace_hop_struct() {
+        let hop = TraceHop {
+            hop_number: 1,
+            ip_address: Some("192.168.1.1".to_string()),
+            hostname: None,
+            rtt_ms: vec![1.5, 2.0, 1.8],
+            is_target: false,
+        };
+
+        assert_eq!(hop.hop_number, 1);
+        assert!(hop.ip_address.is_some());
+        assert!(!hop.is_target);
+        assert_eq!(hop.rtt_ms.len(), 3);
+    }
+
+    #[test]
+    fn test_url_parsing_with_port() {
+        // Simulate the URL parsing logic
+        let url = "http://127.0.0.1:9000/health";
+        let url_stripped = url.trim_start_matches("http://").trim_start_matches("https://");
+        let (host_port, path) = if let Some(pos) = url_stripped.find('/') {
+            (&url_stripped[..pos], &url_stripped[pos..])
+        } else {
+            (url_stripped, "/")
+        };
+
+        let (host, port) = if let Some(pos) = host_port.rfind(':') {
+            let port_str = &host_port[pos+1..];
+            if let Ok(p) = port_str.parse::<u16>() {
+                (&host_port[..pos], p)
+            } else {
+                (host_port, 80u16)
+            }
+        } else {
+            (host_port, 80u16)
+        };
+
+        assert_eq!(host, "127.0.0.1");
+        assert_eq!(port, 9000);
+        assert_eq!(path, "/health");
+    }
+
+    #[test]
+    fn test_url_parsing_without_port() {
+        let url = "http://example.com/path";
+        let url_stripped = url.trim_start_matches("http://").trim_start_matches("https://");
+        let (host_port, path) = if let Some(pos) = url_stripped.find('/') {
+            (&url_stripped[..pos], &url_stripped[pos..])
+        } else {
+            (url_stripped, "/")
+        };
+
+        let (host, port) = if let Some(pos) = host_port.rfind(':') {
+            let port_str = &host_port[pos+1..];
+            if let Ok(p) = port_str.parse::<u16>() {
+                (&host_port[..pos], p)
+            } else {
+                (host_port, 80u16)
+            }
+        } else {
+            (host_port, 80u16)
+        };
+
+        assert_eq!(host, "example.com");
+        assert_eq!(port, 80);
+        assert_eq!(path, "/path");
+    }
+
+    #[test]
+    fn test_url_parsing_no_path() {
+        let url = "http://example.com";
+        let url_stripped = url.trim_start_matches("http://").trim_start_matches("https://");
+        let (host_port, path) = if let Some(pos) = url_stripped.find('/') {
+            (&url_stripped[..pos], &url_stripped[pos..])
+        } else {
+            (url_stripped, "/")
+        };
+
+        assert_eq!(host_port, "example.com");
+        assert_eq!(path, "/");
     }
 }

@@ -438,3 +438,82 @@ fn main() {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_format_bytes() {
+        assert_eq!(format_bytes(500), "500 B");
+        assert_eq!(format_bytes(1500), "1.50 KB");
+        assert_eq!(format_bytes(1_500_000), "1.50 MB");
+        assert_eq!(format_bytes(1_500_000_000), "1.50 GB");
+    }
+
+    #[test]
+    fn test_format_latency() {
+        assert_eq!(format_latency(500), "500μs");
+        assert_eq!(format_latency(1500), "1.50ms");
+        assert_eq!(format_latency(1_500_000), "1.50s");
+    }
+
+    #[test]
+    fn test_benchmark_results_new() {
+        let results = BenchmarkResults::new();
+        assert_eq!(results.total_requests.load(Ordering::Relaxed), 0);
+        assert_eq!(results.successful_requests.load(Ordering::Relaxed), 0);
+        assert_eq!(results.failed_requests.load(Ordering::Relaxed), 0);
+        assert_eq!(results.min_latency_us.load(Ordering::Relaxed), u64::MAX);
+    }
+
+    #[test]
+    fn test_benchmark_results_record_success() {
+        let results = BenchmarkResults::new();
+        results.record_success(100, 1024);
+
+        assert_eq!(results.total_requests.load(Ordering::Relaxed), 1);
+        assert_eq!(results.successful_requests.load(Ordering::Relaxed), 1);
+        assert_eq!(results.total_bytes.load(Ordering::Relaxed), 1024);
+        assert_eq!(results.min_latency_us.load(Ordering::Relaxed), 100);
+        assert_eq!(results.max_latency_us.load(Ordering::Relaxed), 100);
+    }
+
+    #[test]
+    fn test_benchmark_results_record_failure() {
+        let results = BenchmarkResults::new();
+        results.record_failure();
+
+        assert_eq!(results.total_requests.load(Ordering::Relaxed), 1);
+        assert_eq!(results.failed_requests.load(Ordering::Relaxed), 1);
+        assert_eq!(results.successful_requests.load(Ordering::Relaxed), 0);
+    }
+
+    #[test]
+    fn test_benchmark_results_min_max_tracking() {
+        let results = BenchmarkResults::new();
+        results.record_success(500, 100);
+        results.record_success(100, 100);
+        results.record_success(1000, 100);
+
+        assert_eq!(results.min_latency_us.load(Ordering::Relaxed), 100);
+        assert_eq!(results.max_latency_us.load(Ordering::Relaxed), 1000);
+        assert_eq!(results.total_latency_us.load(Ordering::Relaxed), 1600);
+    }
+
+    #[test]
+    fn test_benchmark_config_default() {
+        let config = BenchmarkConfig {
+            host: "127.0.0.1:9000".to_string(),
+            requests: 100,
+            concurrency: 10,
+            warmup: true,
+            verbose: false,
+        };
+
+        assert_eq!(config.requests, 100);
+        assert_eq!(config.concurrency, 10);
+        assert!(config.warmup);
+        assert!(!config.verbose);
+    }
+}

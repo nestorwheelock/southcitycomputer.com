@@ -4,7 +4,6 @@
 
 use actix_cors::Cors;
 use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer, middleware, http::header};
-use actix_files as fs;
 use base64::Engine;
 use chrono::Local;
 use mime_guess::from_path;
