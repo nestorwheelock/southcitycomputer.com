@@ -15,6 +15,7 @@ use std::net::TcpListener;
 use std::path::Path;
 use std::sync::mpsc;
 use std::thread;
+use sys_locale::get_locale;
 use tao::{
     event::{Event, WindowEvent},
     event_loop::{ControlFlow, EventLoop},
@@ -37,7 +38,14 @@ fn find_available_port() -> u16 {
 
 fn main() {
     let port = find_available_port();
-    let url = format!("http://127.0.0.1:{}", port);
+
+    // Detect system language
+    let system_lang = get_locale()
+        .map(|l| if l.starts_with("es") { "es" } else { "en" })
+        .unwrap_or("en");
+
+    // Pass system language as URL parameter for initial load
+    let url = format!("http://127.0.0.1:{}/?syslang={}", port, system_lang);
 
     // Channel to signal when server is ready
     let (tx, rx) = mpsc::channel();

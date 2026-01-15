@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pruebas de Rendimiento y Optimización | South City Computer</title>
+    <meta name="description" content="Pruebas de Rendimiento y Optimización - Technical documentation from South City Computer">
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <style>
+        .doc-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            line-height: 1.7;
+        }
+        .doc-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #1a5276;
+        }
+        .doc-header h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .doc-meta {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        .doc-meta a {
+            color: #1a5276;
+        }
+        .lang-switcher {
+            margin-left: auto;
+        }
+        .lang-switcher a {
+            display: inline-block;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .lang-switcher a:hover {
+            transform: scale(1.2);
+        }
+        .doc-content h1 { font-size: 1.8rem; color: #1a5276; margin-top: 2.5rem; border-bottom: 2px solid #1a5276; padding-bottom: 0.5rem; }
+        .doc-content h2 { font-size: 1.5rem; color: #1a5276; margin-top: 2rem; }
+        .doc-content h3 { font-size: 1.25rem; color: #2980b9; margin-top: 1.5rem; }
+        .doc-content h4 { font-size: 1.1rem; color: #333; margin-top: 1.2rem; }
+        .doc-content p { margin-bottom: 1rem; color: #444; }
+        .doc-content ul, .doc-content ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+        .doc-content li { margin-bottom: 0.5rem; }
+        .doc-content pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        .doc-content code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .doc-content pre code {
+            background: none;
+            padding: 0;
+        }
+        .doc-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .doc-content th, .doc-content td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .doc-content th {
+            background: #1a5276;
+            color: white;
+        }
+        .doc-content tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .doc-content blockquote {
+            border-left: 4px solid #1a5276;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #666;
+            font-style: italic;
+        }
+        .doc-content a {
+            color: #1a5276;
+        }
+        .doc-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .doc-nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .doc-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .doc-nav li a {
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .doc-nav li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <script src="../js/main.min.js"></script>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../index-es.html" class="nav-logo">
+                <img src="../images/logo.webp" alt="South City Computer">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../index-es.html#about">Nosotros</a></li>
+                <li><a href="../index-es.html#services">Servicios</a></li>
+                <li><a href="../paradise-es.html">Paradise</a></li>
+                <li><a href="../index-es.html#projects">Proyectos</a></li>
+                <li><a href="../index-es.html#contact">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="doc-container">
+        <div class="doc-header">
+            <h1>Pruebas de Rendimiento y Optimización</h1>
+            <div class="doc-meta">
+                <span>Fuente: <a href="https://github.com/nestorwheelock/southcitycomputer.com/blob/master/PERFORMANCE_TESTING-es.md" target="_blank">PERFORMANCE_TESTING-es.md</a></span>
+                <span>Última sincronización: 2026-01-15 10:14 UTC</span>
+                <div class="lang-switcher">
+                    <a href="performance_testing.html" title="View in English" onclick="localStorage.setItem('langManuallySet','en')">🇺🇸</a>
+                </div>
+            </div>
+        </div>
+
+        <nav class="doc-nav">
+            <strong>Documentación:</strong>
+            <ul>
+                <li><a href="readme-es.html">README</a></li>
+                <li><a href="developer-es.html">Guía Desarrollador</a></li>
+                <li><a href="performance-es.html">Rendimiento</a></li>
+                <li><a href="whitepaper-full-es.html">White Paper</a></li>
+                <li><a href="roadmap-es.html">Hoja de Ruta</a></li>
+            </ul>
+        </nav>
+
+        <div class="doc-content">
+<h1 id="pruebas-de-rendimiento-y-registro-de-optimización">Pruebas de
+Rendimiento y Registro de Optimización</h1>
+<h2
+id="experimento-servidor-rust-de-binario-único-con-activos-embebidos">Experimento:
+Servidor Rust de Binario Único con Activos Embebidos</h2>
+<p><strong>Fecha:</strong> 2026-01-14 <strong>Objetivo:</strong>
+Determinar la arquitectura de sitio web más rápida posible</p>
+<hr />
+<h2 id="ronda-1-base-vs-binario-embebido-imágenes-jpg">Ronda 1: Base vs
+Binario Embebido (Imágenes JPG)</h2>
+<h3 id="configuración">Configuración</h3>
+<ul>
+<li><strong>ANTIGUO:</strong> nginx reverse proxy → Rust contact-handler
++ archivos estáticos desde disco</li>
+<li><strong>NUEVO:</strong> Binario Rust único con todos los activos
+embebidos en memoria (rust-embed)</li>
+</ul>
+<h3 id="resultados-localhost-latencia-del-lado-del-servidor">Resultados
+(localhost, latencia del lado del servidor)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Activo</th>
+<th>ANTIGUO (nginx+disco)</th>
+<th>NUEVO (embebido)</th>
+<th>Ganador</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Homepage 32KB</td>
+<td>1.4ms</td>
+<td>0.82ms</td>
+<td>NUEVO</td>
+</tr>
+<tr class="even">
+<td>CSS 21KB</td>
+<td>1.1ms</td>
+<td>0.88ms</td>
+<td>NUEVO</td>
+</tr>
+<tr class="odd">
+<td>Imagen 3MB</td>
+<td>8.3ms</td>
+<td>11.3ms</td>
+<td>ANTIGUO</td>
+</tr>
+</tbody>
+</table>
+<h3 id="análisis">Análisis</h3>
+<ul>
+<li>Archivos pequeños: Binario embebido ~40% más rápido (sin I/O de
+disco, sin proxy)</li>
+<li>Archivos grandes: nginx gana (syscall sendfile() optimizado,
+zero-copy)</li>
+<li>Memoria: ANTIGUO 5.5MB RSS, NUEVO 9.7MB RSS</li>
+</ul>
+<h3 id="conclusión">Conclusión</h3>
+<p>nginx está altamente optimizado para servir archivos estáticos. La
+caché de archivos del SO significa que los archivos de disco
+frecuentemente están en memoria de todas formas. El binario embebido
+gana para archivos pequeños pero pierde para imágenes grandes.</p>
+<hr />
+<h2 id="ronda-2-imágenes-webp-optimizadas">Ronda 2: Imágenes WebP
+Optimizadas</h2>
+<h3 id="cambios-realizados">Cambios Realizados</h3>
+<ol type="1">
+<li>Convertir todas las imágenes JPG/PNG a formato WebP</li>
+<li>Actualizar HTML y CSS para referenciar archivos .webp</li>
+<li>Reconstruir binario solo con imágenes WebP</li>
+</ol>
+<h3 id="reducción-de-tamaño-de-imágenes">Reducción de Tamaño de
+Imágenes</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Imagen</th>
+<th>Tamaño JPG</th>
+<th>Tamaño WebP</th>
+<th>Reducción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>store-interior</td>
+<td>3.0MB</td>
+<td>400KB</td>
+<td>87%</td>
+</tr>
+<tr class="even">
+<td>puerto-morelos-plaza</td>
+<td>2.9MB</td>
+<td>1.1MB</td>
+<td>62%</td>
+</tr>
+<tr class="odd">
+<td>repair-work</td>
+<td>2.9MB</td>
+<td>361KB</td>
+<td>88%</td>
+</tr>
+<tr class="even">
+<td>puerto-morelos-malecon</td>
+<td>2.3MB</td>
+<td>632KB</td>
+<td>73%</td>
+</tr>
+<tr class="odd">
+<td>puerto-morelos-harbor</td>
+<td>2.2MB</td>
+<td>546KB</td>
+<td>75%</td>
+</tr>
+<tr class="even">
+<td>puerto-morelos-beach</td>
+<td>1.7MB</td>
+<td>205KB</td>
+<td>88%</td>
+</tr>
+<tr class="odd">
+<td>jungle</td>
+<td>656KB</td>
+<td>430KB</td>
+<td>34%</td>
+</tr>
+<tr class="even">
+<td><strong>TOTAL</strong></td>
+<td><strong>20MB</strong></td>
+<td><strong>4.3MB</strong></td>
+<td><strong>78%</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="tamaño-del-binario">Tamaño del Binario</h3>
+<ul>
+<li>Ronda 1: 28MB (con imágenes JPG)</li>
+<li>Ronda 2: 13MB (con imágenes WebP)</li>
+<li>Reducción: 54%</li>
+</ul>
+<h3
+id="resultados-localhost-latencia-del-lado-del-servidor-1">Resultados
+(localhost, latencia del lado del servidor)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Activo</th>
+<th>ANTIGUO (nginx+JPG)</th>
+<th>NUEVO (embebido+WebP)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Homepage</td>
+<td>1.5-2ms</td>
+<td>1-3ms</td>
+</tr>
+<tr class="even">
+<td>Imagen 3MB JPG</td>
+<td>15ms</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>Imagen 400KB WebP</td>
+<td>N/A</td>
+<td>4.5ms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="impacto-en-el-mundo-real-perspectiva-del-usuario">Impacto en el
+Mundo Real (perspectiva del usuario)</h3>
+<p>En una conexión de 10Mbps: - ANTIGUO: imagen de 3MB = <strong>2.4
+segundos</strong> de descarga - NUEVO: imagen de 400KB = <strong>0.32
+segundos</strong> de descarga - <strong>Mejora: 8x más
+rápido</strong></p>
+<hr />
+<h2 id="ronda-3-optimización-completa---completada">Ronda 3:
+Optimización Completa - COMPLETADA</h2>
+<h3 id="cambios-implementados">Cambios Implementados</h3>
+<h4 id="a.-lazy-loading-con-precarga-al-scroll">A. Lazy Loading con
+Precarga al Scroll</h4>
+<ul>
+<li>Imágenes usan atributos <code>data-src</code> para lazy loading</li>
+<li>API Intersection Observer precarga imágenes 200px antes del
+viewport</li>
+<li>Imágenes de fondo precargan 300px adelante</li>
+<li>Animación fade-in al cargar imagen</li>
+</ul>
+<h4 id="b.-minificación-cssjs">B. Minificación CSS/JS</h4>
+<ul>
+<li><code>style.css</code> (21KB) → <code>style.min.css</code> (16KB) -
+24% reducción</li>
+<li><code>main.js</code> (17KB) → <code>main.min.js</code> (13KB) - 24%
+reducción</li>
+</ul>
+<h4 id="c.-binario-monolítico-con-todas-las-optimizaciones">C. Binario
+Monolítico con Todas las Optimizaciones</h4>
+<ul>
+<li>Binario Rust único (13MB) con imágenes WebP embebidas</li>
+<li>Sirve todo el contenido desde memoria</li>
+<li>Cero I/O de disco para archivos estáticos</li>
+</ul>
+<h3 id="resultados-de-benchmark">Resultados de Benchmark</h3>
+<p><strong>Ambiente de Prueba:</strong> localhost, 100 requests por
+activo</p>
+<h4
+id="rendimiento-de-requests-secuenciales-tiempo-de-respuesta-promedio">Rendimiento
+de Requests Secuenciales (tiempo de respuesta promedio)</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Activo</th>
+<th>Tamaño</th>
+<th>Tiempo de Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>index.html</td>
+<td>32KB</td>
+<td>0.8ms</td>
+</tr>
+<tr class="even">
+<td>style.min.css</td>
+<td>16KB</td>
+<td>0.8ms</td>
+</tr>
+<tr class="odd">
+<td>main.min.js</td>
+<td>13KB</td>
+<td>0.7ms</td>
+</tr>
+<tr class="even">
+<td>logo.webp</td>
+<td>5KB</td>
+<td>0.7ms</td>
+</tr>
+<tr class="odd">
+<td>storefront.webp</td>
+<td>128KB</td>
+<td>6.6ms</td>
+</tr>
+<tr class="even">
+<td>puerto-morelos-plaza.webp</td>
+<td>1MB</td>
+<td>2.9ms</td>
+</tr>
+</tbody>
+</table>
+<h4
+id="rendimiento-de-requests-concurrentes-10-requests-concurrentes">Rendimiento
+de Requests Concurrentes (10 requests concurrentes)</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Activo</th>
+<th>Throughput</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>index.html</td>
+<td>~666 req/s</td>
+</tr>
+<tr class="even">
+<td>style.min.css</td>
+<td>~625 req/s</td>
+</tr>
+<tr class="odd">
+<td>main.min.js</td>
+<td>~714 req/s</td>
+</tr>
+<tr class="even">
+<td>logo.webp</td>
+<td>~666 req/s</td>
+</tr>
+<tr class="odd">
+<td>storefront.webp</td>
+<td>~178 req/s</td>
+</tr>
+<tr class="even">
+<td>plaza.webp (1MB)</td>
+<td>~500 req/s</td>
+</tr>
+</tbody>
+</table>
+<h3 id="análisis-de-carga-de-página-completa">Análisis de Carga de
+Página Completa</h3>
+<p><strong>Activos above-the-fold:</strong> ~195 KB total - index.html:
+32KB - style.min.css: 16KB - main.min.js: 13KB - logo.webp: 5KB -
+storefront.webp: 128KB</p>
+<p><strong>Carga de página concurrente simulada:</strong> ~52ms para
+todos los activos críticos</p>
+<h3 id="hallazgos-clave">Hallazgos Clave</h3>
+<ol type="1">
+<li><strong>Archivos pequeños (&lt; 50KB):</strong> ~0.7-0.8ms tiempo de
+respuesta, 600-700 req/s</li>
+<li><strong>Imágenes medianas (128KB):</strong> ~6.6ms, limitado por
+ancho de banda</li>
+<li><strong>Imágenes grandes (1MB):</strong> ~2.9ms - más rápido que
+mediano debido a streaming</li>
+<li><strong>Carga concurrente:</strong> 5 activos críticos en ~52ms</li>
+</ol>
+<h3 id="resumen-de-optimización">Resumen de Optimización</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Métrica</th>
+<th>Ronda 1 (JPG)</th>
+<th>Ronda 3 (Optimizado)</th>
+<th>Mejora</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Total imágenes</td>
+<td>20MB</td>
+<td>4.3MB</td>
+<td>78% más pequeño</td>
+</tr>
+<tr class="even">
+<td>Tamaño binario</td>
+<td>28MB</td>
+<td>13MB</td>
+<td>54% más pequeño</td>
+</tr>
+<tr class="odd">
+<td>Tamaño CSS</td>
+<td>21KB</td>
+<td>16KB</td>
+<td>24% más pequeño</td>
+</tr>
+<tr class="even">
+<td>Tamaño JS</td>
+<td>17KB</td>
+<td>13KB</td>
+<td>24% más pequeño</td>
+</tr>
+<tr class="odd">
+<td>Carga de página</td>
+<td>~2.4s</td>
+<td>~52ms</td>
+<td>46x más rápido</td>
+</tr>
+</tbody>
+</table>
+<h3 id="recomendación">Recomendación</h3>
+<p>Para este sitio, el <strong>binario Rust monolítico</strong> es
+óptimo porque: 1. Un solo artefacto de despliegue (sin sincronización de
+archivos necesaria) 2. Respuesta sub-milisegundo para archivos pequeños
+3. Todos los activos en memoria = rendimiento consistente 4. Maneja
+requests concurrentes eficientemente 5. Arquitectura simple (sin proxy
+nginx necesario)</p>
+<p>Para sitios con archivos muy grandes (video, PDFs &gt; 10MB), nginx
+con sendfile() sería mejor para esos activos específicos mientras Rust
+maneja todo lo demás</p>
+<hr />
+<h2 id="archivos-modificados">Archivos Modificados</h2>
+<h3 id="cambios-ronda-2">Cambios Ronda 2</h3>
+<ul>
+<li><code>images/*.webp</code> - Nuevas versiones WebP de todas las
+imágenes</li>
+<li><code>index.html</code> - Referencias de imagen actualizadas a
+.webp</li>
+<li><code>css/style.css</code> - URLs de background-image actualizadas a
+.webp</li>
+<li><code>app/index.html</code> - Referencia de logo actualizada a
+.webp</li>
+<li><code>contact-handler/src/main.rs</code> - Configuración de embed
+actualizada solo para WebP</li>
+<li><code>contact-handler/Cargo.toml</code> - Añadido rust-embed,
+mime_guess</li>
+</ul>
+<h3 id="binarios-del-servidor">Binarios del Servidor</h3>
+<ul>
+<li><code>/root/southcitycomputer/contact-handler</code> - Original
+(sirve archivos de disco)</li>
+<li><code>/root/southcitycomputer/scc-server</code> - Binario embebido
+Ronda 1 (28MB, JPG)</li>
+<li><code>/root/southcitycomputer/scc-server-webp</code> - Binario
+embebido Ronda 2 (13MB, WebP)</li>
+</ul>
+<hr />
+<h2 id="backlog-de-ideas">Backlog de Ideas</h2>
+<ol type="1">
+<li><strong>Precarga de imágenes basada en scroll</strong> - Cargar
+imágenes secuencialmente mientras el usuario hace scroll, anticipando la
+siguiente sección</li>
+<li><strong>Caché de Service Worker</strong> - Cachear activos para
+visitas repetidas</li>
+<li><strong>Srcset de imágenes</strong> - Servir diferentes tamaños para
+diferentes anchos de pantalla</li>
+<li><strong>Comparación CDN</strong> - Probar caché edge de Cloudflare
+vs servidor de origen</li>
+<li><strong>HTTP/3 QUIC</strong> - Probar con soporte HTTP/3 de
+nginx</li>
+</ol>
+<hr />
+<h2
+id="ronda-4-herramientas-de-benchmark-y-pruebas-de-alta-concurrencia">Ronda
+4: Herramientas de Benchmark y Pruebas de Alta Concurrencia</h2>
+<p><strong>Fecha:</strong> 2026-01-15 <strong>Objetivo:</strong> Crear
+metodología y herramientas de benchmark reproducibles</p>
+<h3 id="nuevas-herramientas-de-benchmark">Nuevas Herramientas de
+Benchmark</h3>
+<p>Se crearon dos nuevos binarios para pruebas de rendimiento
+comprehensivas:</p>
+<h4 id="scc-benchmark-lado-del-servidor">scc-benchmark (Lado del
+Servidor)</h4>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-benchmark</span> <span class="at">-n</span> 50 <span class="at">-c</span> 5    <span class="co"># 50 requests, 5 concurrentes</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-benchmark</span> quick          <span class="co"># Prueba rápida de conectividad</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-benchmark</span> endpoint /path <span class="co"># Prueba de endpoint único</span></span></code></pre></div>
+<h4 id="scc-perf-client-lado-del-cliente">scc-perf-client (Lado del
+Cliente)</h4>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-perf-client</span> measure http://host:port/path  <span class="co"># Desglose de tiempos</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-perf-client</span> trace host                      <span class="co"># Visualización de traceroute</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-perf-client</span> test host                       <span class="co"># Prueba completa de rendimiento</span></span></code></pre></div>
+<h3 id="metodología">Metodología</h3>
+<p><strong>Parámetros de Prueba:</strong> - Requests por prueba: 50 -
+Conexiones concurrentes: 5 - Requests de warmup: 10 (descartados) -
+Ambiente: localhost (elimina varianza de red)</p>
+<p><strong>Métricas Recolectadas:</strong> - Throughput
+(requests/segundo) - Latencia Min/Prom/Max (microsegundos) - Total de
+datos transferidos - Conteo de éxito/fallo</p>
+<h3 id="resultados-enero-2026">Resultados (Enero 2026)</h3>
+<pre><code>╔═══════════════════════════════════════════════════════════════╗
+║     SOUTH CITY COMPUTER - Suite de Benchmark de Rendimiento   ║
+╠═══════════════════════════════════════════════════════════════╣
+║  Objetivo: 127.0.0.1:9000                                     ║
+║  Requests por prueba: 50                                      ║
+║  Concurrencia: 5                                              ║
+╚═══════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────┐
+│  Endpoint          │ Throughput  │ Latencia     │ Datos    │
+├─────────────────────────────────────────────────────────────┤
+│  Homepage (HTML)   │ 26,795 req/s│ 36-382μs     │ 1.99 MB  │
+│  Health Check      │ 58,085 req/s│ 32-212μs     │ 12.5 KB  │
+│  Hoja de Estilos   │ 41,100 req/s│ 33-136μs     │ 1.66 MB  │
+│  JavaScript        │ 45,406 req/s│ 34-125μs     │ 1.24 MB  │
+│  Logo (5KB)        │ 39,287 req/s│ 34-151μs     │ 270 KB   │
+│  Storefront (128KB)│  3,676 req/s│ 107-455μs    │ 6.43 MB  │
+│  Página Servicio   │ 39,518 req/s│ 33-262μs     │ 1.11 MB  │
+└─────────────────────────────────────────────────────────────┘
+
+Carga de Página Completa (5 activos above-fold):
+  Tiempo de carga: 1.60ms
+  Tamaño total:    231.74 KB
+  Estado:          ÉXITO
+  Calificación:    ★★★★★ EXCELENTE (&lt;100ms página completa)</code></pre>
+<h3 id="comparación-de-rendimiento">Comparación de Rendimiento</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Métrica</th>
+<th>Ronda 1</th>
+<th>Ronda 3</th>
+<th>Ronda 4</th>
+<th>Mejora</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Carga página</td>
+<td>2.4s</td>
+<td>52ms</td>
+<td>1.6ms</td>
+<td><strong>1,500x</strong></td>
+</tr>
+<tr class="even">
+<td>Health req/s</td>
+<td>~100</td>
+<td>700</td>
+<td>58,085</td>
+<td><strong>580x</strong></td>
+</tr>
+<tr class="odd">
+<td>Tamaño binario</td>
+<td>28MB</td>
+<td>13MB</td>
+<td>18MB</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>Memoria RSS</td>
+<td>10MB</td>
+<td>10MB</td>
+<td>1.1MB</td>
+<td><strong>9x</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="hallazgos-clave-1">Hallazgos Clave</h3>
+<ol type="1">
+<li><strong>Throughput extremo</strong>: 58K req/s para JSON, 27K req/s
+para HTML</li>
+<li><strong>Latencia sub-milisegundo consistente</strong>: rango
+32-382μs</li>
+<li><strong>Uso eficiente de memoria</strong>: Solo 1.1MB RSS en
+runtime</li>
+<li><strong>Escalado lineal</strong>: El rendimiento se mantiene bajo
+carga concurrente</li>
+</ol>
+<h3 id="reproducibilidad">Reproducibilidad</h3>
+<p>Para reproducir estos benchmarks:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compilar herramientas</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> contact-handler</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> build <span class="at">--release</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Iniciar servidor</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/release/scc-server</span> <span class="kw">&amp;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar benchmark</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/release/scc-benchmark</span> <span class="at">-n</span> 50 <span class="at">-c</span> 5</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Medición del lado del cliente</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/release/scc-perf-client</span> measure http://127.0.0.1:9000/health</span></code></pre></div>
+<hr />
+<h2 id="estado-actual-de-producción">Estado Actual de Producción</h2>
+<p>A partir de 2026-01-15: - <strong>Ronda 4 completa</strong> -
+herramientas de benchmark y metodología documentadas - Binario de
+producción: <code>scc-server</code> (18MB con todos los activos
+embebidos) - Desplegado en: https://southcitycomputer.com - Versión:
+v1.0.4</p>
+<h3 id="despliegue">Despliegue</h3>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Usando script de despliegue</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/deploy.sh</span> deploy</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Despliegue manual</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> contact-handler/target/release/scc-server servidor:/root/southcitycomputer/</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> servidor <span class="st">&quot;systemctl restart southcitycomputer&quot;</span></span></code></pre></div>
+<h3 id="verificación">Verificación</h3>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Health check rápido</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> https://southcitycomputer.com/health</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar benchmark contra producción</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-benchmark</span> <span class="at">-h</span> southcitycomputer.com:443 quick</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba de rendimiento del cliente</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-perf-client</span> measure https://southcitycomputer.com/</span></code></pre></div>
+        </div>
+
+        <a href="../index-es.html#projects" class="back-link">← Volver a Proyectos</a>
+    </div>
+
+    <footer class="footer service-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2006&ndash;2026 South City Computer. All rights reserved.</p>
+                <p>Built in Rust at South City Computer.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoja de Ruta del Producto | South City Computer</title>
+    <meta name="description" content="Hoja de Ruta del Producto - Technical documentation from South City Computer">
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <style>
+        .doc-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            line-height: 1.7;
+        }
+        .doc-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #1a5276;
+        }
+        .doc-header h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .doc-meta {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        .doc-meta a {
+            color: #1a5276;
+        }
+        .lang-switcher {
+            margin-left: auto;
+        }
+        .lang-switcher a {
+            display: inline-block;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .lang-switcher a:hover {
+            transform: scale(1.2);
+        }
+        .doc-content h1 { font-size: 1.8rem; color: #1a5276; margin-top: 2.5rem; border-bottom: 2px solid #1a5276; padding-bottom: 0.5rem; }
+        .doc-content h2 { font-size: 1.5rem; color: #1a5276; margin-top: 2rem; }
+        .doc-content h3 { font-size: 1.25rem; color: #2980b9; margin-top: 1.5rem; }
+        .doc-content h4 { font-size: 1.1rem; color: #333; margin-top: 1.2rem; }
+        .doc-content p { margin-bottom: 1rem; color: #444; }
+        .doc-content ul, .doc-content ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+        .doc-content li { margin-bottom: 0.5rem; }
+        .doc-content pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        .doc-content code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .doc-content pre code {
+            background: none;
+            padding: 0;
+        }
+        .doc-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .doc-content th, .doc-content td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .doc-content th {
+            background: #1a5276;
+            color: white;
+        }
+        .doc-content tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .doc-content blockquote {
+            border-left: 4px solid #1a5276;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #666;
+            font-style: italic;
+        }
+        .doc-content a {
+            color: #1a5276;
+        }
+        .doc-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .doc-nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .doc-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .doc-nav li a {
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .doc-nav li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <script src="../js/main.min.js"></script>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../index-es.html" class="nav-logo">
+                <img src="../images/logo.webp" alt="South City Computer">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../index-es.html#about">Nosotros</a></li>
+                <li><a href="../index-es.html#services">Servicios</a></li>
+                <li><a href="../paradise-es.html">Paradise</a></li>
+                <li><a href="../index-es.html#projects">Proyectos</a></li>
+                <li><a href="../index-es.html#contact">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="doc-container">
+        <div class="doc-header">
+            <h1>Hoja de Ruta del Producto</h1>
+            <div class="doc-meta">
+                <span>Fuente: <a href="https://github.com/nestorwheelock/southcitycomputer.com/blob/master/ROADMAP-es.md" target="_blank">ROADMAP-es.md</a></span>
+                <span>Última sincronización: 2026-01-15 10:14 UTC</span>
+                <div class="lang-switcher">
+                    <a href="roadmap.html" title="View in English" onclick="localStorage.setItem('langManuallySet','en')">🇺🇸</a>
+                </div>
+            </div>
+        </div>
+
+        <nav class="doc-nav">
+            <strong>Documentación:</strong>
+            <ul>
+                <li><a href="readme-es.html">README</a></li>
+                <li><a href="developer-es.html">Guía Desarrollador</a></li>
+                <li><a href="performance-es.html">Rendimiento</a></li>
+                <li><a href="whitepaper-full-es.html">White Paper</a></li>
+                <li><a href="roadmap-es.html">Hoja de Ruta</a></li>
+            </ul>
+        </nav>
+
+        <div class="doc-content">
+<h1 id="hoja-de-ruta-e-historias-de-usuario">Hoja de Ruta e Historias de
+Usuario</h1>
+<h2 id="visión">Visión</h2>
+<p>Proporcionar una alternativa de código abierto a WordPress que
+demuestre cuán simple, rápido y mantenible puede ser un sitio web de
+pequeña empresa. Compartir conocimiento sobre optimización de
+rendimiento y arquitectura desacoplada.</p>
+<hr />
+<h2 id="historias-de-usuario">Historias de Usuario</h2>
+<h3 id="visitantes-del-sitio-web">Visitantes del Sitio Web</h3>
+<p><strong>S-001: Carga de Página Rápida</strong> &gt; Como visitante,
+quiero que el sitio web cargue instantáneamente para poder encontrar
+información rápidamente sin esperar.</p>
+<p>Criterios de Aceptación: - [x] Carga de página completa bajo 100ms
+(localhost) - [x] Contenido above-the-fold bajo 50ms - [x] Todas las
+imágenes optimizadas (WebP) - [x] Lazy loading para imágenes
+below-fold</p>
+<p><strong>S-002: Formulario de Contacto</strong> &gt; Como cliente
+potencial, quiero enviar un formulario de contacto para poder solicitar
+servicios o hacer preguntas.</p>
+<p>Criterios de Aceptación: - [x] El formulario valida entrada antes de
+enviar - [x] Mensajes claros de éxito/error - [x] Datos del formulario
+guardados de forma segura - [ ] Confirmación por correo enviada
+(futuro)</p>
+<p><strong>S-003: Experiencia Móvil</strong> &gt; Como usuario móvil,
+quiero que el sitio web funcione bien en mi teléfono para poder acceder
+desde cualquier lugar.</p>
+<p>Criterios de Aceptación: - [x] Diseño responsive - [x] Navegación
+amigable al tacto - [x] Carga rápida en redes móviles - [x] App Android
+disponible</p>
+<h3 id="dueño-del-negocio">Dueño del Negocio</h3>
+<p><strong>S-004: Ver Envíos de Contacto</strong> &gt; Como dueño del
+negocio, quiero ver los envíos del formulario de contacto para poder
+responder a las consultas de clientes.</p>
+<p>Criterios de Aceptación: - [x] Acceso autenticado a envíos - [x] Ver
+todos los envíos con timestamps - [ ] Exportar envíos (futuro) - [ ]
+Marcar como respondido (futuro)</p>
+<p><strong>S-005: Despliegue Fácil</strong> &gt; Como administrador del
+sitio, quiero un despliegue simple para poder actualizar el sitio
+rápidamente.</p>
+<p>Criterios de Aceptación: - [x] Despliegue de binario único - [x] Sin
+dependencias externas - [x] Soporte Docker - [x] Configuración de
+servicio systemd</p>
+<h3 id="desarrolladores">Desarrolladores</h3>
+<p><strong>S-006: Modo Desarrollo</strong> &gt; Como desarrollador,
+quiero un servidor de desarrollo que muestre cambios instantáneamente
+para poder iterar rápidamente.</p>
+<p>Criterios de Aceptación: - [x] Servidor dev lee archivos del disco -
+[x] Sin recompilación para cambios HTML/CSS/JS - [x] Misma API que
+producción - [x] Documentación clara</p>
+<p><strong>S-007: Pruebas de Rendimiento</strong> &gt; Como
+desarrollador, quiero herramientas de benchmarking para poder medir y
+optimizar el servidor.</p>
+<p>Criterios de Aceptación: - [x] Herramienta de benchmark del lado del
+servidor - [x] Medición de rendimiento del lado del cliente - [x]
+Visualización de traceroute - [x] Resultados de benchmark
+documentados</p>
+<hr />
+<h2 id="hoja-de-ruta">Hoja de Ruta</h2>
+<h3 id="v0.2.0---release-actual">v0.2.0 - Release Actual</h3>
+<p><strong>Completado:</strong> - [x] Binario Rust monolítico con
+activos embebidos - [x] Optimización de imágenes WebP (78% reducción) -
+[x] Minificación CSS/JS - [x] Lazy loading con precarga al scroll - [x]
+API de formulario de contacto con almacenamiento CSV - [x] Servidor de
+desarrollo (basado en disco) - [x] Wrapper de app de escritorio - [x]
+Herramientas de benchmark - [x] Documentación de rendimiento - [x] Doble
+licencia (GPLv3 / Comercial)</p>
+<h3 id="v0.3.0---endurecimiento-de-seguridad">v0.3.0 - Endurecimiento de
+Seguridad</h3>
+<p><strong>Planificado:</strong> - [ ] Almacenamiento CSV encriptado
+(AES-256-GCM) - [ ] Hashing de contraseñas para cuentas admin (Argon2id)
+- [ ] Rate limiting en formulario de contacto - [ ] Tokens CSRF para
+formularios - [ ] Auditoría y documentación de seguridad</p>
+<p><strong>Historia de Usuario: Almacenamiento de Datos
+Encriptado</strong> &gt; Como dueño de negocio, quiero que los datos del
+formulario de contacto estén encriptados en reposo para que la
+información del cliente esté protegida si el servidor es
+comprometido.</p>
+<p>Notas de Implementación: - Usar crate <code>ring</code> o
+<code>aes-gcm</code> para encriptación - Clave almacenada en variable de
+entorno o gestor de secretos - Encriptar cada fila individualmente para
+operaciones de append - Desencriptar al leer para vista de admin</p>
+<p><strong>Historia de Usuario: Autenticación Segura</strong> &gt; Como
+admin, quiero que mi contraseña esté hasheada de forma segura para que
+mis credenciales estén protegidas.</p>
+<p>Notas de Implementación: - Usar crate <code>argon2</code> para
+hashing de contraseñas - Almacenar contraseñas hasheadas en archivo de
+configuración separado - Implementar bloqueo de cuenta después de
+intentos fallidos</p>
+<h3 id="v0.4.0---monitoreo-mejorado">v0.4.0 - Monitoreo Mejorado</h3>
+<p><strong>Planificado:</strong> - [ ] Logging estructurado (formato
+JSON) - [ ] Endpoint de métricas Prometheus - [ ] Health check con
+estado detallado - [ ] Trazado de requests - [ ] CI de regresión de
+rendimiento</p>
+<h3 id="v0.5.0---integración-de-email">v0.5.0 - Integración de
+Email</h3>
+<p><strong>Planificado:</strong> - [ ] Envío de email SMTP para
+notificaciones de contacto - [ ] Confirmación por email al que envía el
+formulario - [ ] Plantillas de email (HTML + texto plano) - [ ]
+Configuraciones de email configurables</p>
+<p><strong>Historia de Usuario: Notificaciones de Contacto</strong> &gt;
+Como dueño de negocio, quiero recibir notificaciones por email cuando
+alguien envía el formulario de contacto para poder responder
+rápidamente.</p>
+<p>Notas de Implementación: - Usar crate <code>lettre</code> para SMTP -
+Encolar emails en archivo separado (desacoplado del request web) -
+Worker de background procesa cola de email - Configuraciones SMTP
+configurables vía environment</p>
+<h3 id="v0.6.0---dashboard-de-admin">v0.6.0 - Dashboard de Admin</h3>
+<p><strong>Planificado:</strong> - [ ] Interfaz de administración basada
+en web - [ ] Gestión de envíos de contacto - [ ] Analíticas básicas
+(vistas de página) - [ ] Edición de contenido (limitada)</p>
+<h3 id="consideraciones-futuras">Consideraciones Futuras</h3>
+<p><strong>Rendimiento:</strong> - Soporte HTTP/3 QUIC - Despliegue edge
+(Cloudflare Workers, Fly.io) - Service Worker para soporte offline -
+Srcset de imágenes para imágenes responsive</p>
+<p><strong>Funcionalidades:</strong> - Gestión de contenido multi-idioma
+- Sección de blog/noticias - Programación de citas - Integración de chat
+en vivo</p>
+<p><strong>Infraestructura:</strong> - Configuraciones de despliegue
+Kubernetes - Configuración de auto-scaling - Integración CDN -
+Automatización de backups</p>
+<hr />
+<h2 id="deuda-técnica">Deuda Técnica</h2>
+<p>Items a abordar en releases futuros:</p>
+<ol type="1">
+<li><strong>Cobertura de Pruebas</strong>
+<ul>
+<li>Añadir pruebas de integración para todos los endpoints</li>
+<li>Añadir pruebas basadas en propiedades para validación</li>
+<li>Configurar CI/CD con reporte de cobertura</li>
+</ul></li>
+<li><strong>Manejo de Errores</strong>
+<ul>
+<li>Implementar tipos de error personalizados</li>
+<li>Mejores mensajes de error para usuarios</li>
+<li>Logging de errores estructurado</li>
+</ul></li>
+<li><strong>Configuración</strong>
+<ul>
+<li>Configuración basada en environment</li>
+<li>Soporte de archivo de configuración (TOML/YAML)</li>
+<li>Feature flags</li>
+</ul></li>
+<li><strong>Documentación</strong>
+<ul>
+<li>Documentación API (OpenAPI/Swagger)</li>
+<li>Registros de decisiones de arquitectura</li>
+<li>Playbooks de despliegue</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="contribuir">Contribuir</h2>
+<p>¿Quieres trabajar en algo de la hoja de ruta?</p>
+<ol type="1">
+<li>Verificar si hay un issue abierto para la funcionalidad</li>
+<li>Comentar en el issue para reclamarlo</li>
+<li>Seguir enfoque TDD (pruebas primero)</li>
+<li>Enviar PR referenciando el issue</li>
+</ol>
+<p>Para nuevas funcionalidades no en la hoja de ruta: 1. Abrir un issue
+para discutir 2. Obtener aprobación antes de empezar 3. Seguir patrones
+y estilo existentes</p>
+<hr />
+<h2 id="historial-de-versiones">Historial de Versiones</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Versión</th>
+<th>Fecha</th>
+<th>Destacados</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>v0.1.0</td>
+<td>2026-01-13</td>
+<td>Release inicial, nginx + Rust API</td>
+</tr>
+<tr class="even">
+<td>v0.2.0</td>
+<td>2026-01-15</td>
+<td>Binario monolítico, WebP, benchmarks</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Última Actualización: Enero 2026</em></p>
+        </div>
+
+        <a href="../index-es.html#projects" class="back-link">← Volver a Proyectos</a>
+    </div>
+
+    <footer class="footer service-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2006&ndash;2026 South City Computer. All rights reserved.</p>
+                <p>Built in Rust at South City Computer.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

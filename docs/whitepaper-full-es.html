@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Sitio Web Sub-Segundo - White Paper Técnico | South City Computer</title>
+    <meta name="description" content="El Sitio Web Sub-Segundo - White Paper Técnico - Technical documentation from South City Computer">
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <style>
+        .doc-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            line-height: 1.7;
+        }
+        .doc-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #1a5276;
+        }
+        .doc-header h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .doc-meta {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        .doc-meta a {
+            color: #1a5276;
+        }
+        .lang-switcher {
+            margin-left: auto;
+        }
+        .lang-switcher a {
+            display: inline-block;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .lang-switcher a:hover {
+            transform: scale(1.2);
+        }
+        .doc-content h1 { font-size: 1.8rem; color: #1a5276; margin-top: 2.5rem; border-bottom: 2px solid #1a5276; padding-bottom: 0.5rem; }
+        .doc-content h2 { font-size: 1.5rem; color: #1a5276; margin-top: 2rem; }
+        .doc-content h3 { font-size: 1.25rem; color: #2980b9; margin-top: 1.5rem; }
+        .doc-content h4 { font-size: 1.1rem; color: #333; margin-top: 1.2rem; }
+        .doc-content p { margin-bottom: 1rem; color: #444; }
+        .doc-content ul, .doc-content ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+        .doc-content li { margin-bottom: 0.5rem; }
+        .doc-content pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        .doc-content code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .doc-content pre code {
+            background: none;
+            padding: 0;
+        }
+        .doc-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .doc-content th, .doc-content td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .doc-content th {
+            background: #1a5276;
+            color: white;
+        }
+        .doc-content tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .doc-content blockquote {
+            border-left: 4px solid #1a5276;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #666;
+            font-style: italic;
+        }
+        .doc-content a {
+            color: #1a5276;
+        }
+        .doc-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .doc-nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .doc-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .doc-nav li a {
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .doc-nav li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <script src="../js/main.min.js"></script>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../index-es.html" class="nav-logo">
+                <img src="../images/logo.webp" alt="South City Computer">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../index-es.html#about">Nosotros</a></li>
+                <li><a href="../index-es.html#services">Servicios</a></li>
+                <li><a href="../paradise-es.html">Paradise</a></li>
+                <li><a href="../index-es.html#projects">Proyectos</a></li>
+                <li><a href="../index-es.html#contact">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="doc-container">
+        <div class="doc-header">
+            <h1>El Sitio Web Sub-Segundo - White Paper Técnico</h1>
+            <div class="doc-meta">
+                <span>Fuente: <a href="https://github.com/nestorwheelock/southcitycomputer.com/blob/master/WHITEPAPER-es.md" target="_blank">WHITEPAPER-es.md</a></span>
+                <span>Última sincronización: 2026-01-15 10:14 UTC</span>
+                <div class="lang-switcher">
+                    <a href="whitepaper.html" title="View in English" onclick="localStorage.setItem('langManuallySet','en')">🇺🇸</a>
+                </div>
+            </div>
+        </div>
+
+        <nav class="doc-nav">
+            <strong>Documentación:</strong>
+            <ul>
+                <li><a href="readme-es.html">README</a></li>
+                <li><a href="developer-es.html">Guía Desarrollador</a></li>
+                <li><a href="performance-es.html">Rendimiento</a></li>
+                <li><a href="whitepaper-full-es.html">White Paper</a></li>
+                <li><a href="roadmap-es.html">Hoja de Ruta</a></li>
+            </ul>
+        </nav>
+
+        <div class="doc-content">
+<h1
+id="el-sitio-web-sub-segundo-un-caso-de-estudio-en-ingeniería-de-rendimiento">El
+Sitio Web Sub-Segundo: Un Caso de Estudio en Ingeniería de
+Rendimiento</h1>
+<h2
+id="cómo-logramos-cargas-de-página-1500x-más-rápidas-usando-rust-webp-y-arquitectura-residente-en-memoria">Cómo
+Logramos Cargas de Página 1,500x Más Rápidas Usando Rust, WebP y
+Arquitectura Residente en Memoria</h2>
+<p><strong>South City Computer | Enero 2026</strong></p>
+<hr />
+<h2 id="resumen-ejecutivo">Resumen Ejecutivo</h2>
+<p>Este white paper documenta nuestro viaje experimental para construir
+el sitio web más rápido posible para una pequeña empresa. A través de la
+optimización sistemática de un sitio web de producción real,
+logramos:</p>
+<ul>
+<li><strong>Cargas de página 1,500x más rápidas</strong> (de 2.4
+segundos a 1.6 milisegundos)</li>
+<li><strong>78% de reducción</strong> en payload de imágenes (20MB a
+4.3MB)</li>
+<li><strong>Tiempos de respuesta sub-milisegundo</strong> (36-382
+microsegundos) para activos principales</li>
+<li><strong>26,000-58,000 requests/segundo</strong> de throughput en
+hardware modesto</li>
+<li><strong>Eficiencia de memoria</strong> de ~1.1MB RSS (vs 50-200MB
+para WordPress)</li>
+</ul>
+<p>Comparamos nuestro enfoque contra soluciones estándar de la industria
+como WordPress con Cloudflare, examinamos el caso de negocio para la
+optimización de rendimiento, y proporcionamos recomendaciones basadas en
+evidencia sobre cuándo tiene sentido la optimización personalizada
+versus usar plataformas establecidas.</p>
+<p><strong>Nota Importante:</strong> Esta arquitectura está
+específicamente diseñada para <strong>sitios de folleto
+estáticos</strong>. Discutiremos por qué compartimentalizar diferentes
+tipos de aplicaciones (folleto vs. dinámicas) mejora tanto el
+rendimiento como la seguridad.</p>
+<hr />
+<h2 id="tabla-de-contenidos">Tabla de Contenidos</h2>
+<ol type="1">
+<li><a href="#1-el-caso-de-negocio-para-la-velocidad">El Caso de Negocio
+para la Velocidad</a></li>
+<li><a href="#2-nuestro-enfoque-experimental">Nuestro Enfoque
+Experimental</a></li>
+<li><a href="#3-implementación-técnica">Implementación Técnica</a></li>
+<li><a href="#4-resultados-de-benchmark">Resultados de
+Benchmark</a></li>
+<li><a
+href="#5-filosofía-de-arquitectura-compartimentalización">Filosofía de
+Arquitectura: Compartimentalización</a></li>
+<li><a
+href="#6-comparación-personalizado-vs-wordpress--cdn">Comparación:
+Personalizado vs WordPress + CDN</a></li>
+<li><a href="#7-cuándo-importa-la-optimización">Cuándo Importa la
+Optimización</a></li>
+<li><a href="#8-conclusiones-y-recomendaciones">Conclusiones y
+Recomendaciones</a></li>
+</ol>
+<hr />
+<h2 id="el-caso-de-negocio-para-la-velocidad">1. El Caso de Negocio para
+la Velocidad</h2>
+<h3 id="las-expectativas-de-los-usuarios-han-cambiado">1.1 Las
+Expectativas de los Usuarios Han Cambiado</h3>
+<p>Los usuarios modernos tienen expectativas dramáticamente más altas
+para el rendimiento de sitios web. La investigación muestra:</p>
+<pre><code>LÍNEA DE TIEMPO DE EXPECTATIVAS DE USUARIOS
+═══════════════════════════════════════════════════════════
+2015:  ████████████████████░░░░░░░░░░░░░░  4 segundos aceptable
+2020:  ████████████████░░░░░░░░░░░░░░░░░░  3 segundos aceptable
+2025:  ████████░░░░░░░░░░░░░░░░░░░░░░░░░░  &lt;2 segundos esperado
+═══════════════════════════════════════════════════════════</code></pre>
+<p>Según <a
+href="https://www.hostinger.com/tutorials/website-load-time-statistics">la
+investigación de Hostinger 2025</a>, <strong>47% de los usuarios ahora
+esperan tiempos de carga menores a 2 segundos</strong>, un
+endurecimiento significativo del umbral anterior de 4 segundos.</p>
+<h3 id="el-precipicio-de-la-tasa-de-rebote">1.2 El Precipicio de la Tasa
+de Rebote</h3>
+<p>El tiempo de carga de página tiene una relación no lineal con el
+abandono del usuario:</p>
+<pre><code>TASA DE REBOTE vs TIEMPO DE CARGA
+═══════════════════════════════════════════════════════════
+Tiempo de Carga  Tasa de Rebote    Cambio
+───────────────────────────────────────────────────────────
+1 segundo        ██░░░░░░░░░░   7%         Base
+2 segundos       ███░░░░░░░░░   11%        +57%
+3 segundos       ████░░░░░░░░   11%        +57%
+5 segundos       ████████████   38%        +443%
+───────────────────────────────────────────────────────────
+Fuente: Pingdom vía Envisage Digital</code></pre>
+<p>Los datos revelan un umbral crítico: <strong>53% de los usuarios
+móviles abandonan sitios que tardan más de 3 segundos en cargar</strong>
+(<a
+href="https://huckabuy.com/20-important-page-speed-bounce-rate-and-conversion-rate-statistics/">Huckabuy</a>).</p>
+<h3 id="impacto-en-la-tasa-de-conversión">1.3 Impacto en la Tasa de
+Conversión</h3>
+<p>La relación entre velocidad e ingresos está bien documentada:</p>
+<pre><code>TASA DE CONVERSIÓN vs TIEMPO DE CARGA (E-Commerce)
+═══════════════════════════════════════════════════════════
+Tiempo de Carga   Tasa de Conversión
+───────────────────────────────────────────────────────────
+1.0 segundos      ████████████████████████████████  39%
+2.4 segundos      █████░░░░░░░░░░░░░░░░░░░░░░░░░░░  1.9%
+5.7 segundos      █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  0.6%
+───────────────────────────────────────────────────────────
+Fuente: Portent Research vía Blogging Wizard</code></pre>
+<p><strong>Hallazgos clave:</strong> - Sitios que cargan en 1 segundo
+tienen <strong>tasas de conversión 2.5x más altas</strong> que sitios de
+5 segundos - Cada segundo adicional cuesta <strong>4.42% en
+conversiones</strong> (<a
+href="https://www.emailvendorselection.com/website-load-time-statistics/">Email
+Vendor Selection</a>) - Móvil: <strong>20% pérdida de conversión por
+segundo de retraso</strong> (<a
+href="https://www.amraandelma.com/mobile-site-load-speed-statistics/">AMRA
+&amp; ELMA</a>)</p>
+<h3 id="casos-de-estudio-del-mundo-real">1.4 Casos de Estudio del Mundo
+Real</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Empresa</th>
+<th>Mejora</th>
+<th>Resultado de Negocio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Amazon</td>
+<td>100ms más rápido</td>
+<td>1% más ventas (~$3.8B/año)</td>
+</tr>
+<tr class="even">
+<td>Renault</td>
+<td>1s mejora LCP</td>
+<td>13% aumento conversión</td>
+</tr>
+<tr class="odd">
+<td>Vodafone</td>
+<td>31% mejora LCP</td>
+<td>8% aumento ventas</td>
+</tr>
+<tr class="even">
+<td>Agrofy</td>
+<td>Optimización Core Web Vitals</td>
+<td>76% reducción abandono</td>
+</tr>
+</tbody>
+</table>
+<p><em>Fuentes: <a
+href="https://magnet.co/articles/understanding-googles-core-web-vitals">Magnet</a>,
+<a
+href="https://www.envisagedigital.co.uk/website-load-time-statistics/">Envisage
+Digital</a></em></p>
+<h3 id="core-web-vitals-de-google-impacto-seo">1.5 Core Web Vitals de
+Google: Impacto SEO</h3>
+<p>Google ha confirmado que los Core Web Vitals son un factor de
+ranking. Las métricas actuales (2025):</p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 30%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Métrica</th>
+<th>Qué Mide</th>
+<th>Umbral Bueno</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>LCP</strong> (Largest Contentful Paint)</td>
+<td>Rendimiento de carga</td>
+<td>&lt; 2.5 segundos</td>
+</tr>
+<tr class="even">
+<td><strong>INP</strong> (Interaction to Next Paint)</td>
+<td>Responsividad</td>
+<td>&lt; 200ms</td>
+</tr>
+<tr class="odd">
+<td><strong>CLS</strong> (Cumulative Layout Shift)</td>
+<td>Estabilidad visual</td>
+<td>&lt; 0.1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Perspectiva crítica:</strong> Debes pasar LAS TRES métricas
+para obtener cualquier ventaja de ranking—no hay crédito parcial (<a
+href="https://www.debugbear.com/docs/core-web-vitals-ranking-factor">DebugBear</a>).</p>
+<hr />
+<h2 id="nuestro-enfoque-experimental">2. Nuestro Enfoque
+Experimental</h2>
+<h3 id="la-pregunta-de-investigación">2.1 La Pregunta de
+Investigación</h3>
+<p>Nos propusimos responder: <strong>¿Cuál es la arquitectura más rápida
+posible para un sitio web de pequeña empresa?</strong></p>
+<p>Nuestra hipótesis: Una combinación de: 1. Formatos de imagen modernos
+(WebP) 2. Activos estáticos residentes en memoria 3. Rust para el
+servidor web 4. Caché en el edge del CDN</p>
+<p>…superaría significativamente los stacks tradicionales
+LAMP/WordPress.</p>
+<h3 id="sujeto-de-prueba">2.2 Sujeto de Prueba</h3>
+<p><strong>South City Computer</strong> - Un sitio web de negocio de
+consultoría con: - Diseño de una sola página con 5 secciones - 15
+fotografías de alta calidad - Contenido bilingüe (Inglés/Español) -
+Formulario de contacto con entrega por correo - Diseño responsive para
+móvil</p>
+<h3 id="metodología">2.3 Metodología</h3>
+<p>Realizamos tres rondas de pruebas:</p>
+<pre><code>RONDAS EXPERIMENTALES
+═══════════════════════════════════════════════════════════
+Ronda 1: Medición base
+         nginx + Rust API + imágenes JPEG desde disco
+
+Ronda 2: Optimización de imágenes
+         Convertir todas las imágenes a formato WebP
+         Medir impacto en tamaño de archivo y tiempo de carga
+
+Ronda 3: Optimización completa
+         Binario Rust monolítico con activos embebidos
+         CSS/JS minificado
+         Lazy loading con precarga al scroll
+═══════════════════════════════════════════════════════════</code></pre>
+<p><strong>Ambiente de pruebas:</strong> - Benchmarking local
+(eliminando variabilidad de red) - 100 requests por activo (secuencial)
+- 50 requests por activo (10 concurrentes) - Medido: tiempo de
+respuesta, throughput, uso de memoria</p>
+<hr />
+<h2 id="implementación-técnica">3. Implementación Técnica</h2>
+<h3 id="la-arquitectura-de-binario-monolítico">3.1 La Arquitectura de
+Binario Monolítico</h3>
+<p>Arquitectura web tradicional:</p>
+<pre><code>STACK TRADICIONAL
+═══════════════════════════════════════════════════════════
+
+Request Usuario → nginx → [Lectura Disco] → Sistema de Archivos
+                    ↓
+                [Proxy] → PHP/Node/Python → Base de Datos
+                    ↓
+                Respuesta (múltiples saltos, operaciones I/O)
+
+═══════════════════════════════════════════════════════════</code></pre>
+<p>Nuestra arquitectura optimizada:</p>
+<pre><code>BINARIO RUST MONOLÍTICO
+═══════════════════════════════════════════════════════════
+
+Request Usuario → Binario Rust → [Lectura Memoria] → Respuesta
+                       │
+                       ├── Todo HTML/CSS/JS en memoria
+                       ├── Todas las imágenes en memoria
+                       └── Handlers API compilados
+
+═══════════════════════════════════════════════════════════
+Un solo proceso, cero I/O de disco, respuesta sub-milisegundo</code></pre>
+<h3 id="por-qué-rust">3.2 ¿Por Qué Rust?</h3>
+<p>Los frameworks web de Rust consistentemente lideran los benchmarks de
+rendimiento. Según <a
+href="https://markaicode.com/rust-web-frameworks-performance-benchmark-2025/">datos
+de benchmark 2025</a>:</p>
+<pre><code>THROUGHPUT DE FRAMEWORKS WEB (requests/segundo)
+═══════════════════════════════════════════════════════════
+Actix-Web (Rust)    ████████████████████████████████  ~680K
+Axum (Rust)         ███████████████████████████████░  ~650K
+Drogon (C++)        ██████████████████████████████░░  ~600K
+Go (net/http)       ████████████████████████░░░░░░░░  ~450K
+Express (Node.js)   ████████░░░░░░░░░░░░░░░░░░░░░░░░  ~150K
+Django (Python)     ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  ~30K
+───────────────────────────────────────────────────────────
+Fuente: Web Frameworks Benchmark, TechEmpower</code></pre>
+<p><strong>Ventajas de Actix-Web:</strong> - Modelo de actores para
+concurrencia segura - Async/await para I/O no bloqueante - Huella de
+memoria extremadamente baja - Abstracciones de costo cero</p>
+<p>Notablemente, <a
+href="https://blog.cloudflare.com/20-percent-internet-upgrade/">Cloudflare
+reconstruyó toda su infraestructura edge en Rust</a>, logrando una
+<strong>mejora de rendimiento del 25%</strong> y <strong>reducción de
+10ms en tiempo de respuesta mediano</strong>.</p>
+<h3 id="optimización-de-imágenes-webp">3.3 Optimización de Imágenes
+WebP</h3>
+<p>El formato WebP de Google proporciona ventajas significativas de
+compresión:</p>
+<pre><code>COMPARACIÓN DE TAMAÑO DE IMAGEN (Nuestros Datos Reales)
+═══════════════════════════════════════════════════════════
+Imagen             Tamaño JPEG  Tamaño WebP  Reducción
+───────────────────────────────────────────────────────────
+store-interior     3.0 MB       400 KB       ████████████ 87%
+repair-work        2.9 MB       361 KB       ████████████ 88%
+puerto-morelos     2.9 MB       1.1 MB       ██████░░░░░░ 62%
+malecon            2.3 MB       632 KB       █████████░░░ 73%
+harbor             2.2 MB       546 KB       █████████░░░ 75%
+beach              1.7 MB       205 KB       ████████████ 88%
+───────────────────────────────────────────────────────────
+TOTAL              20 MB        4.3 MB       █████████░░░ 78%
+═══════════════════════════════════════════════════════════</code></pre>
+<p>Según <a href="https://developers.google.com/speed/webp">la
+documentación oficial de Google</a>: - Las imágenes WebP con pérdida son
+<strong>25-34% más pequeñas</strong> que JPEGs comparables - Las
+imágenes WebP sin pérdida son <strong>26% más pequeñas</strong> que PNGs
+- El soporte de navegador es ahora universal (Chrome, Safari, Firefox,
+Edge)</p>
+<h3 id="lazy-loading-con-precarga-predictiva">3.4 Lazy Loading con
+Precarga Predictiva</h3>
+<p>En lugar de cargar todas las imágenes inmediatamente, implementamos
+lazy loading consciente del scroll:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Intersection Observer con margen de precarga de 200px</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> imagePreloader <span class="op">=</span> <span class="kw">new</span> <span class="fu">IntersectionObserver</span>(<span class="kw">function</span>(entries) {</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    entries<span class="op">.</span><span class="fu">forEach</span>(<span class="kw">function</span>(entry) {</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (entry<span class="op">.</span><span class="at">isIntersecting</span>) {</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">const</span> img <span class="op">=</span> entry<span class="op">.</span><span class="at">target</span><span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>            img<span class="op">.</span><span class="at">src</span> <span class="op">=</span> img<span class="op">.</span><span class="at">dataset</span><span class="op">.</span><span class="at">src</span><span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            img<span class="op">.</span><span class="at">classList</span><span class="op">.</span><span class="fu">add</span>(<span class="st">&#39;loaded&#39;</span>)<span class="op">;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>            imagePreloader<span class="op">.</span><span class="fu">unobserve</span>(img)<span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>}<span class="op">,</span> {</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">rootMargin</span><span class="op">:</span> <span class="st">&#39;200px 0px&#39;</span><span class="op">,</span>  <span class="co">// Precarga 200px antes del viewport</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">threshold</span><span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p><strong>Beneficios:</strong> - La carga inicial de página incluye
+solo contenido above-the-fold (~195KB) - Las imágenes cargan justo antes
+de que el usuario llegue a ellas - El rendimiento percibido es
+instantáneo, la carga real es progresiva</p>
+<hr />
+<h2 id="resultados-de-benchmark">4. Resultados de Benchmark</h2>
+<h3 id="comparación-de-tiempo-de-respuesta">4.1 Comparación de Tiempo de
+Respuesta</h3>
+<pre><code>TIEMPO DE RESPUESTA POR RONDA DE OPTIMIZACIÓN
+═══════════════════════════════════════════════════════════
+                    Ronda 1      Ronda 2      Ronda 3
+                    (Base)       (WebP)       (Opt Completa)
+───────────────────────────────────────────────────────────
+HTML (32KB)         1.4ms        1.5ms        0.8ms
+CSS (21KB→16KB)     1.1ms        1.2ms        0.8ms
+JS (17KB→13KB)      1.0ms        1.1ms        0.7ms
+Imagen pequeña      1.2ms        0.9ms        0.7ms
+Imagen grande (3MB) 15ms         4.5ms        2.9ms
+───────────────────────────────────────────────────────────</code></pre>
+<h3 id="carga-de-página-completa">4.2 Carga de Página Completa</h3>
+<pre><code>TIEMPO DE CARGA DE PÁGINA COMPLETA
+═══════════════════════════════════════════════════════════
+
+Ronda 1 (JPEG, nginx+disco):
+████████████████████████████████████████████████  2,400ms
+
+Ronda 3 (WebP, Rust, memoria):
+█                                                    52ms
+
+───────────────────────────────────────────────────────────
+Mejora: 46x más rápido
+═══════════════════════════════════════════════════════════</code></pre>
+<h3 id="throughput-bajo-carga">4.3 Throughput Bajo Carga</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Tipo de Activo</th>
+<th>Throughput</th>
+<th>Tiempo de Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HTML/CSS/JS (pequeño)</td>
+<td>600-700 req/s</td>
+<td>0.7-0.8ms</td>
+</tr>
+<tr class="even">
+<td>Imágenes medianas (128KB)</td>
+<td>~178 req/s</td>
+<td>~6.6ms</td>
+</tr>
+<tr class="odd">
+<td>Imágenes grandes (1MB)</td>
+<td>~500 req/s</td>
+<td>~2.9ms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="eficiencia-de-recursos">4.4 Eficiencia de Recursos</h3>
+<pre><code>COMPARACIÓN DE TAMAÑO DE BINARIO
+═══════════════════════════════════════════════════════════
+Ronda 1 (JPEG embebido):    ████████████████████████████  28 MB
+Ronda 3 (WebP + minificado):█████████████░░░░░░░░░░░░░░░  13 MB
+───────────────────────────────────────────────────────────
+Reducción: 54%
+═══════════════════════════════════════════════════════════</code></pre>
+<p>Uso de memoria: <strong>~1.1MB RSS</strong> (comparado con WordPress
+típico: 50-200MB)</p>
+<hr />
+<h2 id="filosofía-de-arquitectura-compartimentalización">5. Filosofía de
+Arquitectura: Compartimentalización</h2>
+<h3
+id="la-perspectiva-central-diferentes-problemas-diferentes-soluciones">5.1
+La Perspectiva Central: Diferentes Problemas, Diferentes Soluciones</h3>
+<p>El enfoque tradicional del desarrollo web a menudo agrupa todo en una
+sola aplicación: el sitio web público, el panel de administración, la
+autenticación de usuarios, la base de datos, la API y la gestión de
+contenido—todo en una base de código. Esto crea:</p>
+<ul>
+<li>Una <strong>gran superficie de ataque</strong> (una vulnerabilidad
+afecta todo)</li>
+<li><strong>Contención de recursos</strong> (la sobrecarga del CMS
+afecta páginas públicas)</li>
+<li><strong>Complejidad de despliegue</strong> (no se puede actualizar
+una parte sin arriesgar otra)</li>
+<li><strong>Sobre-ingeniería</strong> (las páginas estáticas no
+necesitan conexión a base de datos)</li>
+</ul>
+<p>Nuestra arquitectura toma un enfoque fundamentalmente diferente:
+<strong>compartimentalizar por propósito</strong>.</p>
+<h3 id="arquitectura-de-folleto-vs.-aplicación">5.2 Arquitectura de
+Folleto vs. Aplicación</h3>
+<pre><code>CMS MONOLÍTICO (Tradicional)
+═══════════════════════════════════════════════════════════
+┌─────────────────────────────────────────────────────────┐
+│                    APLICACIÓN ÚNICA                      │
+│  ┌─────────┬─────────┬─────────┬─────────┬─────────┐  │
+│  │ Páginas │  Panel  │ Sistema │  Handlers│ Consultas│  │
+│  │ Públicas│  Admin  │   Auth  │   API   │   DB    │  │
+│  └─────────┴─────────┴─────────┴─────────┴─────────┘  │
+│                                                         │
+│  Superficie de ataque: TODO                             │
+│  Una inyección SQL = game over                         │
+└─────────────────────────────────────────────────────────┘
+
+ARQUITECTURA COMPARTIMENTALIZADA (Nuestra)
+═══════════════════════════════════════════════════════════
+┌───────────────────────┐     ┌───────────────────────────┐
+│   SITIO FOLLETO       │     │   SISTEMA DE SOPORTE      │
+│   (Binario Estático)  │     │   (Con Base de Datos)     │
+├───────────────────────┤     ├───────────────────────────┤
+│ • HTML/CSS/JS/Imágenes│     │ • Autenticación usuarios  │
+│ • Formulario → CSV    │     │ • Base de datos tickets   │
+│ • Sin base de datos   │     │ • Panel admin             │
+│ • Sin cuentas usuario │     │ • Portal de clientes      │
+├───────────────────────┤     ├───────────────────────────┤
+│ Superficie de ataque: │     │ Superficie de ataque:     │
+│ • Validación formulario│     │ • Inyección SQL           │
+│ • (eso es todo)       │     │ • Bypass de auth          │
+│                       │     │ • Secuestro de sesión     │
+│ Tiempo respuesta:1.6ms│     │ • Pero: red aislada       │
+│ Memoria: 1.1MB        │     │ • Protegido por firewall  │
+└───────────────────────┘     └───────────────────────────┘</code></pre>
+<h3 id="evaluación-honesta-lo-que-esta-arquitectura-no-puede-hacer">5.3
+Evaluación Honesta: Lo Que Esta Arquitectura NO Puede Hacer</h3>
+<p>Nuestro enfoque de binario monolítico <strong>no es adecuado
+para</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Requisito</th>
+<th>Por Qué No Funciona</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cuentas de usuario</td>
+<td>Sin almacenamiento de sesión, sin base de datos</td>
+</tr>
+<tr class="even">
+<td>Contenido dinámico</td>
+<td>Cambios de contenido requieren recompilación</td>
+</tr>
+<tr class="odd">
+<td>Actualizaciones en tiempo real</td>
+<td>Sin WebSocket o polling de base de datos</td>
+</tr>
+<tr class="even">
+<td>E-commerce</td>
+<td>Sin gestión de inventario, sin transacciones</td>
+</tr>
+<tr class="odd">
+<td>Portales de cliente</td>
+<td>Sin sistema de autenticación</td>
+</tr>
+<tr class="even">
+<td>Búsqueda</td>
+<td>Sin búsqueda de texto completo, sin indexación</td>
+</tr>
+<tr class="odd">
+<td>Comentarios/reseñas</td>
+<td>Sin almacenamiento de contenido generado por usuario</td>
+</tr>
+</tbody>
+</table>
+<p><strong>La arquitectura está específicamente diseñada para:</strong>
+- Folletos de empresa - Sitios de portafolio - Landing pages -
+Documentación (si es pre-compilada) - Sitios de marketing - Cualquier
+sitio donde el contenido cambia infrecuentemente</p>
+<h3 id="el-beneficio-de-seguridad-superficie-de-ataque-mínima">5.4 El
+Beneficio de Seguridad: Superficie de Ataque Mínima</h3>
+<pre><code>COMPARACIÓN DE SUPERFICIE DE ATAQUE
+═══════════════════════════════════════════════════════════
+CMS Tradicional (WordPress):
+├── Inyección SQL (consultas a base de datos)
+├── Bypass de autenticación (sistema de login)
+├── Secuestro de sesión (sesiones de usuario)
+├── Vulnerabilidades de subida de archivos (biblioteca de medios)
+├── Vulnerabilidades de plugins (promedio: 20+ plugins)
+├── Ataques XML-RPC (pingbacks, amplificación DDOS)
+├── Fuerza bruta admin (wp-admin)
+├── Directory traversal (acceso a sistema de archivos)
+└── Ataques de serialización (objetos PHP)
+
+Nuestra Arquitectura de Binario:
+├── Validación de formulario de contacto (única entrada externa)
+└── (eso es todo)
+
+───────────────────────────────────────────────────────────
+Sin base de datos = Sin inyección SQL
+Sin subida de archivos = Sin ataques de archivos maliciosos
+Sin sesiones de usuario = Sin secuestro de sesión
+Sin panel admin = Sin ataques de fuerza bruta
+═══════════════════════════════════════════════════════════</code></pre>
+<h3 id="el-enfoque-de-datos-desacoplados">5.5 El Enfoque de Datos
+Desacoplados</h3>
+<p>Nuestro formulario de contacto no escribe directamente a una base de
+datos. En su lugar:</p>
+<pre><code>Flujo del Formulario de Contacto
+═══════════════════════════════════════════════════════════
+Usuario envía formulario
+       │
+       ▼
+┌──────────────────┐
+│  Rust valida     │  ← Sanitización de entrada
+│  datos del       │  ← Rate limiting
+│  formulario      │
+└──────────────────┘
+       │
+       ▼
+┌──────────────────┐
+│  Escribir a CSV  │  ← Archivo append-only
+│  contacts.csv    │  ← Sin SQL, sin base de datos
+└──────────────────┘
+       │
+       │  (Proceso separado, red separada)
+       ▼
+┌──────────────────┐
+│  Sistema externo │  ← Importación a base de datos
+│  lee CSV         │  ← Notificaciones por correo
+│                  │  ← Creación de tickets
+└──────────────────┘
+       │
+       ▼
+┌──────────────────┐
+│  Sistema de      │  ← Aplicación separada
+│  tickets de      │  ← Red protegida
+│  soporte         │  ← Autenticación completa
+│  (con BD)        │
+└──────────────────┘
+═══════════════════════════════════════════════════════════</code></pre>
+<p><strong>Beneficios:</strong> - El servidor web nunca tiene
+credenciales de base de datos - El compromiso del sitio web no expone
+datos de clientes - Lógica de negocio separada de superficie de ataque
+pública - Cada componente puede actualizarse/asegurarse
+independientemente</p>
+<h3
+id="aplicación-del-mundo-real-nuestro-próximo-sistema-de-helpdesk">5.6
+Aplicación del Mundo Real: Nuestro Próximo Sistema de Helpdesk</h3>
+<p>Esta filosofía se extiende a nuestro próximo proyecto: un sistema de
+tickets de soporte.</p>
+<pre><code>SOUTH CITY COMPUTER - Arquitectura de Aplicaciones
+═══════════════════════════════════════════════════════════
+
+INTERNET PÚBLICO
+       │
+       ▼
+┌────────────────────────────────────────────────────────┐
+│                    CLOUDFLARE                          │
+│  Protección DDoS, terminación SSL, caché              │
+└────────────────────────────────────────────────────────┘
+       │
+       ├─── southcitycomputer.com ──────────────────────┐
+       │    (Folleto estático)                          │
+       │                                                │
+       │    ┌──────────────────────────────────────┐   │
+       │    │  Binario Rust (18MB, en memoria)     │   │
+       │    │  • Sin base de datos                 │   │
+       │    │  • Sin sesiones de usuario           │   │
+       │    │  • 58,000 req/s throughput           │   │
+       │    │  • 1.6ms carga de página completa   │   │
+       │    └──────────────────────────────────────┘   │
+       │                                                │
+       └─── support.southcitycomputer.com ─────────────┐
+            (Portal de clientes - FUTURO)               │
+                                                       │
+            ┌──────────────────────────────────────┐   │
+            │  Rust + PostgreSQL                   │   │
+            │  • Autenticación de usuarios         │   │
+            │  • Base de datos de tickets          │   │
+            │  • Interfaz de administración        │   │
+            │  • Protegido por firewall adicional  │   │
+            │  • Postura de seguridad diferente    │   │
+            └──────────────────────────────────────┘   │
+                                                       │
+═══════════════════════════════════════════════════════════</code></pre>
+<p>Cada aplicación es: - <strong>Desplegable independientemente</strong>
+(actualizar una sin tocar otra) - <strong>Escalable
+independientemente</strong> (sitio estático puede replicarse
+globalmente) - <strong>Asegurada independientemente</strong> (diferentes
+modelos de amenaza, diferentes defensas)</p>
+<h3 id="cuándo-no-usar-esta-arquitectura">5.7 Cuándo NO Usar Esta
+Arquitectura</h3>
+<p>Sé honesto sobre las limitaciones. No uses el enfoque de binario
+estático cuando:</p>
+<ol type="1">
+<li><strong>El contenido cambia frecuentemente</strong> → Usa un CMS
+(WordPress, Ghost, Strapi)</li>
+<li><strong>Usuarios no técnicos editan contenido</strong> → Usa un CMS
+con editor visual</li>
+<li><strong>Se necesitan cuentas de usuario</strong> → Usa un framework
+de auth apropiado</li>
+<li><strong>Se requieren funciones en tiempo real</strong> → Usa
+WebSockets, suscripciones de BD</li>
+<li><strong>E-commerce</strong> → Usa Shopify, WooCommerce, o
+personalizado con seguridad apropiada</li>
+<li><strong>Funcionalidad de búsqueda</strong> → Usa Elasticsearch,
+Algolia, o búsqueda de texto completo de BD</li>
+</ol>
+<p><strong>La pregunta correcta no es “¿cuál es mejor?” sino “¿qué
+necesita este sitio específico?”</strong></p>
+<hr />
+<h2 id="comparación-personalizado-vs-wordpress-cdn">6. Comparación:
+Personalizado vs WordPress + CDN</h2>
+<h3 id="realidad-del-rendimiento-de-wordpress">6.1 Realidad del
+Rendimiento de WordPress</h3>
+<p>WordPress impulsa el 43% de los sitios web, pero el rendimiento varía
+significativamente:</p>
+<pre><code>DISTRIBUCIÓN DE RENDIMIENTO DE WORDPRESS
+═══════════════════════════════════════════════════════════
+Rendimiento Escritorio:
+  Rápido (&lt;2.5s LCP) █████████░░░░░░░░░░░░░░░░░░░░░  25.3%
+  Promedio           ████████████░░░░░░░░░░░░░░░░░░  36.3%
+  Lento              ████████████████████░░░░░░░░░░  38.4%
+
+Rendimiento Móvil:
+  Rápido (&lt;2.5s LCP) ████████░░░░░░░░░░░░░░░░░░░░░░  24.2%
+  Promedio           ████████████░░░░░░░░░░░░░░░░░░  35.2%
+  Lento              █████████████████████░░░░░░░░░  40.6%
+───────────────────────────────────────────────────────────
+Fuente: WP Rocket, Hostinger</code></pre>
+<p><strong>Estadísticas clave:</strong> - Carga promedio WordPress
+escritorio: <strong>2.5-3 segundos</strong> - Carga promedio WordPress
+móvil: <strong>13.25 segundos</strong> (!!) - WordPress ocupa el
+<strong>puesto 15 de 20 CMSs</strong> en velocidad (<a
+href="https://wp-rocket.me/blog/website-load-time-speed-statistics/">WP
+Rocket</a>)</p>
+<h3 id="puede-cloudflare-arreglar-wordpress">6.2 ¿Puede Cloudflare
+Arreglar WordPress?</h3>
+<p>Cloudflare proporciona mejoras significativas:</p>
+<pre><code>IMPACTO DE CLOUDFLARE
+═══════════════════════════════════════════════════════════
+Métrica                 Sin CDN          Con Cloudflare
+───────────────────────────────────────────────────────────
+Latencia activos estát. 100-500ms        10-50ms
+TTFB (cache hit)        500-2000ms       50-150ms
+Disponibilidad global   Origen único     330+ ubicaciones edge
+───────────────────────────────────────────────────────────
+Mejora típica: 50-90% para contenido estático cacheado
+═══════════════════════════════════════════════════════════</code></pre>
+<p><strong>Sin embargo, Cloudflare no puede arreglar:</strong> -
+Renderizado lento del lado del servidor (PHP/MySQL) - Sobrecarga de
+plugins (WordPress promedia 20+ plugins) - Latencia de consultas a base
+de datos - Payloads de página grandes</p>
+<h3 id="comparación-cara-a-cara">6.3 Comparación Cara a Cara</h3>
+<pre><code>COMPARACIÓN DE ARQUITECTURA
+═══════════════════════════════════════════════════════════
+Métrica              WordPress+CDN    Rust Monolítico
+───────────────────────────────────────────────────────────
+TTFB (sin caché)     500-2000ms       &lt;1ms
+TTFB (caché CDN)     50-150ms         N/A (sin CDN necesario)
+Carga página completa 1.5-3s          52ms
+Uso de memoria       50-200MB         10MB
+Despliegue           FTP + sync BD    Copia de binario único
+Superficie seguridad Grande           Mínima
+───────────────────────────────────────────────────────────</code></pre>
+<h3 id="cuándo-wordpress-cloudflare-tiene-sentido">6.4 Cuándo WordPress
++ Cloudflare Tiene Sentido</h3>
+<p><strong>Elige WordPress cuando:</strong> - El contenido cambia
+frecuentemente (se necesitan características de CMS) - Usuarios no
+técnicos gestionan contenido - E-commerce con inventario complejo
+(WooCommerce) - El tiempo para lanzar es crítico - El ecosistema de
+plugins proporciona funcionalidad necesaria</p>
+<p><strong>Elige optimización personalizada cuando:</strong> - El
+rendimiento es ventaja competitiva - El contenido es relativamente
+estático - Hay recursos técnicos disponibles - Los costos de
+memoria/cómputo importan (edge/serverless) - Los rankings SEO son
+críticos en nicho competitivo</p>
+<h3 id="el-enfoque-híbrido">6.5 El Enfoque Híbrido</h3>
+<p>Para muchos sitios, la mejor solución combina enfoques:</p>
+<pre><code>ARQUITECTURA HÍBRIDA RECOMENDADA
+═══════════════════════════════════════════════════════════
+
+Cloudflare Edge (CDN)
+        │
+        ├── Activos estáticos: Cacheados en edge (instantáneo)
+        │   └── HTML, CSS, JS, Imágenes, Fuentes
+        │
+        └── Requests dinámicos: Proxiados al origen
+            └── Servidor API Rust/Go
+                ├── Formularios de contacto
+                ├── Autenticación de usuarios
+                └── Operaciones de base de datos
+
+═══════════════════════════════════════════════════════════
+Lo mejor de ambos mundos: Caché edge + origen performante</code></pre>
+<hr />
+<h2 id="cuándo-importa-la-optimización">7. Cuándo Importa la
+Optimización</h2>
+<h3 id="la-curva-de-rendimientos-decrecientes">7.1 La Curva de
+Rendimientos Decrecientes</h3>
+<pre><code>RENDIMIENTO vs VALOR DE NEGOCIO
+═══════════════════════════════════════════════════════════
+
+Valor de
+Negocio   │                    ╭────────────────
+          │               ╭────╯
+          │          ╭────╯
+          │     ╭────╯
+          │╭────╯
+          │
+          └─────────────────────────────────────────────
+             5s    3s    2s    1s   500ms  100ms  50ms
+                        Tiempo de Carga
+
+───────────────────────────────────────────────────────────
+Zona crítica: 5s → 2s (reducción masiva tasa de rebote)
+Zona de optimización: 2s → 1s (mejoras de conversión)
+Rendimientos decrecientes: &lt;500ms (ganancias marginales)
+═══════════════════════════════════════════════════════════</code></pre>
+<h3 id="análisis-costo-beneficio">7.2 Análisis Costo-Beneficio</h3>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 22%" />
+<col style="width: 20%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Optimización</th>
+<th>Esfuerzo</th>
+<th>Impacto</th>
+<th>Prioridad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Imágenes WebP</td>
+<td>Bajo</td>
+<td>Alto</td>
+<td>Hacer primero</td>
+</tr>
+<tr class="even">
+<td>CDN (Cloudflare)</td>
+<td>Bajo</td>
+<td>Alto</td>
+<td>Hacer primero</td>
+</tr>
+<tr class="odd">
+<td>Minificar CSS/JS</td>
+<td>Bajo</td>
+<td>Medio</td>
+<td>Hacer segundo</td>
+</tr>
+<tr class="even">
+<td>Lazy loading</td>
+<td>Medio</td>
+<td>Alto</td>
+<td>Hacer segundo</td>
+</tr>
+<tr class="odd">
+<td>Servidor Rust personalizado</td>
+<td>Alto</td>
+<td>Medio*</td>
+<td>Considerar cuidadosamente</td>
+</tr>
+<tr class="even">
+<td>Activos residentes en memoria</td>
+<td>Alto</td>
+<td>Bajo**</td>
+<td>Solo casos extremos</td>
+</tr>
+</tbody>
+</table>
+<p>*Alto impacto para sitios de alto tráfico **Principalmente beneficia
+requisitos sub-100ms</p>
+<h3 id="el-umbral-suficientemente-bueno">7.3 El Umbral “Suficientemente
+Bueno”</h3>
+<p>Para la mayoría de pequeñas empresas, el objetivo debería ser: -
+<strong>LCP &lt; 2.5 segundos</strong> (umbral Core Web Vitals) -
+<strong>Carga de página completa &lt; 3 segundos</strong> (expectativa
+del usuario) - <strong>TTFB &lt; 600ms</strong> (responsividad del
+servidor)</p>
+<p>Nuestras optimizaciones fueron mucho más allá de “suficientemente
+bueno” (52ms vs umbral de 2500ms), demostrando lo que es técnicamente
+posible en lugar de lo que es prácticamente necesario.</p>
+<hr />
+<h2 id="conclusiones-y-recomendaciones">8. Conclusiones y
+Recomendaciones</h2>
+<h3 id="hallazgos-clave">8.1 Hallazgos Clave</h3>
+<ol type="1">
+<li><strong>La optimización de imágenes tiene el mayor ROI</strong>
+<ul>
+<li>Conversión WebP: 78% reducción de tamaño</li>
+<li>Lazy loading: 90% reducción de payload inicial</li>
+<li>Esfuerzo de implementación mínimo</li>
+</ul></li>
+<li><strong>Rust sobresale para aplicaciones críticas en
+rendimiento</strong>
+<ul>
+<li>600-700 req/s en hardware modesto</li>
+<li>Tiempos de respuesta sub-milisegundo</li>
+<li>Huella de memoria de ~10MB</li>
+</ul></li>
+<li><strong>Los CDNs nivelan el campo de juego
+significativamente</strong>
+<ul>
+<li>Cloudflare puede hacer WordPress competitivo</li>
+<li>Activos estáticos servidos desde edge = casi instantáneo</li>
+<li>Inversión: ~$0-20/mes vs desarrollo personalizado</li>
+</ul></li>
+<li><strong>El rendimiento de WordPress es arreglable</strong>
+<ul>
+<li>WordPress por defecto: 2.5-13s tiempos de carga</li>
+<li>WordPress optimizado + CDN: &lt;2s alcanzable</li>
+<li>Requiere caché, CDN, optimización de imágenes</li>
+</ul></li>
+</ol>
+<h3 id="recomendaciones-por-caso-de-uso">8.2 Recomendaciones por Caso de
+Uso</h3>
+<p><strong>Sitio Folleto de Pequeña Empresa (como el
+nuestro):</strong></p>
+<pre><code>Stack Recomendado:
+├── HTML/CSS/JS estático (o CMS simple)
+├── Imágenes WebP con lazy loading
+├── Cloudflare tier gratuito
+└── API simple para formularios (Rust, Go, o serverless)
+
+Rendimiento esperado: &lt;1s carga de página completa
+Costo: $0-50/mes</code></pre>
+<p><strong>Blog/Noticias con Mucho Contenido:</strong></p>
+<pre><code>Stack Recomendado:
+├── WordPress o Ghost
+├── Caché intensivo (WP Super Cache, Redis)
+├── Cloudflare con caché agresivo
+├── Automatización de imágenes WebP
+└── Plugin de lazy loading
+
+Rendimiento esperado: 1.5-2.5s
+Costo: $20-100/mes</code></pre>
+<p><strong>E-Commerce:</strong></p>
+<pre><code>Stack Recomendado:
+├── Shopify/WooCommerce/Personalizado
+├── CDN con caché de página completa donde sea posible
+├── Servicio de optimización de imágenes
+├── CSS crítico inline
+└── Lazy load contenido below-fold
+
+Rendimiento esperado: 2-3s
+Costo: $50-500/mes</code></pre>
+<p><strong>Aplicación Crítica en Rendimiento:</strong></p>
+<pre><code>Stack Recomendado:
+├── Rust (Actix-Web o Axum)
+├── Activos estáticos residentes en memoria
+├── Imágenes WebP/AVIF
+├── Despliegue edge (Cloudflare Workers, Fly.io)
+└── HTTP/3 QUIC
+
+Rendimiento esperado: &lt;100ms
+Costo: Variable (intensivo en desarrollo)</code></pre>
+<h3 id="la-conclusión">8.3 La Conclusión</h3>
+<p><strong>¿Importa la optimización?</strong> Sí, pero con matices:</p>
+<ul>
+<li>Ir de <strong>5 segundos a 2 segundos</strong> tiene impacto masivo
+de negocio</li>
+<li>Ir de <strong>2 segundos a 1 segundo</strong> tiene ROI medible</li>
+<li>Ir de <strong>1 segundo a 50 milisegundos</strong> es satisfacción
+de ingeniería</li>
+</ul>
+<p>Para la mayoría de sitios web, <strong>imágenes WebP + CDN
+Cloudflare</strong> proporciona el 80% del beneficio con el 10% del
+esfuerzo de optimización personalizada completa.</p>
+<p>Para nichos competitivos donde cada milisegundo importa, o para
+aplicaciones donde los costos de servidor son significativos (alto
+tráfico, despliegue edge), la arquitectura Rust + residente en memoria
+proporciona rendimiento inigualable.</p>
+<hr />
+<h2 id="apéndice-a-herramientas-y-recursos">Apéndice A: Herramientas y
+Recursos</h2>
+<h3 id="optimización-de-imágenes">Optimización de Imágenes</h3>
+<ul>
+<li><strong>cwebp</strong>: Convertidor WebP de Google</li>
+<li><strong>ImageMagick</strong>:
+<code>convert imagen.jpg -quality 80 imagen.webp</code></li>
+<li><strong>Squoosh</strong>: Optimización de imágenes en navegador</li>
+</ul>
+<h3 id="pruebas-de-rendimiento">Pruebas de Rendimiento</h3>
+<ul>
+<li><strong>Lighthouse</strong>: Integrado en Chrome DevTools</li>
+<li><strong>WebPageTest</strong>: Pruebas desde múltiples
+ubicaciones</li>
+<li><strong>GTmetrix</strong>: Monitoreo de Core Web Vitals</li>
+</ul>
+<h3 id="desarrollo-web-rust">Desarrollo Web Rust</h3>
+<ul>
+<li><strong>Actix-Web</strong>: <a
+href="https://actix.rs">actix.rs</a></li>
+<li><strong>Axum</strong>: <a
+href="https://docs.rs/axum">docs.rs/axum</a></li>
+<li><strong>rust-embed</strong>: Crate para embeber activos</li>
+</ul>
+<h3 id="servicios-cdn">Servicios CDN</h3>
+<ul>
+<li><strong>Cloudflare</strong>: Tier gratuito disponible</li>
+<li><strong>Fastly</strong>: Capacidades de edge compute</li>
+<li><strong>AWS CloudFront</strong>: Integración AWS</li>
+</ul>
+<hr />
+<h2 id="apéndice-b-nuestros-datos-de-prueba">Apéndice B: Nuestros Datos
+de Prueba</h2>
+<h3 id="reducción-de-tamaño-de-imágenes-mediciones-reales">Reducción de
+Tamaño de Imágenes (Mediciones Reales)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Imagen</th>
+<th>Original (JPEG)</th>
+<th>Optimizada (WebP)</th>
+<th>Reducción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>store-interior</td>
+<td>3,000 KB</td>
+<td>402 KB</td>
+<td>87%</td>
+</tr>
+<tr class="even">
+<td>puerto-morelos-plaza</td>
+<td>2,900 KB</td>
+<td>1,085 KB</td>
+<td>63%</td>
+</tr>
+<tr class="odd">
+<td>repair-work</td>
+<td>2,900 KB</td>
+<td>361 KB</td>
+<td>88%</td>
+</tr>
+<tr class="even">
+<td>puerto-morelos-malecon</td>
+<td>2,300 KB</td>
+<td>632 KB</td>
+<td>73%</td>
+</tr>
+<tr class="odd">
+<td>puerto-morelos-harbor</td>
+<td>2,200 KB</td>
+<td>546 KB</td>
+<td>75%</td>
+</tr>
+<tr class="even">
+<td>puerto-morelos-beach</td>
+<td>1,700 KB</td>
+<td>205 KB</td>
+<td>88%</td>
+</tr>
+<tr class="odd">
+<td>jungle</td>
+<td>656 KB</td>
+<td>430 KB</td>
+<td>34%</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td><strong>20,056 KB</strong></td>
+<td><strong>4,361 KB</strong></td>
+<td><strong>78%</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="benchmarks-de-tiempo-de-respuesta">Benchmarks de Tiempo de
+Respuesta</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Activo</th>
+<th>Tamaño</th>
+<th>Respuesta Prom</th>
+<th>Throughput</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>index.html</td>
+<td>32 KB</td>
+<td>0.8ms</td>
+<td>666 req/s</td>
+</tr>
+<tr class="even">
+<td>style.min.css</td>
+<td>16 KB</td>
+<td>0.8ms</td>
+<td>625 req/s</td>
+</tr>
+<tr class="odd">
+<td>main.min.js</td>
+<td>13 KB</td>
+<td>0.7ms</td>
+<td>714 req/s</td>
+</tr>
+<tr class="even">
+<td>logo.webp</td>
+<td>5 KB</td>
+<td>0.7ms</td>
+<td>666 req/s</td>
+</tr>
+<tr class="odd">
+<td>storefront.webp</td>
+<td>128 KB</td>
+<td>6.6ms</td>
+<td>178 req/s</td>
+</tr>
+<tr class="even">
+<td>plaza.webp</td>
+<td>1,085 KB</td>
+<td>2.9ms</td>
+<td>500 req/s</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="referencias">Referencias</h2>
+<ol type="1">
+<li><p>Google Developers. “Core Web Vitals.” <a
+href="https://developers.google.com/search/docs/appearance/core-web-vitals">developers.google.com/search/docs/appearance/core-web-vitals</a></p></li>
+<li><p>Google Developers. “WebP Compression Study.” <a
+href="https://developers.google.com/speed/webp/docs/webp_study">developers.google.com/speed/webp/docs/webp_study</a></p></li>
+<li><p>Cloudflare Blog. “Cloudflare just got faster and more secure,
+powered by Rust.” <a
+href="https://blog.cloudflare.com/20-percent-internet-upgrade/">blog.cloudflare.com/20-percent-internet-upgrade</a></p></li>
+<li><p>Envisage Digital. “35+ Website Load Time Statistics &amp; Facts
+(2025).” <a
+href="https://www.envisagedigital.co.uk/website-load-time-statistics/">envisagedigital.co.uk/website-load-time-statistics</a></p></li>
+<li><p>Hostinger. “Website load time statistics 2025.” <a
+href="https://www.hostinger.com/tutorials/website-load-time-statistics">hostinger.com/tutorials/website-load-time-statistics</a></p></li>
+<li><p>WP Rocket. “Website Load Time &amp; Speed Statistics.” <a
+href="https://wp-rocket.me/blog/website-load-time-speed-statistics/">wp-rocket.me/blog/website-load-time-speed-statistics</a></p></li>
+<li><p>DebugBear. “Are Core Web Vitals A Ranking Factor for SEO?” <a
+href="https://www.debugbear.com/docs/core-web-vitals-ranking-factor">debugbear.com/docs/core-web-vitals-ranking-factor</a></p></li>
+<li><p>Huckabuy. “20 Important Page Speed Bounce Rate And Conversion
+Rate Statistics.” <a
+href="https://huckabuy.com/20-important-page-speed-bounce-rate-and-conversion-rate-statistics/">huckabuy.com/20-important-page-speed-bounce-rate-and-conversion-rate-statistics</a></p></li>
+<li><p>Markaicode. “Rust Web Frameworks in 2025: Performance Benchmark.”
+<a
+href="https://markaicode.com/rust-web-frameworks-performance-benchmark-2025/">markaicode.com/rust-web-frameworks-performance-benchmark-2025</a></p></li>
+<li><p>Email Vendor Selection. “49+ Website Load Time Statistics &amp;
+How to Improve (2026).” <a
+href="https://www.emailvendorselection.com/website-load-time-statistics/">emailvendorselection.com/website-load-time-statistics</a></p></li>
+</ol>
+<hr />
+<p><em>White Paper Versión 1.0 | South City Computer | Enero 2026</em>
+<em>Contacto: info@southcitycomputer.com</em></p>
+        </div>
+
+        <a href="../index-es.html#projects" class="back-link">← Volver a Proyectos</a>
+    </div>
+
+    <footer class="footer service-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2006&ndash;2026 South City Computer. All rights reserved.</p>
+                <p>Built in Rust at South City Computer.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

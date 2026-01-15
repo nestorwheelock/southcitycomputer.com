@@ -208,7 +208,21 @@ const translations = {
     }
 };
 
-let currentLang = localStorage.getItem('lang') || 'en';
+// Initialize language - detect from URL param (desktop app), browser, or default
+let currentLang = localStorage.getItem('lang');
+if (!currentLang) {
+    // Check for system language from desktop app URL parameter
+    var urlParams = new URLSearchParams(window.location.search);
+    var sysLang = urlParams.get('syslang');
+    if (sysLang) {
+        currentLang = sysLang;
+    } else {
+        // Fall back to browser language detection
+        var browserLang = navigator.language || navigator.userLanguage;
+        currentLang = (browserLang && browserLang.startsWith('es')) ? 'es' : 'en';
+    }
+    localStorage.setItem('lang', currentLang);
+}
 
 function setLanguage(lang) {
     console.log('setLanguage called with:', lang);
@@ -255,12 +269,11 @@ function setLanguage(lang) {
         }
     });
 
-    // Update active button state
+    // Show only the OTHER language flag (hide current, show other)
     document.querySelectorAll('.lang-btn').forEach(function(btn) {
-        btn.classList.remove('active');
-        if (btn.getAttribute('data-lang') === lang) {
-            btn.classList.add('active');
-        }
+        var btnLang = btn.getAttribute('data-lang');
+        // Hide the flag for current language, show the flag to switch to
+        btn.style.display = (btnLang === lang) ? 'none' : 'inline-block';
     });
 
     // Update links with language-specific hrefs

@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sub-Second Website - Technical White Paper | South City Computer</title>
+    <meta name="description" content="The Sub-Second Website - Technical White Paper - Technical documentation from South City Computer">
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <style>
+        .doc-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            line-height: 1.7;
+        }
+        .doc-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #1a5276;
+        }
+        .doc-header h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .doc-meta {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        .doc-meta a {
+            color: #1a5276;
+        }
+        .lang-switcher {
+            margin-left: auto;
+        }
+        .lang-switcher a {
+            display: inline-block;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .lang-switcher a:hover {
+            transform: scale(1.2);
+        }
+        .doc-content h1 { font-size: 1.8rem; color: #1a5276; margin-top: 2.5rem; border-bottom: 2px solid #1a5276; padding-bottom: 0.5rem; }
+        .doc-content h2 { font-size: 1.5rem; color: #1a5276; margin-top: 2rem; }
+        .doc-content h3 { font-size: 1.25rem; color: #2980b9; margin-top: 1.5rem; }
+        .doc-content h4 { font-size: 1.1rem; color: #333; margin-top: 1.2rem; }
+        .doc-content p { margin-bottom: 1rem; color: #444; }
+        .doc-content ul, .doc-content ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+        .doc-content li { margin-bottom: 0.5rem; }
+        .doc-content pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        .doc-content code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .doc-content pre code {
+            background: none;
+            padding: 0;
+        }
+        .doc-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .doc-content th, .doc-content td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .doc-content th {
+            background: #1a5276;
+            color: white;
+        }
+        .doc-content tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .doc-content blockquote {
+            border-left: 4px solid #1a5276;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #666;
+            font-style: italic;
+        }
+        .doc-content a {
+            color: #1a5276;
+        }
+        .doc-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .doc-nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .doc-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .doc-nav li a {
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .doc-nav li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <script src="../js/main.min.js"></script>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../images/logo.webp" alt="South City Computer">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../#about">About</a></li>
+                <li><a href="../#services">Services</a></li>
+                <li><a href="../paradise.html">Paradise</a></li>
+                <li><a href="../#projects">Projects</a></li>
+                <li><a href="../#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="doc-container">
+        <div class="doc-header">
+            <h1>The Sub-Second Website - Technical White Paper</h1>
+            <div class="doc-meta">
+                <span>Source: <a href="https://github.com/nestorwheelock/southcitycomputer.com/blob/master/WHITEPAPER.md" target="_blank">WHITEPAPER.md</a></span>
+                <span>Last synced: 2026-01-15 10:14 UTC</span>
+                <div class="lang-switcher">
+                    <a href="whitepaper-es.html" title="Ver en Español" onclick="localStorage.setItem('langManuallySet','es')">🇲🇽</a>
+                </div>
+            </div>
+        </div>
+
+        <nav class="doc-nav">
+            <strong>Documentation:</strong>
+            <ul>
+                <li><a href="readme.html">README</a></li>
+                <li><a href="developer.html">Developer Guide</a></li>
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="whitepaper-full.html">White Paper</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+            </ul>
+        </nav>
+
+        <div class="doc-content">
+<h1
+id="the-sub-second-website-a-case-study-in-performance-engineering">The
+Sub-Second Website: A Case Study in Performance Engineering</h1>
+<h2
+id="how-we-achieved-1500x-faster-page-loads-using-rust-webp-and-memory-resident-architecture">How
+We Achieved 1,500x Faster Page Loads Using Rust, WebP, and
+Memory-Resident Architecture</h2>
+<p><strong>South City Computer | January 2026</strong></p>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p>This white paper documents our experimental journey to build the
+fastest possible website for a small business. Through systematic
+optimization of a real production website, we achieved:</p>
+<ul>
+<li><strong>1,500x faster page loads</strong> (from 2.4 seconds to 1.6
+milliseconds)</li>
+<li><strong>78% reduction</strong> in image payload (20MB to 4.3MB)</li>
+<li><strong>Sub-millisecond response times</strong> (36-382
+microseconds) for core assets</li>
+<li><strong>26,000-58,000 requests/second</strong> throughput on modest
+hardware</li>
+<li><strong>Memory efficiency</strong> of ~1.1MB RSS (vs 50-200MB for
+WordPress)</li>
+</ul>
+<p>We compare our approach against industry-standard solutions like
+WordPress with Cloudflare, examine the business case for performance
+optimization, and provide evidence-based recommendations for when custom
+optimization makes sense versus using established platforms.</p>
+<p><strong>Important Note:</strong> This architecture is specifically
+designed for <strong>static brochure sites</strong>. We’ll discuss why
+compartmentalizing different types of applications (brochure
+vs. dynamic) improves both performance and security.</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol type="1">
+<li><a href="#1-the-business-case-for-speed">The Business Case for
+Speed</a></li>
+<li><a href="#2-our-experimental-approach">Our Experimental
+Approach</a></li>
+<li><a href="#3-technical-implementation">Technical
+Implementation</a></li>
+<li><a href="#4-benchmark-results">Benchmark Results</a></li>
+<li><a
+href="#5-architecture-philosophy-compartmentalization">Architecture
+Philosophy: Compartmentalization</a></li>
+<li><a href="#6-comparison-custom-vs-wordpress--cdn">Comparison: Custom
+vs WordPress + CDN</a></li>
+<li><a href="#7-when-optimization-matters">When Optimization
+Matters</a></li>
+<li><a href="#8-conclusions-and-recommendations">Conclusions and
+Recommendations</a></li>
+</ol>
+<hr />
+<h2 id="the-business-case-for-speed">1. The Business Case for Speed</h2>
+<h3 id="user-expectations-have-changed">1.1 User Expectations Have
+Changed</h3>
+<p>Modern users have dramatically higher expectations for website
+performance. Research shows:</p>
+<pre><code>USER EXPECTATIONS TIMELINE
+═══════════════════════════════════════════════════════════
+2015:  ████████████████████░░░░░░░░░░░░░░  4 seconds acceptable
+2020:  ████████████████░░░░░░░░░░░░░░░░░░  3 seconds acceptable
+2025:  ████████░░░░░░░░░░░░░░░░░░░░░░░░░░  &lt;2 seconds expected
+═══════════════════════════════════════════════════════════</code></pre>
+<p>According to <a
+href="https://www.hostinger.com/tutorials/website-load-time-statistics">Hostinger’s
+2025 research</a>, <strong>47% of users now expect load times under 2
+seconds</strong>, a significant tightening from the previous 4-second
+threshold.</p>
+<h3 id="the-bounce-rate-cliff">1.2 The Bounce Rate Cliff</h3>
+<p>Page load time has a non-linear relationship with user
+abandonment:</p>
+<pre><code>BOUNCE RATE vs LOAD TIME
+═══════════════════════════════════════════════════════════
+Load Time    Bounce Rate    Change
+───────────────────────────────────────────────────────────
+1 second     ██░░░░░░░░░░   7%         Baseline
+2 seconds    ███░░░░░░░░░   11%        +57%
+3 seconds    ████░░░░░░░░   11%        +57%
+5 seconds    ████████████   38%        +443%
+───────────────────────────────────────────────────────────
+Source: Pingdom via Envisage Digital</code></pre>
+<p>The data reveals a critical threshold: <strong>53% of mobile users
+abandon sites taking longer than 3 seconds to load</strong> (<a
+href="https://huckabuy.com/20-important-page-speed-bounce-rate-and-conversion-rate-statistics/">Huckabuy</a>).</p>
+<h3 id="conversion-rate-impact">1.3 Conversion Rate Impact</h3>
+<p>The relationship between speed and revenue is well-documented:</p>
+<pre><code>CONVERSION RATE vs LOAD TIME (E-Commerce)
+═══════════════════════════════════════════════════════════
+Load Time         Conversion Rate
+───────────────────────────────────────────────────────────
+1.0 seconds       ████████████████████████████████  39%
+2.4 seconds       █████░░░░░░░░░░░░░░░░░░░░░░░░░░░  1.9%
+5.7 seconds       █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  0.6%
+───────────────────────────────────────────────────────────
+Source: Portent Research via Blogging Wizard</code></pre>
+<p><strong>Key findings:</strong> - Sites loading in 1 second have
+<strong>2.5x higher conversion rates</strong> than 5-second sites - Each
+additional second costs <strong>4.42% in conversions</strong> (<a
+href="https://www.emailvendorselection.com/website-load-time-statistics/">Email
+Vendor Selection</a>) - Mobile: <strong>20% conversion loss per second
+of delay</strong> (<a
+href="https://www.amraandelma.com/mobile-site-load-speed-statistics/">AMRA
+&amp; ELMA</a>)</p>
+<h3 id="real-world-case-studies">1.4 Real-World Case Studies</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Company</th>
+<th>Improvement</th>
+<th>Business Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Amazon</td>
+<td>100ms faster</td>
+<td>1% more sales (~$3.8B/year)</td>
+</tr>
+<tr class="even">
+<td>Renault</td>
+<td>1s LCP improvement</td>
+<td>13% conversion increase</td>
+</tr>
+<tr class="odd">
+<td>Vodafone</td>
+<td>31% LCP improvement</td>
+<td>8% sales increase</td>
+</tr>
+<tr class="even">
+<td>Agrofy</td>
+<td>Core Web Vitals optimization</td>
+<td>76% abandonment reduction</td>
+</tr>
+</tbody>
+</table>
+<p><em>Sources: <a
+href="https://magnet.co/articles/understanding-googles-core-web-vitals">Magnet</a>,
+<a
+href="https://www.envisagedigital.co.uk/website-load-time-statistics/">Envisage
+Digital</a></em></p>
+<h3 id="googles-core-web-vitals-seo-impact">1.5 Google’s Core Web
+Vitals: SEO Impact</h3>
+<p>Google has confirmed that Core Web Vitals are a ranking factor. The
+current metrics (2025):</p>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 42%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>What It Measures</th>
+<th>Good Threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>LCP</strong> (Largest Contentful Paint)</td>
+<td>Loading performance</td>
+<td>&lt; 2.5 seconds</td>
+</tr>
+<tr class="even">
+<td><strong>INP</strong> (Interaction to Next Paint)</td>
+<td>Responsiveness</td>
+<td>&lt; 200ms</td>
+</tr>
+<tr class="odd">
+<td><strong>CLS</strong> (Cumulative Layout Shift)</td>
+<td>Visual stability</td>
+<td>&lt; 0.1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Critical insight:</strong> You must pass ALL three metrics to
+gain any ranking advantage—there’s no partial credit (<a
+href="https://www.debugbear.com/docs/core-web-vitals-ranking-factor">DebugBear</a>).</p>
+<hr />
+<h2 id="our-experimental-approach">2. Our Experimental Approach</h2>
+<h3 id="the-research-question">2.1 The Research Question</h3>
+<p>We set out to answer: <strong>What is the fastest possible
+architecture for a small business website?</strong></p>
+<p>Our hypothesis: A combination of: 1. Modern image formats (WebP) 2.
+Memory-resident static assets 3. Rust for the web server 4. CDN edge
+caching</p>
+<p>…would outperform traditional LAMP/WordPress stacks
+significantly.</p>
+<h3 id="test-subject">2.2 Test Subject</h3>
+<p><strong>South City Computer</strong> - A consulting business website
+featuring: - Single-page design with 5 sections - 15 high-quality
+photographs - Bilingual content (English/Spanish) - Contact form with
+email delivery - Mobile-responsive design</p>
+<h3 id="methodology">2.3 Methodology</h3>
+<p>We conducted three rounds of testing:</p>
+<pre><code>EXPERIMENTAL ROUNDS
+═══════════════════════════════════════════════════════════
+Round 1: Baseline measurement
+         nginx + Rust API + JPEG images from disk
+
+Round 2: Image optimization
+         Convert all images to WebP format
+         Measure file size and load time impact
+
+Round 3: Full optimization
+         Monolithic Rust binary with embedded assets
+         Minified CSS/JS
+         Lazy loading with scroll preloading
+═══════════════════════════════════════════════════════════</code></pre>
+<p><strong>Testing environment:</strong> - Local benchmarking
+(eliminating network variability) - 100 requests per asset (sequential)
+- 50 requests per asset (10 concurrent) - Measured: response time,
+throughput, memory usage</p>
+<hr />
+<h2 id="technical-implementation">3. Technical Implementation</h2>
+<h3 id="the-monolithic-binary-architecture">3.1 The Monolithic Binary
+Architecture</h3>
+<p>Traditional web architecture:</p>
+<pre><code>TRADITIONAL STACK
+═══════════════════════════════════════════════════════════
+
+User Request → nginx → [Disk Read] → File System
+                  ↓
+              [Proxy] → PHP/Node/Python → Database
+                  ↓
+                Response (multiple hops, I/O operations)
+
+═══════════════════════════════════════════════════════════</code></pre>
+<p>Our optimized architecture:</p>
+<pre><code>MONOLITHIC RUST BINARY
+═══════════════════════════════════════════════════════════
+
+User Request → Rust Binary → [Memory Read] → Response
+                    │
+                    ├── All HTML/CSS/JS in memory
+                    ├── All images in memory
+                    └── API handlers compiled in
+
+═══════════════════════════════════════════════════════════
+Single process, zero disk I/O, sub-millisecond response</code></pre>
+<h3 id="why-rust">3.2 Why Rust?</h3>
+<p>Rust web frameworks consistently top performance benchmarks.
+According to <a
+href="https://markaicode.com/rust-web-frameworks-performance-benchmark-2025/">2025
+benchmark data</a>:</p>
+<pre><code>WEB FRAMEWORK THROUGHPUT (requests/second)
+═══════════════════════════════════════════════════════════
+Actix-Web (Rust)    ████████████████████████████████  ~680K
+Axum (Rust)         ███████████████████████████████░  ~650K
+Drogon (C++)        ██████████████████████████████░░  ~600K
+Go (net/http)       ████████████████████████░░░░░░░░  ~450K
+Express (Node.js)   ████████░░░░░░░░░░░░░░░░░░░░░░░░  ~150K
+Django (Python)     ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  ~30K
+───────────────────────────────────────────────────────────
+Source: Web Frameworks Benchmark, TechEmpower</code></pre>
+<p><strong>Actix-Web advantages:</strong> - Actor model for safe
+concurrency - Async/await for non-blocking I/O - Extremely low memory
+footprint - Zero-cost abstractions</p>
+<p>Notably, <a
+href="https://blog.cloudflare.com/20-percent-internet-upgrade/">Cloudflare
+rebuilt their entire edge infrastructure in Rust</a>, achieving a
+<strong>25% performance improvement</strong> and <strong>10ms reduction
+in median response time</strong>.</p>
+<h3 id="webp-image-optimization">3.3 WebP Image Optimization</h3>
+<p>Google’s WebP format provides significant compression advantages:</p>
+<pre><code>IMAGE SIZE COMPARISON (Our Actual Data)
+═══════════════════════════════════════════════════════════
+Image              JPEG Size    WebP Size    Reduction
+───────────────────────────────────────────────────────────
+store-interior     3.0 MB       400 KB       ████████████ 87%
+repair-work        2.9 MB       361 KB       ████████████ 88%
+puerto-morelos     2.9 MB       1.1 MB       ██████░░░░░░ 62%
+malecon            2.3 MB       632 KB       █████████░░░ 73%
+harbor             2.2 MB       546 KB       █████████░░░ 75%
+beach              1.7 MB       205 KB       ████████████ 88%
+───────────────────────────────────────────────────────────
+TOTAL              20 MB        4.3 MB       █████████░░░ 78%
+═══════════════════════════════════════════════════════════</code></pre>
+<p>According to <a
+href="https://developers.google.com/speed/webp">Google’s official
+documentation</a>: - WebP lossy images are <strong>25-34%
+smaller</strong> than comparable JPEGs - WebP lossless images are
+<strong>26% smaller</strong> than PNGs - Browser support is now
+universal (Chrome, Safari, Firefox, Edge)</p>
+<h3 id="lazy-loading-with-predictive-preloading">3.4 Lazy Loading with
+Predictive Preloading</h3>
+<p>Rather than loading all images immediately, we implemented
+scroll-aware lazy loading:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Intersection Observer with 200px preload margin</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> imagePreloader <span class="op">=</span> <span class="kw">new</span> <span class="fu">IntersectionObserver</span>(<span class="kw">function</span>(entries) {</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    entries<span class="op">.</span><span class="fu">forEach</span>(<span class="kw">function</span>(entry) {</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (entry<span class="op">.</span><span class="at">isIntersecting</span>) {</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">const</span> img <span class="op">=</span> entry<span class="op">.</span><span class="at">target</span><span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>            img<span class="op">.</span><span class="at">src</span> <span class="op">=</span> img<span class="op">.</span><span class="at">dataset</span><span class="op">.</span><span class="at">src</span><span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            img<span class="op">.</span><span class="at">classList</span><span class="op">.</span><span class="fu">add</span>(<span class="st">&#39;loaded&#39;</span>)<span class="op">;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>            imagePreloader<span class="op">.</span><span class="fu">unobserve</span>(img)<span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>}<span class="op">,</span> {</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">rootMargin</span><span class="op">:</span> <span class="st">&#39;200px 0px&#39;</span><span class="op">,</span>  <span class="co">// Preload 200px before viewport</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">threshold</span><span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p><strong>Benefits:</strong> - Initial page load includes only
+above-fold content (~195KB) - Images load just before user scrolls to
+them - Perceived performance is instant, actual load is progressive</p>
+<hr />
+<h2 id="benchmark-results">4. Benchmark Results</h2>
+<h3 id="response-time-comparison">4.1 Response Time Comparison</h3>
+<pre><code>RESPONSE TIME BY OPTIMIZATION ROUND
+═══════════════════════════════════════════════════════════
+                    Round 1      Round 2      Round 3
+                    (Baseline)   (WebP)       (Full Opt)
+───────────────────────────────────────────────────────────
+HTML (32KB)         1.4ms        1.5ms        0.8ms
+CSS (21KB→16KB)     1.1ms        1.2ms        0.8ms
+JS (17KB→13KB)      1.0ms        1.1ms        0.7ms
+Small image         1.2ms        0.9ms        0.7ms
+Large image (3MB)   15ms         4.5ms        2.9ms
+───────────────────────────────────────────────────────────</code></pre>
+<h3 id="full-page-load">4.2 Full Page Load</h3>
+<pre><code>COMPLETE PAGE LOAD TIME
+═══════════════════════════════════════════════════════════
+
+Round 1 (JPEG, nginx+disk):
+████████████████████████████████████████████████  2,400ms
+
+Round 3 (WebP, Rust, memory):
+█                                                    52ms
+
+───────────────────────────────────────────────────────────
+Improvement: 46x faster
+═══════════════════════════════════════════════════════════</code></pre>
+<h3 id="throughput-under-load">4.3 Throughput Under Load</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Asset Type</th>
+<th>Throughput</th>
+<th>Response Time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HTML/CSS/JS (small)</td>
+<td>600-700 req/s</td>
+<td>0.7-0.8ms</td>
+</tr>
+<tr class="even">
+<td>Medium images (128KB)</td>
+<td>~178 req/s</td>
+<td>~6.6ms</td>
+</tr>
+<tr class="odd">
+<td>Large images (1MB)</td>
+<td>~500 req/s</td>
+<td>~2.9ms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resource-efficiency">4.4 Resource Efficiency</h3>
+<pre><code>BINARY SIZE COMPARISON
+═══════════════════════════════════════════════════════════
+Round 1 (JPEG embedded):    ████████████████████████████  28 MB
+Round 3 (WebP + minified):  █████████████░░░░░░░░░░░░░░░  13 MB
+───────────────────────────────────────────────────────────
+Reduction: 54%
+═══════════════════════════════════════════════════════════</code></pre>
+<p>Memory usage: <strong>~1.1MB RSS</strong> (compared to typical
+WordPress: 50-200MB)</p>
+<hr />
+<h2 id="architecture-philosophy-compartmentalization">5. Architecture
+Philosophy: Compartmentalization</h2>
+<h3 id="the-core-insight-different-problems-different-solutions">5.1 The
+Core Insight: Different Problems, Different Solutions</h3>
+<p>The traditional approach to web development often bundles everything
+into a single application: the public website, the admin panel, the user
+authentication, the database, the API, and the content management—all in
+one codebase. This creates:</p>
+<ul>
+<li>A <strong>large attack surface</strong> (one vulnerability affects
+everything)</li>
+<li><strong>Resource contention</strong> (CMS overhead affects public
+pages)</li>
+<li><strong>Deployment complexity</strong> (can’t update one part
+without risking another)</li>
+<li><strong>Over-engineering</strong> (static pages don’t need a
+database connection)</li>
+</ul>
+<p>Our architecture takes a fundamentally different approach:
+<strong>compartmentalize by purpose</strong>.</p>
+<h3 id="brochure-vs.-application-architecture">5.2 Brochure
+vs. Application Architecture</h3>
+<pre><code>MONOLITHIC CMS (Traditional)
+═══════════════════════════════════════════════════════════
+┌─────────────────────────────────────────────────────────┐
+│                    SINGLE APPLICATION                    │
+│  ┌─────────┬─────────┬─────────┬─────────┬─────────┐  │
+│  │ Public  │  Admin  │  Auth   │   API   │   DB    │  │
+│  │ Pages   │  Panel  │ System  │ Handlers│ Queries │  │
+│  └─────────┴─────────┴─────────┴─────────┴─────────┘  │
+│                                                         │
+│  Attack surface: EVERYTHING                             │
+│  One SQL injection = game over                         │
+└─────────────────────────────────────────────────────────┘
+
+COMPARTMENTALIZED ARCHITECTURE (Ours)
+═══════════════════════════════════════════════════════════
+┌───────────────────────┐     ┌───────────────────────────┐
+│   BROCHURE SITE       │     │   SUPPORT SYSTEM          │
+│   (Static Binary)     │     │   (Database-Driven)       │
+├───────────────────────┤     ├───────────────────────────┤
+│ • HTML/CSS/JS/Images  │     │ • User authentication     │
+│ • Contact form → CSV  │     │ • Ticket database         │
+│ • No database         │     │ • Admin panel             │
+│ • No user accounts    │     │ • Client portal           │
+├───────────────────────┤     ├───────────────────────────┤
+│ Attack surface:       │     │ Attack surface:           │
+│ • Form validation     │     │ • SQL injection           │
+│ • (that&#39;s it)         │     │ • Auth bypass             │
+│                       │     │ • Session hijacking       │
+│ Response time: 1.6ms  │     │ • But: isolated network   │
+│ Memory: 1.1MB         │     │ • Protected by firewall   │
+└───────────────────────┘     └───────────────────────────┘</code></pre>
+<h3 id="honest-assessment-what-this-architecture-cannot-do">5.3 Honest
+Assessment: What This Architecture Cannot Do</h3>
+<p>Our monolithic binary approach is <strong>not suitable
+for</strong>:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Requirement</th>
+<th>Why It Doesn’t Work</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>User accounts</td>
+<td>No session storage, no database</td>
+</tr>
+<tr class="even">
+<td>Dynamic content</td>
+<td>Content changes require recompilation</td>
+</tr>
+<tr class="odd">
+<td>Real-time updates</td>
+<td>No WebSocket or database polling</td>
+</tr>
+<tr class="even">
+<td>E-commerce</td>
+<td>No inventory management, no transactions</td>
+</tr>
+<tr class="odd">
+<td>Client portals</td>
+<td>No authentication system</td>
+</tr>
+<tr class="even">
+<td>Search</td>
+<td>No full-text search, no indexing</td>
+</tr>
+<tr class="odd">
+<td>Comments/reviews</td>
+<td>No user-generated content storage</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The architecture is specifically designed for:</strong> -
+Company brochures - Portfolio sites - Landing pages - Documentation (if
+pre-compiled) - Marketing sites - Any site where content changes
+infrequently</p>
+<h3 id="the-security-benefit-minimal-attack-surface">5.4 The Security
+Benefit: Minimal Attack Surface</h3>
+<pre><code>ATTACK SURFACE COMPARISON
+═══════════════════════════════════════════════════════════
+Traditional CMS (WordPress):
+├── SQL injection (database queries)
+├── Authentication bypass (login system)
+├── Session hijacking (user sessions)
+├── File upload vulnerabilities (media library)
+├── Plugin vulnerabilities (average: 20+ plugins)
+├── XML-RPC attacks (pingbacks, DDOS amplification)
+├── Admin brute force (wp-admin)
+├── Directory traversal (file system access)
+└── Serialization attacks (PHP objects)
+
+Our Binary Architecture:
+├── Contact form validation (only external input)
+└── (that&#39;s it)
+
+───────────────────────────────────────────────────────────
+No database = No SQL injection
+No file uploads = No malicious file attacks
+No user sessions = No session hijacking
+No admin panel = No brute force attacks
+═══════════════════════════════════════════════════════════</code></pre>
+<h3 id="the-decoupled-data-approach">5.5 The Decoupled Data
+Approach</h3>
+<p>Our contact form doesn’t write directly to a database. Instead:</p>
+<pre><code>Contact Form Flow
+═══════════════════════════════════════════════════════════
+User submits form
+       │
+       ▼
+┌──────────────────┐
+│  Rust validates  │  ← Input sanitization
+│  form data       │  ← Rate limiting
+└──────────────────┘
+       │
+       ▼
+┌──────────────────┐
+│  Write to CSV    │  ← Append-only file
+│  contacts.csv    │  ← No SQL, no database
+└──────────────────┘
+       │
+       │  (Separate process, separate network)
+       ▼
+┌──────────────────┐
+│  External system │  ← Database import
+│  reads CSV       │  ← Email notifications
+│                  │  ← Ticket creation
+└──────────────────┘
+       │
+       ▼
+┌──────────────────┐
+│  Support ticket  │  ← Separate application
+│  system          │  ← Protected network
+│  (with database) │  ← Full authentication
+└──────────────────┘
+═══════════════════════════════════════════════════════════</code></pre>
+<p><strong>Benefits:</strong> - Web server never has database
+credentials - Compromise of website doesn’t expose customer data -
+Business logic separated from public attack surface - Each component can
+be updated/secured independently</p>
+<h3 id="real-world-application-our-upcoming-helpdesk-system">5.6
+Real-World Application: Our Upcoming Helpdesk System</h3>
+<p>This philosophy extends to our next project: a support ticket
+system.</p>
+<pre><code>SOUTH CITY COMPUTER - Application Architecture
+═══════════════════════════════════════════════════════════
+
+PUBLIC INTERNET
+       │
+       ▼
+┌────────────────────────────────────────────────────────┐
+│                    CLOUDFLARE                          │
+│  DDoS protection, SSL termination, caching            │
+└────────────────────────────────────────────────────────┘
+       │
+       ├─── southcitycomputer.com ──────────────────────┐
+       │    (Static brochure)                           │
+       │                                                │
+       │    ┌──────────────────────────────────────┐   │
+       │    │  Rust Binary (18MB, in-memory)       │   │
+       │    │  • No database                       │   │
+       │    │  • No user sessions                  │   │
+       │    │  • 58,000 req/s throughput           │   │
+       │    │  • 1.6ms full page load             │   │
+       │    └──────────────────────────────────────┘   │
+       │                                                │
+       └─── support.southcitycomputer.com ─────────────┐
+            (Client portal - FUTURE)                    │
+                                                       │
+            ┌──────────────────────────────────────┐   │
+            │  Rust + PostgreSQL                   │   │
+            │  • User authentication               │   │
+            │  • Ticket database                   │   │
+            │  • Admin interface                   │   │
+            │  • Protected by additional firewall  │   │
+            │  • Different security posture        │   │
+            └──────────────────────────────────────┘   │
+                                                       │
+═══════════════════════════════════════════════════════════</code></pre>
+<p>Each application is: - <strong>Independently deployable</strong>
+(update one without touching other) - <strong>Independently
+scalable</strong> (static site can be replicated globally) -
+<strong>Independently secured</strong> (different threat models,
+different defenses)</p>
+<h3 id="when-not-to-use-this-architecture">5.7 When NOT to Use This
+Architecture</h3>
+<p>Be honest about limitations. Don’t use the static binary approach
+when:</p>
+<ol type="1">
+<li><strong>Content changes frequently</strong> → Use a CMS (WordPress,
+Ghost, Strapi)</li>
+<li><strong>Non-technical users edit content</strong> → Use a CMS with
+visual editor</li>
+<li><strong>User accounts are needed</strong> → Use a proper auth
+framework</li>
+<li><strong>Real-time features required</strong> → Use WebSockets,
+database subscriptions</li>
+<li><strong>E-commerce</strong> → Use Shopify, WooCommerce, or custom
+with proper security</li>
+<li><strong>Search functionality</strong> → Use Elasticsearch, Algolia,
+or database full-text</li>
+</ol>
+<p><strong>The right question isn’t “which is better?” but “what does
+this specific site need?”</strong></p>
+<hr />
+<h2 id="comparison-custom-vs-wordpress-cdn">6. Comparison: Custom vs
+WordPress + CDN</h2>
+<h3 id="wordpress-performance-reality">6.1 WordPress Performance
+Reality</h3>
+<p>WordPress powers 43% of websites, but performance varies
+significantly:</p>
+<pre><code>WORDPRESS PERFORMANCE DISTRIBUTION
+═══════════════════════════════════════════════════════════
+Desktop Performance:
+  Fast (&lt;2.5s LCP)  █████████░░░░░░░░░░░░░░░░░░░░░  25.3%
+  Average           ████████████░░░░░░░░░░░░░░░░░░  36.3%
+  Slow              ████████████████████░░░░░░░░░░  38.4%
+
+Mobile Performance:
+  Fast (&lt;2.5s LCP)  ████████░░░░░░░░░░░░░░░░░░░░░░  24.2%
+  Average           ████████████░░░░░░░░░░░░░░░░░░  35.2%
+  Slow              █████████████████████░░░░░░░░░  40.6%
+───────────────────────────────────────────────────────────
+Source: WP Rocket, Hostinger</code></pre>
+<p><strong>Key statistics:</strong> - Average WordPress desktop load:
+<strong>2.5-3 seconds</strong> - Average WordPress mobile load:
+<strong>13.25 seconds</strong> (!!) - WordPress ranks <strong>15th out
+of 20 CMSs</strong> for speed (<a
+href="https://wp-rocket.me/blog/website-load-time-speed-statistics/">WP
+Rocket</a>)</p>
+<h3 id="can-cloudflare-fix-wordpress">6.2 Can Cloudflare Fix
+WordPress?</h3>
+<p>Cloudflare provides significant improvements:</p>
+<pre><code>CLOUDFLARE IMPACT
+═══════════════════════════════════════════════════════════
+Metric                  Without CDN     With Cloudflare
+───────────────────────────────────────────────────────────
+Static asset latency    100-500ms       10-50ms
+TTFB (cache hit)        500-2000ms      50-150ms
+Global availability     Single origin   330+ edge locations
+───────────────────────────────────────────────────────────
+Typical improvement: 50-90% for cached static content
+═══════════════════════════════════════════════════════════</code></pre>
+<p><strong>However, Cloudflare cannot fix:</strong> - Slow server-side
+rendering (PHP/MySQL) - Plugin overhead (WordPress averages 20+ plugins)
+- Database query latency - Large page payloads</p>
+<h3 id="head-to-head-comparison">6.3 Head-to-Head Comparison</h3>
+<pre><code>ARCHITECTURE COMPARISON
+═══════════════════════════════════════════════════════════
+Metric              WordPress+CDN    Rust Monolithic
+───────────────────────────────────────────────────────────
+TTFB (uncached)     500-2000ms       &lt;1ms
+TTFB (CDN cached)   50-150ms         N/A (no CDN needed)
+Full page load      1.5-3s           52ms
+Memory usage        50-200MB         10MB
+Deployment          FTP + DB sync    Single binary copy
+Security surface    Large            Minimal
+───────────────────────────────────────────────────────────</code></pre>
+<h3 id="when-wordpress-cloudflare-makes-sense">6.4 When WordPress +
+Cloudflare Makes Sense</h3>
+<p><strong>Choose WordPress when:</strong> - Content changes frequently
+(CMS features needed) - Non-technical users manage content - E-commerce
+with complex inventory (WooCommerce) - Time-to-launch is critical -
+Plugin ecosystem provides needed functionality</p>
+<p><strong>Choose custom optimization when:</strong> - Performance is
+competitive advantage - Content is relatively static - Technical
+resources available - Memory/compute costs matter (edge/serverless) -
+SEO rankings critical in competitive niche</p>
+<h3 id="the-hybrid-approach">6.5 The Hybrid Approach</h3>
+<p>For many sites, the best solution combines approaches:</p>
+<pre><code>RECOMMENDED HYBRID ARCHITECTURE
+═══════════════════════════════════════════════════════════
+
+Cloudflare Edge (CDN)
+        │
+        ├── Static assets: Cached at edge (instant)
+        │   └── HTML, CSS, JS, Images, Fonts
+        │
+        └── Dynamic requests: Proxied to origin
+            └── Rust/Go API server
+                ├── Contact forms
+                ├── User authentication
+                └── Database operations
+
+═══════════════════════════════════════════════════════════
+Best of both worlds: Edge caching + performant origin</code></pre>
+<hr />
+<h2 id="when-optimization-matters">7. When Optimization Matters</h2>
+<h3 id="the-diminishing-returns-curve">7.1 The Diminishing Returns
+Curve</h3>
+<pre><code>PERFORMANCE vs BUSINESS VALUE
+═══════════════════════════════════════════════════════════
+
+Business
+Value     │                    ╭────────────────
+          │               ╭────╯
+          │          ╭────╯
+          │     ╭────╯
+          │╭────╯
+          │
+          └─────────────────────────────────────────────
+             5s    3s    2s    1s   500ms  100ms  50ms
+                        Load Time
+
+───────────────────────────────────────────────────────────
+Critical zone: 5s → 2s (massive bounce rate reduction)
+Optimization zone: 2s → 1s (conversion improvements)
+Diminishing returns: &lt;500ms (marginal gains)
+═══════════════════════════════════════════════════════════</code></pre>
+<h3 id="cost-benefit-analysis">7.2 Cost-Benefit Analysis</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Optimization</th>
+<th>Effort</th>
+<th>Impact</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>WebP images</td>
+<td>Low</td>
+<td>High</td>
+<td>Do first</td>
+</tr>
+<tr class="even">
+<td>CDN (Cloudflare)</td>
+<td>Low</td>
+<td>High</td>
+<td>Do first</td>
+</tr>
+<tr class="odd">
+<td>Minify CSS/JS</td>
+<td>Low</td>
+<td>Medium</td>
+<td>Do second</td>
+</tr>
+<tr class="even">
+<td>Lazy loading</td>
+<td>Medium</td>
+<td>High</td>
+<td>Do second</td>
+</tr>
+<tr class="odd">
+<td>Custom Rust server</td>
+<td>High</td>
+<td>Medium*</td>
+<td>Consider carefully</td>
+</tr>
+<tr class="even">
+<td>Memory-resident assets</td>
+<td>High</td>
+<td>Low**</td>
+<td>Edge cases only</td>
+</tr>
+</tbody>
+</table>
+<p>*High impact for high-traffic sites **Mainly benefits sub-100ms
+requirements</p>
+<h3 id="the-good-enough-threshold">7.3 The “Good Enough” Threshold</h3>
+<p>For most small businesses, the goal should be: - <strong>LCP &lt; 2.5
+seconds</strong> (Core Web Vitals threshold) - <strong>Full page load
+&lt; 3 seconds</strong> (user expectation) - <strong>TTFB &lt;
+600ms</strong> (server responsiveness)</p>
+<p>Our optimizations went far beyond “good enough” (52ms vs 2500ms
+threshold), demonstrating what’s technically possible rather than what’s
+practically necessary.</p>
+<hr />
+<h2 id="conclusions-and-recommendations">8. Conclusions and
+Recommendations</h2>
+<h3 id="key-findings">8.1 Key Findings</h3>
+<ol type="1">
+<li><strong>Image optimization has the highest ROI</strong>
+<ul>
+<li>WebP conversion: 78% size reduction</li>
+<li>Lazy loading: 90% initial payload reduction</li>
+<li>Minimal implementation effort</li>
+</ul></li>
+<li><strong>Rust excels for performance-critical applications</strong>
+<ul>
+<li>600-700 req/s on modest hardware</li>
+<li>Sub-millisecond response times</li>
+<li>Memory footprint of ~10MB</li>
+</ul></li>
+<li><strong>CDNs level the playing field significantly</strong>
+<ul>
+<li>Cloudflare can make WordPress competitive</li>
+<li>Static assets served from edge = near-instant</li>
+<li>Investment: ~$0-20/month vs custom development</li>
+</ul></li>
+<li><strong>WordPress performance is fixable</strong>
+<ul>
+<li>Default WordPress: 2.5-13s load times</li>
+<li>Optimized WordPress + CDN: &lt;2s achievable</li>
+<li>Requires caching, CDN, image optimization</li>
+</ul></li>
+</ol>
+<h3 id="recommendations-by-use-case">8.2 Recommendations by Use
+Case</h3>
+<p><strong>Small Business Brochure Site (like ours):</strong></p>
+<pre><code>Recommended Stack:
+├── Static HTML/CSS/JS (or simple CMS)
+├── WebP images with lazy loading
+├── Cloudflare free tier
+└── Simple API for forms (Rust, Go, or serverless)
+
+Expected performance: &lt;1s full page load
+Cost: $0-50/month</code></pre>
+<p><strong>Content-Heavy Blog/News:</strong></p>
+<pre><code>Recommended Stack:
+├── WordPress or Ghost
+├── Heavy caching (WP Super Cache, Redis)
+├── Cloudflare with aggressive caching
+├── WebP image automation
+└── Lazy loading plugin
+
+Expected performance: 1.5-2.5s
+Cost: $20-100/month</code></pre>
+<p><strong>E-Commerce:</strong></p>
+<pre><code>Recommended Stack:
+├── Shopify/WooCommerce/Custom
+├── CDN with full page caching where possible
+├── Image optimization service
+├── Critical CSS inlining
+└── Lazy load below-fold content
+
+Expected performance: 2-3s
+Cost: $50-500/month</code></pre>
+<p><strong>Performance-Critical Application:</strong></p>
+<pre><code>Recommended Stack:
+├── Rust (Actix-Web or Axum)
+├── Memory-resident static assets
+├── WebP/AVIF images
+├── Edge deployment (Cloudflare Workers, Fly.io)
+└── HTTP/3 QUIC
+
+Expected performance: &lt;100ms
+Cost: Variable (development-heavy)</code></pre>
+<h3 id="the-bottom-line">8.3 The Bottom Line</h3>
+<p><strong>Does optimization matter?</strong> Yes, but with nuance:</p>
+<ul>
+<li>Getting from <strong>5 seconds to 2 seconds</strong> has massive
+business impact</li>
+<li>Getting from <strong>2 seconds to 1 second</strong> has measurable
+ROI</li>
+<li>Getting from <strong>1 second to 50 milliseconds</strong> is
+engineering satisfaction</li>
+</ul>
+<p>For most websites, <strong>WebP images + Cloudflare CDN</strong>
+provides 80% of the benefit with 10% of the effort of full custom
+optimization.</p>
+<p>For competitive niches where every millisecond matters, or for
+applications where server costs are significant (high traffic, edge
+deployment), the Rust + memory-resident architecture provides unmatched
+performance.</p>
+<hr />
+<h2 id="appendix-a-tools-and-resources">Appendix A: Tools and
+Resources</h2>
+<h3 id="image-optimization">Image Optimization</h3>
+<ul>
+<li><strong>cwebp</strong>: Google’s WebP converter</li>
+<li><strong>ImageMagick</strong>:
+<code>convert image.jpg -quality 80 image.webp</code></li>
+<li><strong>Squoosh</strong>: Browser-based image optimization</li>
+</ul>
+<h3 id="performance-testing">Performance Testing</h3>
+<ul>
+<li><strong>Lighthouse</strong>: Chrome DevTools built-in</li>
+<li><strong>WebPageTest</strong>: Multi-location testing</li>
+<li><strong>GTmetrix</strong>: Core Web Vitals monitoring</li>
+</ul>
+<h3 id="rust-web-development">Rust Web Development</h3>
+<ul>
+<li><strong>Actix-Web</strong>: <a
+href="https://actix.rs">actix.rs</a></li>
+<li><strong>Axum</strong>: <a
+href="https://docs.rs/axum">docs.rs/axum</a></li>
+<li><strong>rust-embed</strong>: Asset embedding crate</li>
+</ul>
+<h3 id="cdn-services">CDN Services</h3>
+<ul>
+<li><strong>Cloudflare</strong>: Free tier available</li>
+<li><strong>Fastly</strong>: Edge compute capabilities</li>
+<li><strong>AWS CloudFront</strong>: AWS integration</li>
+</ul>
+<hr />
+<h2 id="appendix-b-our-test-data">Appendix B: Our Test Data</h2>
+<h3 id="image-size-reduction-actual-measurements">Image Size Reduction
+(Actual Measurements)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Image</th>
+<th>Original (JPEG)</th>
+<th>Optimized (WebP)</th>
+<th>Reduction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>store-interior</td>
+<td>3,000 KB</td>
+<td>402 KB</td>
+<td>87%</td>
+</tr>
+<tr class="even">
+<td>puerto-morelos-plaza</td>
+<td>2,900 KB</td>
+<td>1,085 KB</td>
+<td>63%</td>
+</tr>
+<tr class="odd">
+<td>repair-work</td>
+<td>2,900 KB</td>
+<td>361 KB</td>
+<td>88%</td>
+</tr>
+<tr class="even">
+<td>puerto-morelos-malecon</td>
+<td>2,300 KB</td>
+<td>632 KB</td>
+<td>73%</td>
+</tr>
+<tr class="odd">
+<td>puerto-morelos-harbor</td>
+<td>2,200 KB</td>
+<td>546 KB</td>
+<td>75%</td>
+</tr>
+<tr class="even">
+<td>puerto-morelos-beach</td>
+<td>1,700 KB</td>
+<td>205 KB</td>
+<td>88%</td>
+</tr>
+<tr class="odd">
+<td>jungle</td>
+<td>656 KB</td>
+<td>430 KB</td>
+<td>34%</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td><strong>20,056 KB</strong></td>
+<td><strong>4,361 KB</strong></td>
+<td><strong>78%</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="response-time-benchmarks">Response Time Benchmarks</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Asset</th>
+<th>Size</th>
+<th>Avg Response</th>
+<th>Throughput</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>index.html</td>
+<td>32 KB</td>
+<td>0.8ms</td>
+<td>666 req/s</td>
+</tr>
+<tr class="even">
+<td>style.min.css</td>
+<td>16 KB</td>
+<td>0.8ms</td>
+<td>625 req/s</td>
+</tr>
+<tr class="odd">
+<td>main.min.js</td>
+<td>13 KB</td>
+<td>0.7ms</td>
+<td>714 req/s</td>
+</tr>
+<tr class="even">
+<td>logo.webp</td>
+<td>5 KB</td>
+<td>0.7ms</td>
+<td>666 req/s</td>
+</tr>
+<tr class="odd">
+<td>storefront.webp</td>
+<td>128 KB</td>
+<td>6.6ms</td>
+<td>178 req/s</td>
+</tr>
+<tr class="even">
+<td>plaza.webp</td>
+<td>1,085 KB</td>
+<td>2.9ms</td>
+<td>500 req/s</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="references">References</h2>
+<ol type="1">
+<li><p>Google Developers. “Core Web Vitals.” <a
+href="https://developers.google.com/search/docs/appearance/core-web-vitals">developers.google.com/search/docs/appearance/core-web-vitals</a></p></li>
+<li><p>Google Developers. “WebP Compression Study.” <a
+href="https://developers.google.com/speed/webp/docs/webp_study">developers.google.com/speed/webp/docs/webp_study</a></p></li>
+<li><p>Cloudflare Blog. “Cloudflare just got faster and more secure,
+powered by Rust.” <a
+href="https://blog.cloudflare.com/20-percent-internet-upgrade/">blog.cloudflare.com/20-percent-internet-upgrade</a></p></li>
+<li><p>Envisage Digital. “35+ Website Load Time Statistics &amp; Facts
+(2025).” <a
+href="https://www.envisagedigital.co.uk/website-load-time-statistics/">envisagedigital.co.uk/website-load-time-statistics</a></p></li>
+<li><p>Hostinger. “Website load time statistics 2025.” <a
+href="https://www.hostinger.com/tutorials/website-load-time-statistics">hostinger.com/tutorials/website-load-time-statistics</a></p></li>
+<li><p>WP Rocket. “Website Load Time &amp; Speed Statistics.” <a
+href="https://wp-rocket.me/blog/website-load-time-speed-statistics/">wp-rocket.me/blog/website-load-time-speed-statistics</a></p></li>
+<li><p>DebugBear. “Are Core Web Vitals A Ranking Factor for SEO?” <a
+href="https://www.debugbear.com/docs/core-web-vitals-ranking-factor">debugbear.com/docs/core-web-vitals-ranking-factor</a></p></li>
+<li><p>Huckabuy. “20 Important Page Speed Bounce Rate And Conversion
+Rate Statistics.” <a
+href="https://huckabuy.com/20-important-page-speed-bounce-rate-and-conversion-rate-statistics/">huckabuy.com/20-important-page-speed-bounce-rate-and-conversion-rate-statistics</a></p></li>
+<li><p>Markaicode. “Rust Web Frameworks in 2025: Performance Benchmark.”
+<a
+href="https://markaicode.com/rust-web-frameworks-performance-benchmark-2025/">markaicode.com/rust-web-frameworks-performance-benchmark-2025</a></p></li>
+<li><p>Email Vendor Selection. “49+ Website Load Time Statistics &amp;
+How to Improve (2026).” <a
+href="https://www.emailvendorselection.com/website-load-time-statistics/">emailvendorselection.com/website-load-time-statistics</a></p></li>
+</ol>
+<hr />
+<p><em>White Paper Version 1.0 | South City Computer | January 2026</em>
+<em>Contact: info@southcitycomputer.com</em></p>
+        </div>
+
+        <a href="../#projects" class="back-link">← Back to Projects</a>
+    </div>
+
+    <footer class="footer service-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2006&ndash;2026 South City Computer. All rights reserved.</p>
+                <p>Built in Rust at South City Computer.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

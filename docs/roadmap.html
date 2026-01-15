@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Roadmap | South City Computer</title>
+    <meta name="description" content="Product Roadmap - Technical documentation from South City Computer">
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <style>
+        .doc-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            line-height: 1.7;
+        }
+        .doc-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #1a5276;
+        }
+        .doc-header h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .doc-meta {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        .doc-meta a {
+            color: #1a5276;
+        }
+        .lang-switcher {
+            margin-left: auto;
+        }
+        .lang-switcher a {
+            display: inline-block;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .lang-switcher a:hover {
+            transform: scale(1.2);
+        }
+        .doc-content h1 { font-size: 1.8rem; color: #1a5276; margin-top: 2.5rem; border-bottom: 2px solid #1a5276; padding-bottom: 0.5rem; }
+        .doc-content h2 { font-size: 1.5rem; color: #1a5276; margin-top: 2rem; }
+        .doc-content h3 { font-size: 1.25rem; color: #2980b9; margin-top: 1.5rem; }
+        .doc-content h4 { font-size: 1.1rem; color: #333; margin-top: 1.2rem; }
+        .doc-content p { margin-bottom: 1rem; color: #444; }
+        .doc-content ul, .doc-content ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+        .doc-content li { margin-bottom: 0.5rem; }
+        .doc-content pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        .doc-content code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .doc-content pre code {
+            background: none;
+            padding: 0;
+        }
+        .doc-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .doc-content th, .doc-content td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .doc-content th {
+            background: #1a5276;
+            color: white;
+        }
+        .doc-content tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .doc-content blockquote {
+            border-left: 4px solid #1a5276;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #666;
+            font-style: italic;
+        }
+        .doc-content a {
+            color: #1a5276;
+        }
+        .doc-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .doc-nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .doc-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .doc-nav li a {
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .doc-nav li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <script src="../js/main.min.js"></script>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../images/logo.webp" alt="South City Computer">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../#about">About</a></li>
+                <li><a href="../#services">Services</a></li>
+                <li><a href="../paradise.html">Paradise</a></li>
+                <li><a href="../#projects">Projects</a></li>
+                <li><a href="../#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="doc-container">
+        <div class="doc-header">
+            <h1>Product Roadmap</h1>
+            <div class="doc-meta">
+                <span>Source: <a href="https://github.com/nestorwheelock/southcitycomputer.com/blob/master/ROADMAP.md" target="_blank">ROADMAP.md</a></span>
+                <span>Last synced: 2026-01-15 10:14 UTC</span>
+                <div class="lang-switcher">
+                    <a href="roadmap-es.html" title="Ver en Español" onclick="localStorage.setItem('langManuallySet','es')">🇲🇽</a>
+                </div>
+            </div>
+        </div>
+
+        <nav class="doc-nav">
+            <strong>Documentation:</strong>
+            <ul>
+                <li><a href="readme.html">README</a></li>
+                <li><a href="developer.html">Developer Guide</a></li>
+                <li><a href="performance.html">Performance</a></li>
+                <li><a href="whitepaper-full.html">White Paper</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+            </ul>
+        </nav>
+
+        <div class="doc-content">
+<h1 id="roadmap-user-stories">Roadmap &amp; User Stories</h1>
+<h2 id="vision">Vision</h2>
+<p>Provide an open-source alternative to WordPress that demonstrates how
+simple, fast, and maintainable a small business website can be. Share
+knowledge about performance optimization and decoupled architecture.</p>
+<hr />
+<h2 id="user-stories">User Stories</h2>
+<h3 id="website-visitors">Website Visitors</h3>
+<p><strong>S-001: Fast Page Load</strong> &gt; As a visitor, I want the
+website to load instantly so that I can find information quickly without
+waiting.</p>
+<p>Acceptance Criteria: - [x] Full page load under 100ms (localhost) -
+[x] Above-fold content under 50ms - [x] All images optimized (WebP) -
+[x] Lazy loading for below-fold images</p>
+<p><strong>S-002: Contact Form</strong> &gt; As a potential customer, I
+want to submit a contact form so that I can request services or ask
+questions.</p>
+<p>Acceptance Criteria: - [x] Form validates input before submission -
+[x] Clear success/error messages - [x] Form data saved securely - [ ]
+Email confirmation sent (future)</p>
+<p><strong>S-003: Mobile Experience</strong> &gt; As a mobile user, I
+want the website to work well on my phone so that I can access it
+anywhere.</p>
+<p>Acceptance Criteria: - [x] Responsive design - [x] Touch-friendly
+navigation - [x] Fast load on mobile networks - [x] Android app
+available</p>
+<h3 id="business-owner">Business Owner</h3>
+<p><strong>S-004: View Contact Submissions</strong> &gt; As the business
+owner, I want to view contact form submissions so that I can respond to
+customer inquiries.</p>
+<p>Acceptance Criteria: - [x] Authenticated access to submissions - [x]
+View all submissions with timestamps - [ ] Export submissions (future) -
+[ ] Mark as responded (future)</p>
+<p><strong>S-005: Easy Deployment</strong> &gt; As the site
+administrator, I want simple deployment so that I can update the site
+quickly.</p>
+<p>Acceptance Criteria: - [x] Single binary deployment - [x] No external
+dependencies - [x] Docker support - [x] Systemd service
+configuration</p>
+<h3 id="developers">Developers</h3>
+<p><strong>S-006: Development Mode</strong> &gt; As a developer, I want
+a development server that shows changes instantly so that I can iterate
+quickly.</p>
+<p>Acceptance Criteria: - [x] Dev server reads files from disk - [x] No
+recompilation for HTML/CSS/JS changes - [x] Same API as production - [x]
+Clear documentation</p>
+<p><strong>S-007: Performance Testing</strong> &gt; As a developer, I
+want performance benchmarking tools so that I can measure and optimize
+the server.</p>
+<p>Acceptance Criteria: - [x] Server-side benchmark tool - [x]
+Client-side performance measurement - [x] Traceroute visualization - [x]
+Documented benchmark results</p>
+<hr />
+<h2 id="roadmap">Roadmap</h2>
+<h3 id="v0.2.0---current-release">v0.2.0 - Current Release</h3>
+<p><strong>Completed:</strong> - [x] Monolithic Rust binary with
+embedded assets - [x] WebP image optimization (78% reduction) - [x]
+CSS/JS minification - [x] Lazy loading with scroll preloading - [x]
+Contact form API with CSV storage - [x] Development server (disk-based)
+- [x] Desktop app wrapper - [x] Benchmark tools - [x] Performance
+documentation - [x] Dual licensing (GPLv3 / Commercial)</p>
+<h3 id="v0.3.0---security-hardening">v0.3.0 - Security Hardening</h3>
+<p><strong>Planned:</strong> - [ ] Encrypted CSV storage (AES-256-GCM) -
+[ ] Password hashing for admin accounts (Argon2id) - [ ] Rate limiting
+on contact form - [ ] CSRF tokens for forms - [ ] Security audit and
+documentation</p>
+<p><strong>User Story: Encrypted Data Storage</strong> &gt; As a
+business owner, I want contact form data encrypted at rest so that
+customer information is protected if the server is compromised.</p>
+<p>Implementation Notes: - Use <code>ring</code> or <code>aes-gcm</code>
+crate for encryption - Key stored in environment variable or secrets
+manager - Encrypt each row individually for append operations - Decrypt
+on read for admin view</p>
+<p><strong>User Story: Secure Authentication</strong> &gt; As an admin,
+I want my password securely hashed so that my credentials are
+protected.</p>
+<p>Implementation Notes: - Use <code>argon2</code> crate for password
+hashing - Store hashed passwords in separate config file - Implement
+account lockout after failed attempts</p>
+<h3 id="v0.4.0---enhanced-monitoring">v0.4.0 - Enhanced Monitoring</h3>
+<p><strong>Planned:</strong> - [ ] Structured logging (JSON format) - [
+] Prometheus metrics endpoint - [ ] Health check with detailed status -
+[ ] Request tracing - [ ] Performance regression CI</p>
+<h3 id="v0.5.0---email-integration">v0.5.0 - Email Integration</h3>
+<p><strong>Planned:</strong> - [ ] SMTP email sending for contact
+notifications - [ ] Email confirmation to form submitter - [ ] Email
+templates (HTML + plain text) - [ ] Configurable email settings</p>
+<p><strong>User Story: Contact Notifications</strong> &gt; As a business
+owner, I want to receive email notifications when someone submits the
+contact form so that I can respond promptly.</p>
+<p>Implementation Notes: - Use <code>lettre</code> crate for SMTP -
+Queue emails in separate file (decoupled from web request) - Background
+worker processes email queue - Configurable SMTP settings via
+environment</p>
+<h3 id="v0.6.0---admin-dashboard">v0.6.0 - Admin Dashboard</h3>
+<p><strong>Planned:</strong> - [ ] Web-based admin interface - [ ]
+Contact submission management - [ ] Basic analytics (page views) - [ ]
+Content editing (limited)</p>
+<h3 id="future-considerations">Future Considerations</h3>
+<p><strong>Performance:</strong> - HTTP/3 QUIC support - Edge deployment
+(Cloudflare Workers, Fly.io) - Service Worker for offline support -
+Image srcset for responsive images</p>
+<p><strong>Features:</strong> - Multi-language content management -
+Blog/news section - Appointment scheduling - Live chat integration</p>
+<p><strong>Infrastructure:</strong> - Kubernetes deployment configs -
+Auto-scaling configuration - CDN integration - Backup automation</p>
+<hr />
+<h2 id="technical-debt">Technical Debt</h2>
+<p>Items to address in future releases:</p>
+<ol type="1">
+<li><strong>Test Coverage</strong>
+<ul>
+<li>Add integration tests for all endpoints</li>
+<li>Add property-based tests for validation</li>
+<li>Set up CI/CD with coverage reporting</li>
+</ul></li>
+<li><strong>Error Handling</strong>
+<ul>
+<li>Implement custom error types</li>
+<li>Better error messages for users</li>
+<li>Structured error logging</li>
+</ul></li>
+<li><strong>Configuration</strong>
+<ul>
+<li>Environment-based configuration</li>
+<li>Config file support (TOML/YAML)</li>
+<li>Feature flags</li>
+</ul></li>
+<li><strong>Documentation</strong>
+<ul>
+<li>API documentation (OpenAPI/Swagger)</li>
+<li>Architecture decision records</li>
+<li>Deployment playbooks</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="contributing">Contributing</h2>
+<p>Want to work on something from the roadmap?</p>
+<ol type="1">
+<li>Check if there’s an open issue for the feature</li>
+<li>Comment on the issue to claim it</li>
+<li>Follow TDD approach (tests first)</li>
+<li>Submit PR referencing the issue</li>
+</ol>
+<p>For new features not on the roadmap: 1. Open an issue to discuss 2.
+Get approval before starting work 3. Follow existing patterns and
+style</p>
+<hr />
+<h2 id="version-history">Version History</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Highlights</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>v0.1.0</td>
+<td>2026-01-13</td>
+<td>Initial release, nginx + Rust API</td>
+</tr>
+<tr class="even">
+<td>v0.2.0</td>
+<td>2026-01-15</td>
+<td>Monolithic binary, WebP, benchmarks</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Last Updated: January 2026</em></p>
+        </div>
+
+        <a href="../#projects" class="back-link">← Back to Projects</a>
+    </div>
+
+    <footer class="footer service-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2006&ndash;2026 South City Computer. All rights reserved.</p>
+                <p>Built in Rust at South City Computer.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

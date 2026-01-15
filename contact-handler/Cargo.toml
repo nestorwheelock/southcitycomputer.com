@@ -6,7 +6,7 @@ description = "South City Computer - Single binary web server with embedded asse
 
 [features]
 default = []
-desktop = ["wry", "tao"]
+desktop = ["wry", "tao", "sys-locale"]
 
 [dependencies]
 actix-web = { version = "4", features = ["compress-gzip", "compress-brotli"] }
@@ -25,6 +25,7 @@ mime_guess = "2"
 # Desktop app dependencies (optional)
 wry = { version = "0.35", optional = true }
 tao = { version = "0.24", optional = true }
+sys-locale = { version = "0.3", optional = true }
 
 [profile.release]
 opt-level = 3

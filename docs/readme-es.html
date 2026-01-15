@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>South City Computer - Documentación del Proyecto | South City Computer</title>
+    <meta name="description" content="South City Computer - Documentación del Proyecto - Technical documentation from South City Computer">
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <style>
+        .doc-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            line-height: 1.7;
+        }
+        .doc-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #1a5276;
+        }
+        .doc-header h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .doc-meta {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        .doc-meta a {
+            color: #1a5276;
+        }
+        .lang-switcher {
+            margin-left: auto;
+        }
+        .lang-switcher a {
+            display: inline-block;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .lang-switcher a:hover {
+            transform: scale(1.2);
+        }
+        .doc-content h1 { font-size: 1.8rem; color: #1a5276; margin-top: 2.5rem; border-bottom: 2px solid #1a5276; padding-bottom: 0.5rem; }
+        .doc-content h2 { font-size: 1.5rem; color: #1a5276; margin-top: 2rem; }
+        .doc-content h3 { font-size: 1.25rem; color: #2980b9; margin-top: 1.5rem; }
+        .doc-content h4 { font-size: 1.1rem; color: #333; margin-top: 1.2rem; }
+        .doc-content p { margin-bottom: 1rem; color: #444; }
+        .doc-content ul, .doc-content ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+        .doc-content li { margin-bottom: 0.5rem; }
+        .doc-content pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        .doc-content code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .doc-content pre code {
+            background: none;
+            padding: 0;
+        }
+        .doc-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .doc-content th, .doc-content td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .doc-content th {
+            background: #1a5276;
+            color: white;
+        }
+        .doc-content tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .doc-content blockquote {
+            border-left: 4px solid #1a5276;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #666;
+            font-style: italic;
+        }
+        .doc-content a {
+            color: #1a5276;
+        }
+        .doc-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .doc-nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .doc-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .doc-nav li a {
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .doc-nav li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <script src="../js/main.min.js"></script>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../index-es.html" class="nav-logo">
+                <img src="../images/logo.webp" alt="South City Computer">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../index-es.html#about">Nosotros</a></li>
+                <li><a href="../index-es.html#services">Servicios</a></li>
+                <li><a href="../paradise-es.html">Paradise</a></li>
+                <li><a href="../index-es.html#projects">Proyectos</a></li>
+                <li><a href="../index-es.html#contact">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="doc-container">
+        <div class="doc-header">
+            <h1>South City Computer - Documentación del Proyecto</h1>
+            <div class="doc-meta">
+                <span>Fuente: <a href="https://github.com/nestorwheelock/southcitycomputer.com/blob/master/README-es.md" target="_blank">README-es.md</a></span>
+                <span>Última sincronización: 2026-01-15 10:14 UTC</span>
+                <div class="lang-switcher">
+                    <a href="readme.html" title="View in English" onclick="localStorage.setItem('langManuallySet','en')">🇺🇸</a>
+                </div>
+            </div>
+        </div>
+
+        <nav class="doc-nav">
+            <strong>Documentación:</strong>
+            <ul>
+                <li><a href="readme-es.html">README</a></li>
+                <li><a href="developer-es.html">Guía Desarrollador</a></li>
+                <li><a href="performance-es.html">Rendimiento</a></li>
+                <li><a href="whitepaper-full-es.html">White Paper</a></li>
+                <li><a href="roadmap-es.html">Hoja de Ruta</a></li>
+            </ul>
+        </nav>
+
+        <div class="doc-content">
+<h1 id="sitio-web-de-south-city-computer">Sitio Web de South City
+Computer</h1>
+<p>Un servidor web de alto rendimiento, de un solo binario, construido
+con Rust. Logra cargas de página 46 veces más rápidas que las
+configuraciones tradicionales de WordPress a través de activos embebidos
+y arquitectura residente en memoria.</p>
+<h2 id="filosofía">Filosofía</h2>
+<p>Este proyecto demuestra que existen mejores alternativas a WordPress
+para muchos sitios web. Nuestro enfoque:</p>
+<ul>
+<li><strong>Binario monolítico</strong>: Todo HTML, CSS, JS e imágenes
+embebidos en un solo ejecutable</li>
+<li><strong>Almacenamiento de datos desacoplado</strong>: Los envíos del
+formulario de contacto se guardan en archivos CSV que pueden ser
+procesados por procesos externos (importación a base de datos,
+notificación por correo, creación de tickets) - manteniendo la lógica de
+negocio separada de la superficie de ataque web</li>
+<li><strong>Rendimiento primero</strong>: Tiempos de respuesta
+sub-milisegundo, 26,000-58,000 req/s de throughput</li>
+<li><strong>Despliegue simple</strong>: Copia un archivo, ejecútalo</li>
+</ul>
+<h2 id="inicio-rápido">Inicio Rápido</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compilar el servidor de producción</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> contact-handler</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> build <span class="at">--release</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutarlo</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/release/scc-server</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Servidor ejecutándose en http://127.0.0.1:9000</span></span></code></pre></div>
+<h2 id="binarios">Binarios</h2>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 44%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Binario</th>
+<th>Propósito</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>scc-server</code></td>
+<td>Servidor web de producción</td>
+<td>Activos embebidos, optimizado para velocidad</td>
+</tr>
+<tr class="even">
+<td><code>scc-dev</code></td>
+<td>Servidor de desarrollo</td>
+<td>Lee archivos del disco, actualización instantánea</td>
+</tr>
+<tr class="odd">
+<td><code>scc-desktop</code></td>
+<td>Wrapper de app de escritorio</td>
+<td>Ventana nativa con servidor embebido</td>
+</tr>
+<tr class="even">
+<td><code>scc-benchmark</code></td>
+<td>Benchmarks del servidor</td>
+<td>Medir throughput y latencia</td>
+</tr>
+<tr class="odd">
+<td><code>scc-perf-client</code></td>
+<td>Diagnósticos del cliente</td>
+<td>Timing de red, visualización de traceroute</td>
+</tr>
+</tbody>
+</table>
+<h3 id="servidor-de-producción-scc-server">Servidor de Producción
+(scc-server)</h3>
+<p>El binario principal de producción con todos los activos embebidos en
+memoria.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> build <span class="at">--release</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/release/scc-server</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Opciones:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># PORT=8080 ./target/release/scc-server  # Puerto personalizado</span></span></code></pre></div>
+<p>Características: - Todos los activos estáticos servidos desde memoria
+(cero I/O de disco) - Compresión Gzip/Brotli para activos de texto - API
+de formulario de contacto con almacenamiento CSV - Endpoint de health
+check en <code>/health</code></p>
+<h3 id="servidor-de-desarrollo-scc-dev">Servidor de Desarrollo
+(scc-dev)</h3>
+<p>Lee archivos del disco para iteración rápida. No requiere
+recompilación al cambiar HTML/CSS/JS.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> build</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/debug/scc-dev</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Opciones:</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># STATIC_DIR=/ruta/a/activos ./target/debug/scc-dev</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># PORT=3000 ./target/debug/scc-dev</span></span></code></pre></div>
+<p>Características: - Hot reload: Edita archivos, actualiza el
+navegador, ve los cambios - Headers no-cache para actualizaciones
+inmediatas - Mismos endpoints API que producción - Tiempos de
+compilación más rápidos (sin embedding de activos)</p>
+<h3 id="app-de-escritorio-scc-desktop">App de Escritorio
+(scc-desktop)</h3>
+<p>Aplicación de escritorio nativa usando el WebView de Wry/Tao.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> build <span class="at">--release</span> <span class="at">--features</span> desktop</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/release/scc-desktop</span></span></code></pre></div>
+<p>Requiere la flag de feature <code>desktop</code> y las bibliotecas de
+sistema apropiadas.</p>
+<h3 id="herramienta-de-benchmark-scc-benchmark">Herramienta de Benchmark
+(scc-benchmark)</h3>
+<p>Mide el rendimiento del servidor con pruebas de carga
+concurrente.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> build <span class="at">--release</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/release/scc-benchmark</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Comandos:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">scc-benchmark</span>                      <span class="co"># Suite completa de benchmark</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">scc-benchmark</span> quick                <span class="co"># Prueba rápida de conectividad</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">scc-benchmark</span> endpoint /api/health <span class="co"># Probar endpoint específico</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Opciones:</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">scc-benchmark</span> <span class="at">-h</span> 192.168.1.100:9000  <span class="co"># Probar servidor remoto</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ex">scc-benchmark</span> <span class="at">-n</span> 1000 <span class="at">-c</span> 50          <span class="co"># 1000 requests, 50 concurrentes</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ex">scc-benchmark</span> <span class="at">-v</span>                     <span class="co"># Salida detallada</span></span></code></pre></div>
+<h3 id="cliente-de-rendimiento-scc-perf-client">Cliente de Rendimiento
+(scc-perf-client)</h3>
+<p>Diagnósticos de rendimiento del lado del cliente con visualización de
+red.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> build <span class="at">--release</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/release/scc-perf-client</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Comandos:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">scc-perf-client</span> test https://ejemplo.com      <span class="co"># Prueba completa de rendimiento</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">scc-perf-client</span> measure https://ejemplo.com   <span class="co"># Desglose de tiempos</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">scc-perf-client</span> trace ejemplo.com             <span class="co"># Visualización de traceroute</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Opciones:</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ex">scc-perf-client</span> test <span class="at">-n</span> 10 https://ejemplo.com  <span class="co"># 10 requests</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="ex">scc-perf-client</span> trace <span class="at">-m</span> 20 ejemplo.com         <span class="co"># Máximo 20 saltos</span></span></code></pre></div>
+<h2 id="estructura-del-proyecto">Estructura del Proyecto</h2>
+<pre><code>southcitycomputer.com/
+├── index.html              # Sitio web principal
+├── css/
+│   ├── style.css          # CSS fuente
+│   └── style.min.css      # Minificado (embebido en binario)
+├── js/
+│   ├── main.js            # JavaScript fuente
+│   └── main.min.js        # Minificado (embebido en binario)
+├── images/                 # Imágenes WebP optimizadas
+├── services/              # Páginas de servicios
+├── app/                   # Página de descarga de app móvil
+├── contact-handler/       # Servidor Rust
+│   ├── src/
+│   │   ├── main.rs        # Servidor de producción
+│   │   ├── dev_server.rs  # Servidor de desarrollo
+│   │   ├── desktop.rs     # App de escritorio
+│   │   ├── benchmark.rs   # Benchmarks del servidor
+│   │   └── perf_client.rs # Cliente de rendimiento
+│   └── Cargo.toml
+├── android-app/           # App Android WebView
+├── PERFORMANCE_TESTING.md # Resultados de benchmarks
+├── WHITEPAPER.md          # Profundización técnica
+└── DEVELOPER.md           # Guía del desarrollador</code></pre>
+<h2 id="flujo-de-trabajo-de-desarrollo">Flujo de Trabajo de
+Desarrollo</h2>
+<h3 id="usar-servidor-de-desarrollo-para-cambios-de-ui">1. Usar Servidor
+de Desarrollo para Cambios de UI</h3>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Terminal 1: Ejecutar servidor dev</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> contact-handler</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> run <span class="at">--bin</span> scc-dev</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Terminal 2: Editar archivos</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Los cambios en HTML/CSS/JS aparecen inmediatamente al actualizar el navegador</span></span></code></pre></div>
+<h3 id="compilar-binario-de-producción">2. Compilar Binario de
+Producción</h3>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> contact-handler</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> build <span class="at">--release</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Probar que funciona</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/release/scc-server</span> <span class="kw">&amp;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:9000/health</span></code></pre></div>
+<h3 id="ejecutar-benchmarks">3. Ejecutar Benchmarks</h3>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificación rápida</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/release/scc-benchmark</span> quick</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Suite completa</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/release/scc-benchmark</span></span></code></pre></div>
+<h2 id="desarrollo-guiado-por-pruebas">Desarrollo Guiado por
+Pruebas</h2>
+<p>Este proyecto sigue prácticas de TDD:</p>
+<ol type="1">
+<li><strong>Escribir pruebas que fallen primero</strong> - Definir
+comportamiento esperado</li>
+<li><strong>Escribir código mínimo</strong> - Hacer que las pruebas
+pasen</li>
+<li><strong>Refactorizar</strong> - Limpiar mientras las pruebas se
+mantienen verdes</li>
+</ol>
+<h3 id="ejecutar-pruebas">Ejecutar Pruebas</h3>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> contact-handler</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> test</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Con salida</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> test <span class="at">--</span> <span class="at">--nocapture</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba específica</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> test test_health_endpoint</span></code></pre></div>
+<h3 id="categorías-de-pruebas">Categorías de Pruebas</h3>
+<ul>
+<li><strong>Pruebas unitarias</strong>: Comportamiento de funciones
+individuales</li>
+<li><strong>Pruebas de integración</strong>: Comportamiento de endpoints
+API</li>
+<li><strong>Pruebas de benchmark</strong>: Detección de regresión de
+rendimiento</li>
+</ul>
+<h2 id="endpoints-api">Endpoints API</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Endpoint</th>
+<th>Método</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>/</code></td>
+<td>GET</td>
+<td>Sitio web principal</td>
+</tr>
+<tr class="even">
+<td><code>/health</code></td>
+<td>GET</td>
+<td>Health check (JSON)</td>
+</tr>
+<tr class="odd">
+<td><code>/api/contact</code></td>
+<td>POST</td>
+<td>Enviar formulario de contacto</td>
+</tr>
+<tr class="even">
+<td><code>/view/contacts</code></td>
+<td>GET</td>
+<td>Ver envíos (requiere auth)</td>
+</tr>
+<tr class="odd">
+<td><code>/*</code></td>
+<td>GET</td>
+<td>Activos estáticos</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api-de-formulario-de-contacto">API de Formulario de
+Contacto</h3>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST http://localhost:9000/api/contact <span class="dt">\</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;name&quot;:&quot;Prueba&quot;,&quot;email&quot;:&quot;test@ejemplo.com&quot;,&quot;message&quot;:&quot;Hola&quot;}&#39;</span></span></code></pre></div>
+<p>Respuesta:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">&quot;success&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span> <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="st">&quot;Contacto guardado exitosamente&quot;</span><span class="fu">,</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;uuid&quot;</span><span class="fu">}</span></span></code></pre></div>
+<h2 id="almacenamiento-de-datos">Almacenamiento de Datos</h2>
+<p>Los envíos de contacto se almacenan en <code>contacts.csv</code>:</p>
+<pre class="csv"><code>id,timestamp,name,email,phone,message,service
+uuid,2026-01-15T10:30:00,Juan Pérez,juan@ejemplo.com,555-1234,Hola,reparación</code></pre>
+<h3 id="procesamiento-desacoplado">Procesamiento Desacoplado</h3>
+<p>El archivo CSV actúa como una cola. Los procesos externos pueden:</p>
+<ol type="1">
+<li>Leer nuevas entradas</li>
+<li>Importar a base de datos</li>
+<li>Enviar notificaciones por correo</li>
+<li>Crear tickets de soporte</li>
+<li>Limpiar entradas procesadas</li>
+</ol>
+<p>Esto mantiene las operaciones sensibles (correo, base de datos)
+separadas del servidor web, reduciendo la superficie de ataque.</p>
+<h2 id="seguridad">Seguridad</h2>
+<h3 id="actual">Actual</h3>
+<ul>
+<li>Validación de entrada en todos los campos del formulario</li>
+<li>Almacenamiento CSV (no hay inyección SQL posible)</li>
+<li>Dependencias mínimas</li>
+<li>Sin sesiones de usuario (API sin estado)</li>
+</ul>
+<h3 id="planificado">Planificado</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Almacenamiento CSV encriptado
+(AES-256)</label></li>
+<li><label><input type="checkbox" />Hashing de contraseñas para cuentas
+admin (Argon2)</label></li>
+<li><label><input type="checkbox" />Rate limiting en formulario de
+contacto</label></li>
+<li><label><input type="checkbox" />Tokens CSRF para
+formularios</label></li>
+</ul>
+<h2 id="rendimiento">Rendimiento</h2>
+<p>Documentado en <a
+href="PERFORMANCE_TESTING.md">PERFORMANCE_TESTING.md</a> y <a
+href="WHITEPAPER.md">WHITEPAPER.md</a>.</p>
+<h3 id="métricas-clave-enero-2026">Métricas Clave (Enero 2026)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Métrica</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Throughput health check</td>
+<td>58,085 req/s</td>
+</tr>
+<tr class="even">
+<td>Throughput página principal</td>
+<td>26,795 req/s</td>
+</tr>
+<tr class="odd">
+<td>Carga completa de página (5 activos)</td>
+<td>1.60ms</td>
+</tr>
+<tr class="even">
+<td>Latencia promedio</td>
+<td>36-382μs</td>
+</tr>
+<tr class="odd">
+<td>Tamaño del binario</td>
+<td>18MB</td>
+</tr>
+<tr class="even">
+<td>Uso de memoria</td>
+<td>~1.1MB RSS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resultados-de-benchmark">Resultados de Benchmark</h3>
+<pre><code>Endpoint          Throughput    Latencia Prom    Transferencia
+─────────────────────────────────────────────────────────────
+Health Check      58,085 req/s      61μs       12.5 KB
+Página Principal  26,795 req/s     122μs       1.99 MB
+Hoja de Estilos   41,100 req/s      71μs       1.66 MB
+JavaScript        45,406 req/s      66μs       1.24 MB
+Logo (5KB)        39,287 req/s      65μs       270 KB
+Storefront (128KB) 3,676 req/s     206μs       6.43 MB
+─────────────────────────────────────────────────────────────
+Calificación: ★★★★★ EXCELENTE (&lt;100ms página completa)</code></pre>
+<h3 id="resumen-de-optimización">Resumen de Optimización</h3>
+<ul>
+<li>Imágenes WebP: 78% más pequeñas que JPEG</li>
+<li>CSS/JS minificado: 24% más pequeño</li>
+<li>Activos residentes en memoria: Cero I/O de disco</li>
+<li>Lazy loading: 90% reducción de payload inicial</li>
+<li>Todos los activos embebidos en un solo binario</li>
+</ul>
+<h2 id="despliegue">Despliegue</h2>
+<h3 id="binario-único">Binario Único</h3>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compilar</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> build <span class="at">--release</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Desplegar</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> target/release/scc-server usuario@servidor:/opt/scc/</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> usuario@servidor <span class="st">&quot;/opt/scc/scc-server&quot;</span></span></code></pre></div>
+<h3 id="docker">Docker</h3>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> scc-server .</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-p</span> 9000:9000 scc-server</span></code></pre></div>
+<h3 id="servicio-systemd">Servicio Systemd</h3>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode ini"><code class="sourceCode ini"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[Unit]</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="dt">Description</span><span class="ot">=</span><span class="st">Servidor Web South City Computer</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="dt">After</span><span class="ot">=</span><span class="st">network.target</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="kw">[Service]</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="dt">Type</span><span class="ot">=</span><span class="st">simple</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="dt">ExecStart</span><span class="ot">=</span><span class="st">/opt/scc/scc-server</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="dt">Restart</span><span class="ot">=</span><span class="st">always</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="dt">User</span><span class="ot">=</span><span class="st">www-data</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="kw">[Install]</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="dt">WantedBy</span><span class="ot">=</span><span class="st">multi-user.target</span></span></code></pre></div>
+<h2 id="minificación">Minificación</h2>
+<p>CSS y JS se minifican usando clean-css y terser:</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar herramientas</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Minificar</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> cleancss <span class="at">-o</span> css/style.min.css css/style.css</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> terser js/main.js <span class="at">-o</span> js/main.min.js <span class="at">--compress</span> <span class="at">--mangle</span></span></code></pre></div>
+<p>Después de minificar, reconstruye el binario de producción para
+embeber los archivos actualizados.</p>
+<h2 id="licencia">Licencia</h2>
+<p>Doble licencia:</p>
+<ul>
+<li><strong>GPLv3</strong> para uso no comercial y código abierto - ver
+<a href="LICENSE-GPL">LICENSE-GPL</a></li>
+<li><strong>Licencia Comercial</strong> para uso empresarial - ver <a
+href="LICENSE-COMMERCIAL">LICENSE-COMMERCIAL</a></li>
+</ul>
+<p>Ver <a href="LICENSE">LICENSE</a> para detalles sobre qué licencia
+aplica a tu caso de uso.</p>
+<h2 id="contribuir">Contribuir</h2>
+<ol type="1">
+<li>Haz fork del repositorio</li>
+<li>Crea una rama de feature</li>
+<li>Escribe pruebas primero (TDD)</li>
+<li>Haz tus cambios</li>
+<li>Asegúrate de que todas las pruebas pasen</li>
+<li>Envía un pull request</li>
+</ol>
+<h2 id="documentación">Documentación</h2>
+<ul>
+<li><a href="DEVELOPER.md">DEVELOPER.md</a> - Guía del desarrollador y
+arquitectura</li>
+<li><a href="PERFORMANCE_TESTING.md">PERFORMANCE_TESTING.md</a> -
+Metodología y resultados de benchmarks</li>
+<li><a href="WHITEPAPER.md">WHITEPAPER.md</a> - Profundización técnica
+en optimización de rendimiento</li>
+<li><a href="ROADMAP.md">ROADMAP.md</a> - Planes futuros e historias de
+usuario</li>
+</ul>
+<h2 id="contacto">Contacto</h2>
+<p>South City Computer - Sitio web: https://southcitycomputer.com -
+Correo: info@southcitycomputer.com</p>
+        </div>
+
+        <a href="../index-es.html#projects" class="back-link">← Volver a Proyectos</a>
+    </div>
+
+    <footer class="footer service-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2006&ndash;2026 South City Computer. All rights reserved.</p>
+                <p>Built in Rust at South City Computer.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
