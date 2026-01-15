@@ -575,3 +575,130 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+// ===========================================
+// PSYCHEDELIC MODE - Tie Dye Trip
+// ===========================================
+
+var psychedelicActive = false;
+var originalTextContent = new Map();
+
+function togglePsychedelic() {
+    psychedelicActive = !psychedelicActive;
+    var body = document.body;
+    var btn = document.querySelector('.psychedelic-toggle');
+
+    if (psychedelicActive) {
+        body.classList.add('psychedelic-mode');
+        btn.classList.add('active');
+        applyRandomAnimations();
+        wrapLettersInSpans();
+    } else {
+        body.classList.remove('psychedelic-mode');
+        btn.classList.remove('active');
+        removeRandomAnimations();
+        unwrapLetters();
+    }
+}
+
+function applyRandomAnimations() {
+    // Apply random animation delays and durations to all elements
+    var elements = document.querySelectorAll('section, .container, .card, .service-card, .project-card, .gallery-item, .review-item, .btn, img, h1, h2, h3, h4, p, a, li, span');
+
+    elements.forEach(function(el) {
+        // Random delay between 0 and 2 seconds
+        var delay = Math.random() * 2;
+        // Random duration between 1 and 4 seconds
+        var duration = 1 + Math.random() * 3;
+        // Random direction
+        var direction = Math.random() > 0.5 ? 'normal' : 'reverse';
+
+        el.style.setProperty('--breathe-delay', Math.floor(Math.random() * 20));
+        el.style.animationDelay = delay + 's';
+        el.style.animationDuration = duration + 's';
+        el.style.animationDirection = direction;
+    });
+
+    // Add subtle continuous random movement
+    startRandomMovement();
+}
+
+function removeRandomAnimations() {
+    var elements = document.querySelectorAll('section, .container, .card, .service-card, .project-card, .gallery-item, .review-item, .btn, img, h1, h2, h3, h4, p, a, li, span');
+
+    elements.forEach(function(el) {
+        el.style.removeProperty('--breathe-delay');
+        el.style.animationDelay = '';
+        el.style.animationDuration = '';
+        el.style.animationDirection = '';
+        el.style.transform = '';
+    });
+
+    stopRandomMovement();
+}
+
+var randomMovementInterval;
+
+function startRandomMovement() {
+    randomMovementInterval = setInterval(function() {
+        if (!psychedelicActive) return;
+
+        var elements = document.querySelectorAll('.psychedelic-mode h1, .psychedelic-mode h2, .psychedelic-mode h3, .psychedelic-mode p, .psychedelic-mode .btn');
+        elements.forEach(function(el) {
+            if (Math.random() > 0.7) {
+                var x = (Math.random() - 0.5) * 4;
+                var y = (Math.random() - 0.5) * 4;
+                var rotate = (Math.random() - 0.5) * 2;
+                var scale = 0.98 + Math.random() * 0.04;
+                el.style.transform = 'translate(' + x + 'px, ' + y + 'px) rotate(' + rotate + 'deg) scale(' + scale + ')';
+            }
+        });
+    }, 100);
+}
+
+function stopRandomMovement() {
+    if (randomMovementInterval) {
+        clearInterval(randomMovementInterval);
+        randomMovementInterval = null;
+    }
+}
+
+function wrapLettersInSpans() {
+    // Select text elements to wrap
+    var textElements = document.querySelectorAll('.psychedelic-mode h1, .psychedelic-mode h2, .psychedelic-mode h3, .psychedelic-mode .hero-tagline, .psychedelic-mode .hero-subtitle');
+
+    textElements.forEach(function(el) {
+        // Skip if already wrapped
+        if (el.querySelector('.psyche-letter')) return;
+
+        // Store original HTML
+        originalTextContent.set(el, el.innerHTML);
+
+        var text = el.textContent;
+        var html = '';
+
+        for (var i = 0; i < text.length; i++) {
+            var char = text[i];
+            if (char === ' ') {
+                html += ' ';
+            } else {
+                var delay = (Math.random() * 1.5).toFixed(2);
+                var duration = (1 + Math.random() * 1).toFixed(2);
+                html += '<span class="psyche-letter" style="--letter-delay: ' + delay + 's; animation-duration: ' + duration + 's;">' + char + '</span>';
+            }
+        }
+
+        el.innerHTML = html;
+    });
+}
+
+function unwrapLetters() {
+    // Restore original text content
+    originalTextContent.forEach(function(originalHtml, el) {
+        el.innerHTML = originalHtml;
+    });
+    originalTextContent.clear();
+}
+
+// Make toggle globally accessible
+window.togglePsychedelic = togglePsychedelic;
