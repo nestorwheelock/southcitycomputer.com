@@ -1,6 +1,6 @@
 # The Sub-Second Website: A Case Study in Performance Engineering
 
-## How We Achieved 46x Faster Page Loads Using Rust, WebP, and Memory-Resident Architecture
+## How We Achieved 1,500x Faster Page Loads Using Rust, WebP, and Memory-Resident Architecture
 
 **South City Computer | January 2026**
 
@@ -10,12 +10,15 @@
 
 This white paper documents our experimental journey to build the fastest possible website for a small business. Through systematic optimization of a real production website, we achieved:
 
-- **46x faster page loads** (from 2.4 seconds to 52 milliseconds)
+- **1,500x faster page loads** (from 2.4 seconds to 1.6 milliseconds)
 - **78% reduction** in image payload (20MB to 4.3MB)
-- **Sub-millisecond response times** for core assets
-- **600-700 requests/second** throughput on modest hardware
+- **Sub-millisecond response times** (36-382 microseconds) for core assets
+- **26,000-58,000 requests/second** throughput on modest hardware
+- **Memory efficiency** of ~1.1MB RSS (vs 50-200MB for WordPress)
 
 We compare our approach against industry-standard solutions like WordPress with Cloudflare, examine the business case for performance optimization, and provide evidence-based recommendations for when custom optimization makes sense versus using established platforms.
+
+**Important Note:** This architecture is specifically designed for **static brochure sites**. We'll discuss why compartmentalizing different types of applications (brochure vs. dynamic) improves both performance and security.
 
 ---
 
@@ -25,9 +28,10 @@ We compare our approach against industry-standard solutions like WordPress with 
 2. [Our Experimental Approach](#2-our-experimental-approach)
 3. [Technical Implementation](#3-technical-implementation)
 4. [Benchmark Results](#4-benchmark-results)
-5. [Comparison: Custom vs WordPress + CDN](#5-comparison-custom-vs-wordpress--cdn)
-6. [When Optimization Matters](#6-when-optimization-matters)
-7. [Conclusions and Recommendations](#7-conclusions-and-recommendations)
+5. [Architecture Philosophy: Compartmentalization](#5-architecture-philosophy-compartmentalization)
+6. [Comparison: Custom vs WordPress + CDN](#6-comparison-custom-vs-wordpress--cdn)
+7. [When Optimization Matters](#7-when-optimization-matters)
+8. [Conclusions and Recommendations](#8-conclusions-and-recommendations)
 
 ---
 
@@ -333,13 +337,218 @@ Reduction: 54%
 ═══════════════════════════════════════════════════════════
 ```
 
-Memory usage: **~10MB RSS** (compared to typical WordPress: 50-200MB)
+Memory usage: **~1.1MB RSS** (compared to typical WordPress: 50-200MB)
 
 ---
 
-## 5. Comparison: Custom vs WordPress + CDN
+## 5. Architecture Philosophy: Compartmentalization
 
-### 5.1 WordPress Performance Reality
+### 5.1 The Core Insight: Different Problems, Different Solutions
+
+The traditional approach to web development often bundles everything into a single application: the public website, the admin panel, the user authentication, the database, the API, and the content management—all in one codebase. This creates:
+
+- A **large attack surface** (one vulnerability affects everything)
+- **Resource contention** (CMS overhead affects public pages)
+- **Deployment complexity** (can't update one part without risking another)
+- **Over-engineering** (static pages don't need a database connection)
+
+Our architecture takes a fundamentally different approach: **compartmentalize by purpose**.
+
+### 5.2 Brochure vs. Application Architecture
+
+```
+MONOLITHIC CMS (Traditional)
+═══════════════════════════════════════════════════════════
+┌─────────────────────────────────────────────────────────┐
+│                    SINGLE APPLICATION                    │
+│  ┌─────────┬─────────┬─────────┬─────────┬─────────┐  │
+│  │ Public  │  Admin  │  Auth   │   API   │   DB    │  │
+│  │ Pages   │  Panel  │ System  │ Handlers│ Queries │  │
+│  └─────────┴─────────┴─────────┴─────────┴─────────┘  │
+│                                                         │
+│  Attack surface: EVERYTHING                             │
+│  One SQL injection = game over                         │
+└─────────────────────────────────────────────────────────┘
+
+COMPARTMENTALIZED ARCHITECTURE (Ours)
+═══════════════════════════════════════════════════════════
+┌───────────────────────┐     ┌───────────────────────────┐
+│   BROCHURE SITE       │     │   SUPPORT SYSTEM          │
+│   (Static Binary)     │     │   (Database-Driven)       │
+├───────────────────────┤     ├───────────────────────────┤
+│ • HTML/CSS/JS/Images  │     │ • User authentication     │
+│ • Contact form → CSV  │     │ • Ticket database         │
+│ • No database         │     │ • Admin panel             │
+│ • No user accounts    │     │ • Client portal           │
+├───────────────────────┤     ├───────────────────────────┤
+│ Attack surface:       │     │ Attack surface:           │
+│ • Form validation     │     │ • SQL injection           │
+│ • (that's it)         │     │ • Auth bypass             │
+│                       │     │ • Session hijacking       │
+│ Response time: 1.6ms  │     │ • But: isolated network   │
+│ Memory: 1.1MB         │     │ • Protected by firewall   │
+└───────────────────────┘     └───────────────────────────┘
+```
+
+### 5.3 Honest Assessment: What This Architecture Cannot Do
+
+Our monolithic binary approach is **not suitable for**:
+
+| Requirement | Why It Doesn't Work |
+|-------------|---------------------|
+| User accounts | No session storage, no database |
+| Dynamic content | Content changes require recompilation |
+| Real-time updates | No WebSocket or database polling |
+| E-commerce | No inventory management, no transactions |
+| Client portals | No authentication system |
+| Search | No full-text search, no indexing |
+| Comments/reviews | No user-generated content storage |
+
+**The architecture is specifically designed for:**
+- Company brochures
+- Portfolio sites
+- Landing pages
+- Documentation (if pre-compiled)
+- Marketing sites
+- Any site where content changes infrequently
+
+### 5.4 The Security Benefit: Minimal Attack Surface
+
+```
+ATTACK SURFACE COMPARISON
+═══════════════════════════════════════════════════════════
+Traditional CMS (WordPress):
+├── SQL injection (database queries)
+├── Authentication bypass (login system)
+├── Session hijacking (user sessions)
+├── File upload vulnerabilities (media library)
+├── Plugin vulnerabilities (average: 20+ plugins)
+├── XML-RPC attacks (pingbacks, DDOS amplification)
+├── Admin brute force (wp-admin)
+├── Directory traversal (file system access)
+└── Serialization attacks (PHP objects)
+
+Our Binary Architecture:
+├── Contact form validation (only external input)
+└── (that's it)
+
+───────────────────────────────────────────────────────────
+No database = No SQL injection
+No file uploads = No malicious file attacks
+No user sessions = No session hijacking
+No admin panel = No brute force attacks
+═══════════════════════════════════════════════════════════
+```
+
+### 5.5 The Decoupled Data Approach
+
+Our contact form doesn't write directly to a database. Instead:
+
+```
+Contact Form Flow
+═══════════════════════════════════════════════════════════
+User submits form
+       │
+       ▼
+┌──────────────────┐
+│  Rust validates  │  ← Input sanitization
+│  form data       │  ← Rate limiting
+└──────────────────┘
+       │
+       ▼
+┌──────────────────┐
+│  Write to CSV    │  ← Append-only file
+│  contacts.csv    │  ← No SQL, no database
+└──────────────────┘
+       │
+       │  (Separate process, separate network)
+       ▼
+┌──────────────────┐
+│  External system │  ← Database import
+│  reads CSV       │  ← Email notifications
+│                  │  ← Ticket creation
+└──────────────────┘
+       │
+       ▼
+┌──────────────────┐
+│  Support ticket  │  ← Separate application
+│  system          │  ← Protected network
+│  (with database) │  ← Full authentication
+└──────────────────┘
+═══════════════════════════════════════════════════════════
+```
+
+**Benefits:**
+- Web server never has database credentials
+- Compromise of website doesn't expose customer data
+- Business logic separated from public attack surface
+- Each component can be updated/secured independently
+
+### 5.6 Real-World Application: Our Upcoming Helpdesk System
+
+This philosophy extends to our next project: a support ticket system.
+
+```
+SOUTH CITY COMPUTER - Application Architecture
+═══════════════════════════════════════════════════════════
+
+PUBLIC INTERNET
+       │
+       ▼
+┌────────────────────────────────────────────────────────┐
+│                    CLOUDFLARE                          │
+│  DDoS protection, SSL termination, caching            │
+└────────────────────────────────────────────────────────┘
+       │
+       ├─── southcitycomputer.com ──────────────────────┐
+       │    (Static brochure)                           │
+       │                                                │
+       │    ┌──────────────────────────────────────┐   │
+       │    │  Rust Binary (18MB, in-memory)       │   │
+       │    │  • No database                       │   │
+       │    │  • No user sessions                  │   │
+       │    │  • 58,000 req/s throughput           │   │
+       │    │  • 1.6ms full page load             │   │
+       │    └──────────────────────────────────────┘   │
+       │                                                │
+       └─── support.southcitycomputer.com ─────────────┐
+            (Client portal - FUTURE)                    │
+                                                       │
+            ┌──────────────────────────────────────┐   │
+            │  Rust + PostgreSQL                   │   │
+            │  • User authentication               │   │
+            │  • Ticket database                   │   │
+            │  • Admin interface                   │   │
+            │  • Protected by additional firewall  │   │
+            │  • Different security posture        │   │
+            └──────────────────────────────────────┘   │
+                                                       │
+═══════════════════════════════════════════════════════════
+```
+
+Each application is:
+- **Independently deployable** (update one without touching other)
+- **Independently scalable** (static site can be replicated globally)
+- **Independently secured** (different threat models, different defenses)
+
+### 5.7 When NOT to Use This Architecture
+
+Be honest about limitations. Don't use the static binary approach when:
+
+1. **Content changes frequently** → Use a CMS (WordPress, Ghost, Strapi)
+2. **Non-technical users edit content** → Use a CMS with visual editor
+3. **User accounts are needed** → Use a proper auth framework
+4. **Real-time features required** → Use WebSockets, database subscriptions
+5. **E-commerce** → Use Shopify, WooCommerce, or custom with proper security
+6. **Search functionality** → Use Elasticsearch, Algolia, or database full-text
+
+**The right question isn't "which is better?" but "what does this specific site need?"**
+
+---
+
+## 6. Comparison: Custom vs WordPress + CDN
+
+### 6.1 WordPress Performance Reality
 
 WordPress powers 43% of websites, but performance varies significantly:
 
@@ -364,7 +573,7 @@ Source: WP Rocket, Hostinger
 - Average WordPress mobile load: **13.25 seconds** (!!)
 - WordPress ranks **15th out of 20 CMSs** for speed ([WP Rocket](https://wp-rocket.me/blog/website-load-time-speed-statistics/))
 
-### 5.2 Can Cloudflare Fix WordPress?
+### 6.2 Can Cloudflare Fix WordPress?
 
 Cloudflare provides significant improvements:
 
@@ -387,7 +596,7 @@ Typical improvement: 50-90% for cached static content
 - Database query latency
 - Large page payloads
 
-### 5.3 Head-to-Head Comparison
+### 6.3 Head-to-Head Comparison
 
 ```
 ARCHITECTURE COMPARISON
@@ -403,7 +612,7 @@ Security surface    Large            Minimal
 ───────────────────────────────────────────────────────────
 ```
 
-### 5.4 When WordPress + Cloudflare Makes Sense
+### 6.4 When WordPress + Cloudflare Makes Sense
 
 **Choose WordPress when:**
 - Content changes frequently (CMS features needed)
@@ -419,7 +628,7 @@ Security surface    Large            Minimal
 - Memory/compute costs matter (edge/serverless)
 - SEO rankings critical in competitive niche
 
-### 5.5 The Hybrid Approach
+### 6.5 The Hybrid Approach
 
 For many sites, the best solution combines approaches:
 
@@ -444,9 +653,9 @@ Best of both worlds: Edge caching + performant origin
 
 ---
 
-## 6. When Optimization Matters
+## 7. When Optimization Matters
 
-### 6.1 The Diminishing Returns Curve
+### 7.1 The Diminishing Returns Curve
 
 ```
 PERFORMANCE vs BUSINESS VALUE
@@ -470,7 +679,7 @@ Diminishing returns: <500ms (marginal gains)
 ═══════════════════════════════════════════════════════════
 ```
 
-### 6.2 Cost-Benefit Analysis
+### 7.2 Cost-Benefit Analysis
 
 | Optimization | Effort | Impact | Priority |
 |--------------|--------|--------|----------|
@@ -484,7 +693,7 @@ Diminishing returns: <500ms (marginal gains)
 *High impact for high-traffic sites
 **Mainly benefits sub-100ms requirements
 
-### 6.3 The "Good Enough" Threshold
+### 7.3 The "Good Enough" Threshold
 
 For most small businesses, the goal should be:
 - **LCP < 2.5 seconds** (Core Web Vitals threshold)
@@ -495,9 +704,9 @@ Our optimizations went far beyond "good enough" (52ms vs 2500ms threshold), demo
 
 ---
 
-## 7. Conclusions and Recommendations
+## 8. Conclusions and Recommendations
 
-### 7.1 Key Findings
+### 8.1 Key Findings
 
 1. **Image optimization has the highest ROI**
    - WebP conversion: 78% size reduction
@@ -519,7 +728,7 @@ Our optimizations went far beyond "good enough" (52ms vs 2500ms threshold), demo
    - Optimized WordPress + CDN: <2s achievable
    - Requires caching, CDN, image optimization
 
-### 7.2 Recommendations by Use Case
+### 8.2 Recommendations by Use Case
 
 **Small Business Brochure Site (like ours):**
 ```
@@ -572,7 +781,7 @@ Expected performance: <100ms
 Cost: Variable (development-heavy)
 ```
 
-### 7.3 The Bottom Line
+### 8.3 The Bottom Line
 
 **Does optimization matter?** Yes, but with nuance:
 
