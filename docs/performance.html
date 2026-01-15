@@ -164,7 +164,7 @@
             <h1>Performance Testing & Optimization Log</h1>
             <div class="doc-meta">
                 <span>Source: <a href="https://github.com/nestorwheelock/southcitycomputer.com/blob/master/PERFORMANCE_TESTING.md" target="_blank">PERFORMANCE_TESTING.md</a></span>
-                <span>Last synced: 2026-01-15 10:14 UTC</span>
+                <span>Last synced: 2026-01-15 10:31 UTC</span>
                 <div class="lang-switcher">
                     <a href="performance_testing-es.html" title="Ver en Español" onclick="localStorage.setItem('langManuallySet','es')">🇲🇽</a>
                 </div>
@@ -686,29 +686,142 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Client-side measurement</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/release/scc-perf-client</span> measure http://127.0.0.1:9000/health</span></code></pre></div>
 <hr />
+<h2 id="round-5-responsive-images-internationalization">Round 5:
+Responsive Images &amp; Internationalization</h2>
+<p><strong>Date:</strong> 2026-01-15 <strong>Objective:</strong>
+Optimize image delivery and add bilingual support</p>
+<h3 id="changes-implemented-1">Changes Implemented</h3>
+<h4 id="a.-responsive-gallery-images-with-srcset">A. Responsive Gallery
+Images with srcset</h4>
+<ul>
+<li>Created properly sized gallery images for different viewports</li>
+<li>Desktop: 600px wide (~50KB each)</li>
+<li>Mobile: 400px wide (~40KB each)</li>
+<li>Added <code>srcset</code> and <code>sizes</code> attributes for
+automatic selection</li>
+<li>Added explicit <code>width</code> and <code>height</code> to prevent
+layout shifts</li>
+</ul>
+<h4 id="b.-gallery-image-size-reduction">B. Gallery Image Size
+Reduction</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Image</th>
+<th>Original</th>
+<th>Desktop</th>
+<th>Mobile</th>
+<th>Reduction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>store-interior</td>
+<td>393KB</td>
+<td>50KB</td>
+<td>44KB</td>
+<td>87%</td>
+</tr>
+<tr class="even">
+<td>repair-work</td>
+<td>353KB</td>
+<td>54KB</td>
+<td>45KB</td>
+<td>85%</td>
+</tr>
+<tr class="odd">
+<td>wall-mural</td>
+<td>132KB</td>
+<td>63KB</td>
+<td>43KB</td>
+<td>52%</td>
+</tr>
+<tr class="even">
+<td>storefront</td>
+<td>126KB</td>
+<td>56KB</td>
+<td>28KB</td>
+<td>56%</td>
+</tr>
+<tr class="odd">
+<td><strong>TOTAL</strong></td>
+<td><strong>1,004KB</strong></td>
+<td><strong>223KB</strong></td>
+<td><strong>160KB</strong></td>
+<td><strong>78%</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="c.-bilingual-documentation-system">C. Bilingual Documentation
+System</h4>
+<ul>
+<li>Spanish translations for all documentation (README, WHITEPAPER,
+DEVELOPER, ROADMAP, PERFORMANCE_TESTING)</li>
+<li>HTML documentation pages with language switcher flags</li>
+<li>Browser language auto-detection on first visit</li>
+<li>Desktop app system language detection via sys-locale</li>
+</ul>
+<h3 id="production-test-results-v1.0.6">Production Test Results
+(v1.0.6)</h3>
+<pre><code>=== Full Site Test ===
+Homepage: 200 (40KB, 0.33s)
+CSS: 200 (34KB)
+JS: 200 (25KB)
+Health: 200 {&quot;success&quot;:true}
+
+=== Gallery Images (all 200 OK) ===
+storefront-gallery.webp: 56KB (desktop)
+storefront-gallery-sm.webp: 28KB (mobile)
+store-interior-gallery.webp: 50KB (desktop)
+store-interior-gallery-sm.webp: 44KB (mobile)
+repair-work-gallery.webp: 54KB
+wall-mural-gallery.webp: 63KB
+
+=== Documentation Pages (all 200 OK) ===
+docs/index.html (EN)
+docs/index-es.html (ES)
+docs/readme.html / docs/readme-es.html
+docs/whitepaper-full.html / docs/whitepaper-full-es.html
+docs/performance.html / docs/performance-es.html
+docs/developer.html / docs/developer-es.html
+docs/roadmap.html / docs/roadmap-es.html</code></pre>
+<h3 id="key-improvements">Key Improvements</h3>
+<ol type="1">
+<li><strong>78% reduction in gallery payload</strong> - From 1MB to
+~200KB</li>
+<li><strong>No layout shifts</strong> - Explicit dimensions prevent
+content jumping</li>
+<li><strong>Automatic image selection</strong> - Browsers choose optimal
+size via srcset</li>
+<li><strong>Bilingual support</strong> - Auto-detects browser/system
+language</li>
+<li><strong>Single flag switcher</strong> - Shows 🇲🇽 on English, 🇺🇸 on
+Spanish pages</li>
+</ol>
+<hr />
 <h2 id="current-production-status">Current Production Status</h2>
-<p>As of 2026-01-15: - <strong>Round 4 complete</strong> - benchmark
-tools and methodology documented - Production binary:
-<code>scc-server</code> (18MB with all assets embedded) - Deployed to:
-https://southcitycomputer.com - Version: v1.0.4</p>
+<p>As of 2026-01-15: - <strong>Round 5 complete</strong> - responsive
+images and i18n - Production binary: <code>scc-server</code> (19MB with
+all assets embedded) - Deployed to: https://southcitycomputer.com -
+Version: v1.0.6</p>
 <h3 id="deployment">Deployment</h3>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using deploy script</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/deploy.sh</span> deploy</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Manual deployment</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> contact-handler/target/release/scc-server server:/root/southcitycomputer/</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> server <span class="st">&quot;systemctl restart southcitycomputer&quot;</span></span></code></pre></div>
-<h3 id="verification">Verification</h3>
 <div class="sourceCode" id="cb6"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick health check</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> https://southcitycomputer.com/health</span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using deploy script</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/deploy.sh</span> deploy</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run benchmark against production</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-benchmark</span> <span class="at">-h</span> southcitycomputer.com:443 quick</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Client performance test</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-perf-client</span> measure https://southcitycomputer.com/</span></code></pre></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Manual deployment</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> contact-handler/target/release/scc-server server:/root/southcitycomputer/</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> server <span class="st">&quot;systemctl restart southcitycomputer&quot;</span></span></code></pre></div>
+<h3 id="verification">Verification</h3>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick health check</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> https://southcitycomputer.com/health</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run benchmark against production</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-benchmark</span> <span class="at">-h</span> southcitycomputer.com:443 quick</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Client performance test</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-perf-client</span> measure https://southcitycomputer.com/</span></code></pre></div>
         </div>
 
         <a href="../#projects" class="back-link">← Back to Projects</a>

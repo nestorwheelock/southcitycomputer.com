@@ -290,13 +290,80 @@ cargo build --release
 
 ---
 
+## Round 5: Responsive Images & Internationalization
+
+**Date:** 2026-01-15
+**Objective:** Optimize image delivery and add bilingual support
+
+### Changes Implemented
+
+#### A. Responsive Gallery Images with srcset
+- Created properly sized gallery images for different viewports
+- Desktop: 600px wide (~50KB each)
+- Mobile: 400px wide (~40KB each)
+- Added `srcset` and `sizes` attributes for automatic selection
+- Added explicit `width` and `height` to prevent layout shifts
+
+#### B. Gallery Image Size Reduction
+
+| Image | Original | Desktop | Mobile | Reduction |
+|-------|----------|---------|--------|-----------|
+| store-interior | 393KB | 50KB | 44KB | 87% |
+| repair-work | 353KB | 54KB | 45KB | 85% |
+| wall-mural | 132KB | 63KB | 43KB | 52% |
+| storefront | 126KB | 56KB | 28KB | 56% |
+| **TOTAL** | **1,004KB** | **223KB** | **160KB** | **78%** |
+
+#### C. Bilingual Documentation System
+- Spanish translations for all documentation (README, WHITEPAPER, DEVELOPER, ROADMAP, PERFORMANCE_TESTING)
+- HTML documentation pages with language switcher flags
+- Browser language auto-detection on first visit
+- Desktop app system language detection via sys-locale
+
+### Production Test Results (v1.0.6)
+
+```
+=== Full Site Test ===
+Homepage: 200 (40KB, 0.33s)
+CSS: 200 (34KB)
+JS: 200 (25KB)
+Health: 200 {"success":true}
+
+=== Gallery Images (all 200 OK) ===
+storefront-gallery.webp: 56KB (desktop)
+storefront-gallery-sm.webp: 28KB (mobile)
+store-interior-gallery.webp: 50KB (desktop)
+store-interior-gallery-sm.webp: 44KB (mobile)
+repair-work-gallery.webp: 54KB
+wall-mural-gallery.webp: 63KB
+
+=== Documentation Pages (all 200 OK) ===
+docs/index.html (EN)
+docs/index-es.html (ES)
+docs/readme.html / docs/readme-es.html
+docs/whitepaper-full.html / docs/whitepaper-full-es.html
+docs/performance.html / docs/performance-es.html
+docs/developer.html / docs/developer-es.html
+docs/roadmap.html / docs/roadmap-es.html
+```
+
+### Key Improvements
+
+1. **78% reduction in gallery payload** - From 1MB to ~200KB
+2. **No layout shifts** - Explicit dimensions prevent content jumping
+3. **Automatic image selection** - Browsers choose optimal size via srcset
+4. **Bilingual support** - Auto-detects browser/system language
+5. **Single flag switcher** - Shows 🇲🇽 on English, 🇺🇸 on Spanish pages
+
+---
+
 ## Current Production Status
 
 As of 2026-01-15:
-- **Round 4 complete** - benchmark tools and methodology documented
-- Production binary: `scc-server` (18MB with all assets embedded)
+- **Round 5 complete** - responsive images and i18n
+- Production binary: `scc-server` (19MB with all assets embedded)
 - Deployed to: https://southcitycomputer.com
-- Version: v1.0.4
+- Version: v1.0.6
 
 ### Deployment
 

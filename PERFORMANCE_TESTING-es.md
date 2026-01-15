@@ -290,13 +290,80 @@ cargo build --release
 
 ---
 
+## Ronda 5: Imágenes Responsivas e Internacionalización
+
+**Fecha:** 2026-01-15
+**Objetivo:** Optimizar entrega de imágenes y añadir soporte bilingüe
+
+### Cambios Implementados
+
+#### A. Imágenes de Galería Responsivas con srcset
+- Creadas imágenes de galería con tamaños apropiados para diferentes viewports
+- Escritorio: 600px de ancho (~50KB cada una)
+- Móvil: 400px de ancho (~40KB cada una)
+- Añadidos atributos `srcset` y `sizes` para selección automática
+- Añadidos `width` y `height` explícitos para prevenir saltos de layout
+
+#### B. Reducción de Tamaño de Imágenes de Galería
+
+| Imagen | Original | Escritorio | Móvil | Reducción |
+|--------|----------|------------|-------|-----------|
+| store-interior | 393KB | 50KB | 44KB | 87% |
+| repair-work | 353KB | 54KB | 45KB | 85% |
+| wall-mural | 132KB | 63KB | 43KB | 52% |
+| storefront | 126KB | 56KB | 28KB | 56% |
+| **TOTAL** | **1,004KB** | **223KB** | **160KB** | **78%** |
+
+#### C. Sistema de Documentación Bilingüe
+- Traducciones al español de toda la documentación (README, WHITEPAPER, DEVELOPER, ROADMAP, PERFORMANCE_TESTING)
+- Páginas HTML de documentación con banderas de cambio de idioma
+- Auto-detección del idioma del navegador en primera visita
+- Detección del idioma del sistema en app de escritorio via sys-locale
+
+### Resultados de Pruebas en Producción (v1.0.6)
+
+```
+=== Prueba Completa del Sitio ===
+Homepage: 200 (40KB, 0.33s)
+CSS: 200 (34KB)
+JS: 200 (25KB)
+Health: 200 {"success":true}
+
+=== Imágenes de Galería (todas 200 OK) ===
+storefront-gallery.webp: 56KB (escritorio)
+storefront-gallery-sm.webp: 28KB (móvil)
+store-interior-gallery.webp: 50KB (escritorio)
+store-interior-gallery-sm.webp: 44KB (móvil)
+repair-work-gallery.webp: 54KB
+wall-mural-gallery.webp: 63KB
+
+=== Páginas de Documentación (todas 200 OK) ===
+docs/index.html (EN)
+docs/index-es.html (ES)
+docs/readme.html / docs/readme-es.html
+docs/whitepaper-full.html / docs/whitepaper-full-es.html
+docs/performance.html / docs/performance-es.html
+docs/developer.html / docs/developer-es.html
+docs/roadmap.html / docs/roadmap-es.html
+```
+
+### Mejoras Clave
+
+1. **78% reducción en payload de galería** - De 1MB a ~200KB
+2. **Sin saltos de layout** - Dimensiones explícitas previenen movimiento de contenido
+3. **Selección automática de imagen** - Navegadores eligen tamaño óptimo via srcset
+4. **Soporte bilingüe** - Auto-detecta idioma del navegador/sistema
+5. **Selector de bandera único** - Muestra 🇲🇽 en páginas inglés, 🇺🇸 en español
+
+---
+
 ## Estado Actual de Producción
 
 A partir de 2026-01-15:
-- **Ronda 4 completa** - herramientas de benchmark y metodología documentadas
-- Binario de producción: `scc-server` (18MB con todos los activos embebidos)
+- **Ronda 5 completa** - imágenes responsivas e i18n
+- Binario de producción: `scc-server` (19MB con todos los activos embebidos)
 - Desplegado en: https://southcitycomputer.com
-- Versión: v1.0.4
+- Versión: v1.0.6
 
 ### Despliegue
 

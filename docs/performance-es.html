@@ -164,7 +164,7 @@
             <h1>Pruebas de Rendimiento y Optimización</h1>
             <div class="doc-meta">
                 <span>Fuente: <a href="https://github.com/nestorwheelock/southcitycomputer.com/blob/master/PERFORMANCE_TESTING-es.md" target="_blank">PERFORMANCE_TESTING-es.md</a></span>
-                <span>Última sincronización: 2026-01-15 10:14 UTC</span>
+                <span>Última sincronización: 2026-01-15 10:31 UTC</span>
                 <div class="lang-switcher">
                     <a href="performance_testing.html" title="View in English" onclick="localStorage.setItem('langManuallySet','en')">🇺🇸</a>
                 </div>
@@ -703,30 +703,144 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Medición del lado del cliente</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">./target/release/scc-perf-client</span> measure http://127.0.0.1:9000/health</span></code></pre></div>
 <hr />
+<h2 id="ronda-5-imágenes-responsivas-e-internacionalización">Ronda 5:
+Imágenes Responsivas e Internacionalización</h2>
+<p><strong>Fecha:</strong> 2026-01-15 <strong>Objetivo:</strong>
+Optimizar entrega de imágenes y añadir soporte bilingüe</p>
+<h3 id="cambios-implementados-1">Cambios Implementados</h3>
+<h4 id="a.-imágenes-de-galería-responsivas-con-srcset">A. Imágenes de
+Galería Responsivas con srcset</h4>
+<ul>
+<li>Creadas imágenes de galería con tamaños apropiados para diferentes
+viewports</li>
+<li>Escritorio: 600px de ancho (~50KB cada una)</li>
+<li>Móvil: 400px de ancho (~40KB cada una)</li>
+<li>Añadidos atributos <code>srcset</code> y <code>sizes</code> para
+selección automática</li>
+<li>Añadidos <code>width</code> y <code>height</code> explícitos para
+prevenir saltos de layout</li>
+</ul>
+<h4 id="b.-reducción-de-tamaño-de-imágenes-de-galería">B. Reducción de
+Tamaño de Imágenes de Galería</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Imagen</th>
+<th>Original</th>
+<th>Escritorio</th>
+<th>Móvil</th>
+<th>Reducción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>store-interior</td>
+<td>393KB</td>
+<td>50KB</td>
+<td>44KB</td>
+<td>87%</td>
+</tr>
+<tr class="even">
+<td>repair-work</td>
+<td>353KB</td>
+<td>54KB</td>
+<td>45KB</td>
+<td>85%</td>
+</tr>
+<tr class="odd">
+<td>wall-mural</td>
+<td>132KB</td>
+<td>63KB</td>
+<td>43KB</td>
+<td>52%</td>
+</tr>
+<tr class="even">
+<td>storefront</td>
+<td>126KB</td>
+<td>56KB</td>
+<td>28KB</td>
+<td>56%</td>
+</tr>
+<tr class="odd">
+<td><strong>TOTAL</strong></td>
+<td><strong>1,004KB</strong></td>
+<td><strong>223KB</strong></td>
+<td><strong>160KB</strong></td>
+<td><strong>78%</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="c.-sistema-de-documentación-bilingüe">C. Sistema de
+Documentación Bilingüe</h4>
+<ul>
+<li>Traducciones al español de toda la documentación (README,
+WHITEPAPER, DEVELOPER, ROADMAP, PERFORMANCE_TESTING)</li>
+<li>Páginas HTML de documentación con banderas de cambio de idioma</li>
+<li>Auto-detección del idioma del navegador en primera visita</li>
+<li>Detección del idioma del sistema en app de escritorio via
+sys-locale</li>
+</ul>
+<h3 id="resultados-de-pruebas-en-producción-v1.0.6">Resultados de
+Pruebas en Producción (v1.0.6)</h3>
+<pre><code>=== Prueba Completa del Sitio ===
+Homepage: 200 (40KB, 0.33s)
+CSS: 200 (34KB)
+JS: 200 (25KB)
+Health: 200 {&quot;success&quot;:true}
+
+=== Imágenes de Galería (todas 200 OK) ===
+storefront-gallery.webp: 56KB (escritorio)
+storefront-gallery-sm.webp: 28KB (móvil)
+store-interior-gallery.webp: 50KB (escritorio)
+store-interior-gallery-sm.webp: 44KB (móvil)
+repair-work-gallery.webp: 54KB
+wall-mural-gallery.webp: 63KB
+
+=== Páginas de Documentación (todas 200 OK) ===
+docs/index.html (EN)
+docs/index-es.html (ES)
+docs/readme.html / docs/readme-es.html
+docs/whitepaper-full.html / docs/whitepaper-full-es.html
+docs/performance.html / docs/performance-es.html
+docs/developer.html / docs/developer-es.html
+docs/roadmap.html / docs/roadmap-es.html</code></pre>
+<h3 id="mejoras-clave">Mejoras Clave</h3>
+<ol type="1">
+<li><strong>78% reducción en payload de galería</strong> - De 1MB a
+~200KB</li>
+<li><strong>Sin saltos de layout</strong> - Dimensiones explícitas
+previenen movimiento de contenido</li>
+<li><strong>Selección automática de imagen</strong> - Navegadores eligen
+tamaño óptimo via srcset</li>
+<li><strong>Soporte bilingüe</strong> - Auto-detecta idioma del
+navegador/sistema</li>
+<li><strong>Selector de bandera único</strong> - Muestra 🇲🇽 en páginas
+inglés, 🇺🇸 en español</li>
+</ol>
+<hr />
 <h2 id="estado-actual-de-producción">Estado Actual de Producción</h2>
-<p>A partir de 2026-01-15: - <strong>Ronda 4 completa</strong> -
-herramientas de benchmark y metodología documentadas - Binario de
-producción: <code>scc-server</code> (18MB con todos los activos
-embebidos) - Desplegado en: https://southcitycomputer.com - Versión:
-v1.0.4</p>
+<p>A partir de 2026-01-15: - <strong>Ronda 5 completa</strong> -
+imágenes responsivas e i18n - Binario de producción:
+<code>scc-server</code> (19MB con todos los activos embebidos) -
+Desplegado en: https://southcitycomputer.com - Versión: v1.0.6</p>
 <h3 id="despliegue">Despliegue</h3>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Usando script de despliegue</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/deploy.sh</span> deploy</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Despliegue manual</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> contact-handler/target/release/scc-server servidor:/root/southcitycomputer/</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> servidor <span class="st">&quot;systemctl restart southcitycomputer&quot;</span></span></code></pre></div>
-<h3 id="verificación">Verificación</h3>
 <div class="sourceCode" id="cb6"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Health check rápido</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> https://southcitycomputer.com/health</span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Usando script de despliegue</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/deploy.sh</span> deploy</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar benchmark contra producción</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-benchmark</span> <span class="at">-h</span> southcitycomputer.com:443 quick</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba de rendimiento del cliente</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-perf-client</span> measure https://southcitycomputer.com/</span></code></pre></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Despliegue manual</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> contact-handler/target/release/scc-server servidor:/root/southcitycomputer/</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> servidor <span class="st">&quot;systemctl restart southcitycomputer&quot;</span></span></code></pre></div>
+<h3 id="verificación">Verificación</h3>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Health check rápido</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> https://southcitycomputer.com/health</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar benchmark contra producción</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-benchmark</span> <span class="at">-h</span> southcitycomputer.com:443 quick</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba de rendimiento del cliente</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ex">./scc-perf-client</span> measure https://southcitycomputer.com/</span></code></pre></div>
         </div>
 
         <a href="../index-es.html#projects" class="back-link">← Volver a Proyectos</a>
