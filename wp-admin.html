@@ -345,15 +345,45 @@
             align-items: center;
             font-family: "Segoe UI", Tahoma, sans-serif;
             color: #fff;
+            overflow: hidden;
         }
         #reboot h1 {
             font-size: 2rem;
             font-weight: 200;
             animation: rebootBlink 1s infinite;
+            z-index: 2;
+            position: relative;
+        }
+        #reboot img {
+            z-index: 2;
+            position: relative;
         }
         @keyframes rebootBlink {
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0.5; }
+        }
+        #kernel-log {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-family: "Courier New", monospace;
+            font-size: 12px;
+            color: #0f0;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0.7;
+        }
+        #kernel-log div {
+            white-space: nowrap;
+            animation: scrollUp 8s linear forwards;
+        }
+        @keyframes scrollUp {
+            from { transform: translateY(100vh); }
+            to { transform: translateY(-100%); }
         }
     </style>
 </head>
@@ -444,6 +474,7 @@
     </div>
 
     <div id="reboot">
+        <div id="kernel-log"></div>
         <img src="/images/naughty-santa.webp" alt="" style="max-width: 300px; margin-bottom: 30px;">
         <h1>Rebooting....</h1>
     </div>
@@ -602,6 +633,153 @@
                 songDuration = discoAudio.duration;
             });
 
+            // Kernel boot messages for reboot screen
+            var kernelLog = document.getElementById('kernel-log');
+            var kernelMessages = [
+                '[    0.000000] Linux version 6.8.0-90-generic (buildd@lcy02-amd64-115)',
+                '[    0.000000] Command line: BOOT_IMAGE=/vmlinuz-6.8.0-90-generic root=/dev/mapper/ubuntu--vg-ubuntu--lv ro quiet splash',
+                '[    0.000000] KERNEL supported cpus:',
+                '[    0.000000]   Intel GenuineIntel',
+                '[    0.000000]   AMD AuthenticAMD',
+                '[    0.000000] BIOS-provided physical RAM map:',
+                '[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable',
+                '[    0.000000] BIOS-e820: [mem 0x0000000000100000-0x00000000bffdffff] usable',
+                '[    0.000000] NX (Execute Disable) protection: active',
+                '[    0.000000] SMBIOS 2.8 present.',
+                '[    0.000000] DMI: QEMU Standard PC (i440FX + PIIX, 1996)',
+                '[    0.000000] Hypervisor detected: KVM',
+                '[    0.000004] tsc: Detected 2400.000 MHz processor',
+                '[    0.001024] e820: update [mem 0x00000000-0x00000fff] usable ==> reserved',
+                '[    0.001026] e820: remove [mem 0x000a0000-0x000fffff] usable',
+                '[    0.001056] last_pfn = 0xbffe0 max_arch_pfn = 0x400000000',
+                '[    0.004215] Initializing cgroup subsys cpuset',
+                '[    0.004218] Initializing cgroup subsys cpu',
+                '[    0.004220] Initializing cgroup subsys cpuacct',
+                '[    0.004245] mempolicy: Enabling automatic NUMA balancing',
+                '[    0.008412] ACPI: Early table checksum verification disabled',
+                '[    0.008510] ACPI: RSDP 0x00000000000F58D0 000014 (v00 BOCHS )',
+                '[    0.008523] ACPI: RSDT 0x00000000BFFE156F 000034 (v01 BOCHS  BXPC     00000001 BXPC 00000001)',
+                '[    0.012841] Dentry cache hash table entries: 524288',
+                '[    0.015234] Inode-cache hash table entries: 262144',
+                '[    0.016001] Memory: 3014256K/3145216K available',
+                '[    0.016012] Calibrating delay loop (skipped), value calculated using timer frequency.. 4800.00 BogoMIPS',
+                '[    0.018000] pid_max: default: 32768 minimum: 301',
+                '[    0.020104] Mount-cache hash table entries: 8192',
+                '[    0.024000] CPU: Physical Processor ID: 0',
+                '[    0.028102] mce: CPU0: Thermal monitoring enabled (TM1)',
+                '[    0.028115] process: using mwait in idle threads',
+                '[    0.028118] Last level cache: 16 MB, 8 threads, 1 MB sections',
+                '[    0.032415] Freeing SMP alternatives memory: 44K',
+                '[    0.036001] smpboot: Estimated ratio of average max frequency by base frequency: 100%',
+                '[    0.040000] smpboot: CPU0: Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz',
+                '[    0.044102] Performance Events: Broadwell events, 32-deep LBR, full-width counters, Intel PMU driver.',
+                '[    0.048000] rcu: Hierarchical SRCU implementation.',
+                '[    0.052300] smp: Bringing up secondary CPUs ...',
+                '[    0.056100] smp: Brought up 1 node, 4 CPUs',
+                '[    0.060000] smpboot: Max logical packages: 1',
+                '[    0.064000] smpboot: Total of 4 processors activated',
+                '[    0.068102] devtmpfs: initialized',
+                '[    0.072000] clocksource: jiffies: mask: 0xffffffff',
+                '[    0.076000] futex hash table entries: 1024',
+                '[    0.080001] NET: Registered PF_NETLINK/PF_ROUTE protocol family',
+                '[    0.084100] audit: initializing netlink subsys (disabled)',
+                '[    0.088000] thermal_sys: Registered thermal governor step_wise',
+                '[    0.092102] cpuidle: using governor ladder',
+                '[    0.096000] PCI: Using configuration type 1 for base access',
+                '[    0.100000] kprobes: kprobe jump-optimization is enabled',
+                '[    0.104235] HugeTLB: registered 2.00 MiB page size',
+                '[    0.108000] ACPI: Added _OSI(Module Device)',
+                '[    0.112102] ACPI: bus type PCI registered',
+                '[    0.116000] ACPI: Interpreter enabled',
+                '[    0.120000] ACPI: Using IOAPIC for interrupt routing',
+                '[    0.124312] pci 0000:00:01.1: legacy IDE quirk: reg 0x10: [io 0x01f0-0x01f7]',
+                '[    0.128000] pci 0000:00:01.3: quirk: [io 0x0600-0x063f] claimed by PIIX4 ACPI',
+                '[    0.132156] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])',
+                '[    0.136000] pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]',
+                '[    0.140000] pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]',
+                '[    0.144512] virtio-pci 0000:00:03.0: enabling device (0000 -> 0003)',
+                '[    0.148000] virtio-pci 0000:00:04.0: enabling device (0000 -> 0003)',
+                '[    0.152614] SCSI subsystem initialized',
+                '[    0.156000] libata version 3.00 loaded.',
+                '[    0.160102] ACPI: bus type USB registered',
+                '[    0.164000] usbcore: registered new interface driver usbfs',
+                '[    0.168000] usbcore: registered new device driver usb',
+                '[    0.172200] pps_core: LinuxPPS API ver. 1 registered',
+                '[    0.176000] PTP clock support registered',
+                '[    0.180156] EDAC MC: Ver: 3.0.0',
+                '[    0.184000] Initialising HACKER DETECTED countermeasures...',
+                '[    0.188000] NetLabel: Initializing',
+                '[    0.192000] NetLabel: domain hash size = 128',
+                '[    0.196512] clocksource: Switched to clocksource tsc',
+                '[    0.200000] VFS: Disk quotas dquot_6.6.0',
+                '[    0.204000] VFS: Dquot-cache hash table entries: 512',
+                '[    0.208615] AppArmor: AppArmor Filesystem Enabled',
+                '[    0.212000] pnp: PnP ACPI init',
+                '[    0.216102] pnp: PnP ACPI: found 6 devices',
+                '[    0.220000] clocksource: acpi_pm: mask: 0xffffff',
+                '[    0.224000] NET: Registered PF_INET protocol family',
+                '[    0.228312] IP idents hash table entries: 65536',
+                '[    0.232000] tcp_listen_portaddr_hash entries: 2048',
+                '[    0.236000] TCP established hash table entries: 32768',
+                '[    0.240000] UDP hash table entries: 2048',
+                '[    0.244102] platform rtc_cmos: registered platform RTC device',
+                '[    0.248000] Initializing SANTA_SURVEILLANCE module...',
+                '[    0.252000] SANTA: Checking naughty/nice database...',
+                '[    0.256000] SANTA: WARNING - user flagged as NAUGHTY',
+                '[    0.260000] SANTA: Deploying countermeasures...',
+                '[    0.264512] Freeing unused kernel memory: 2568K',
+                '[    0.268000] Write protecting kernel read-only data',
+                '[    0.272000] rodata test: write-protected region verified',
+                '[    0.276000] Run /init as init process',
+                '[    0.280312] systemd[1]: systemd 255 running in system mode',
+                '[    0.284000] systemd[1]: Detected virtualization kvm.',
+                '[    0.288000] systemd[1]: Detected architecture x86-64.',
+                '[    0.292000] systemd[1]: Hostname set to <naughty-hacker>.',
+                '[    0.296124] systemd[1]: Queued start job for default target graphical.target.',
+                '[    0.300000] systemd[1]: Reached target system-update-pre.target.',
+                '[    0.304000] systemd[1]: Starting systemd-journald.service...',
+                '[    0.308000] systemd[1]: Starting keyboard-setup.service...',
+                '[    0.312215] EXT4-fs (vda1): mounted filesystem with ordered data mode.',
+                '[    0.316000] systemd[1]: Mounted /boot/efi.',
+                '[    0.320000] systemd[1]: Started systemd-journald.service.',
+                '[    0.324000] audit: type=1400 msg=audit: apparmor="STATUS" operation="profile_load"',
+                '[    0.328415] Loading RICKROLL driver v1.0...',
+                '[    0.332000] RICKROLL: Never gonna give you up...',
+                '[    0.336000] RICKROLL: Never gonna let you down...',
+                '[    0.340000] systemd[1]: Starting NetworkManager.service...',
+                '[    0.344000] systemd[1]: Started NetworkManager.service.',
+                '[    0.348312] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready',
+                '[    0.352000] e1000: eth0 NIC Link is Up 1000 Mbps Full Duplex',
+                '[    0.356000] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready',
+                '[    0.360000] systemd[1]: Starting containerd.service...',
+                '[    0.364000] systemd[1]: Starting docker.service...',
+                '[    0.368124] bridge: filtering via arp/ip/ip6tables is no longer available',
+                '[    0.372000] systemd[1]: Started docker.service.',
+                '[    0.376000] systemd[1]: Reached target multi-user.target.',
+                '[    0.380215] NAUGHTY_DETECTOR: Scan complete. Redirecting to homepage...',
+                '[    0.384000] systemd[1]: Starting graphical.target...',
+                '[    0.388000] systemd[1]: Reached target graphical.target.',
+            ];
+            var kernelIndex = 0;
+            var kernelInterval;
+
+            function startKernelLog() {
+                kernelLog.innerHTML = '';
+                kernelIndex = 0;
+                kernelInterval = setInterval(function() {
+                    if (kernelIndex >= kernelMessages.length) {
+                        kernelIndex = 0; // Loop
+                    }
+                    var line = document.createElement('div');
+                    line.textContent = kernelMessages[kernelIndex++];
+                    kernelLog.appendChild(line);
+                    // Remove old lines to prevent memory buildup
+                    while (kernelLog.children.length > 60) {
+                        kernelLog.removeChild(kernelLog.firstChild);
+                    }
+                }, 50);
+            }
+
             // Collect browser fingerprint
             function getFingerprint() {
                 var fp = {
@@ -698,6 +876,7 @@
                         setTimeout(function() {
                             bsod.style.display = 'none';
                             reboot.style.display = 'flex';
+                            startKernelLog();
 
                             // After reboot message, go to homepage
                             setTimeout(function() {
