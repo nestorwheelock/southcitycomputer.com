@@ -470,61 +470,61 @@
                 }
             });
 
-            // Animate Rick bouncing around the screen with acceleration
+            // Animate Rick like a Pong ball - bouncing off walls with acceleration
             function animateRick() {
                 var maxX = window.innerWidth - rick.offsetWidth;
                 var maxY = window.innerHeight - rick.offsetHeight;
 
-                // Calculate elapsed time and accelerate exponentially
+                // Calculate elapsed time - accelerate continuously like Pong
                 var elapsed = (Date.now() - startTime) / 1000; // seconds
-                // Speed increases rapidly: starts at 1x, reaches ~50x by end of song (~3.5 min)
-                speedMultiplier = 1 + Math.pow(elapsed / 10, 2.5);
-                speedMultiplier = Math.min(speedMultiplier, 60); // Cap at 60x
+                // Smooth acceleration: starts at 2, increases steadily
+                speedMultiplier = 2 + elapsed * 0.3; // Gets faster every second
+                speedMultiplier = Math.min(speedMultiplier, 80); // Cap at very fast
 
+                // Move Rick (Pong-style constant velocity in each direction)
                 rickX += rickVX * speedMultiplier;
                 rickY += rickVY * speedMultiplier;
 
-                // Bounce off walls with increasing chaos
-                if (rickX <= 0 || rickX >= maxX) {
-                    rickVX = -rickVX * (0.8 + Math.random() * 0.4);
-                    var maxSpeed = 3 + speedMultiplier * 0.5;
-                    rickVX = Math.max(-maxSpeed, Math.min(maxSpeed, rickVX));
-                    if (Math.abs(rickVX) < 1) rickVX = rickVX > 0 ? 1 : -1;
-                }
-                if (rickY <= 0 || rickY >= maxY) {
-                    rickVY = -rickVY * (0.8 + Math.random() * 0.4);
-                    var maxSpeed = 3 + speedMultiplier * 0.5;
-                    rickVY = Math.max(-maxSpeed, Math.min(maxSpeed, rickVY));
-                    if (Math.abs(rickVY) < 1) rickVY = rickVY > 0 ? 1 : -1;
+                // Bounce off left/right walls (like Pong)
+                if (rickX <= 0) {
+                    rickX = 0;
+                    rickVX = Math.abs(rickVX); // Bounce right
+                } else if (rickX >= maxX) {
+                    rickX = maxX;
+                    rickVX = -Math.abs(rickVX); // Bounce left
                 }
 
-                rickX = Math.max(0, Math.min(maxX, rickX));
-                rickY = Math.max(0, Math.min(maxY, rickY));
+                // Bounce off top/bottom walls (like Pong)
+                if (rickY <= 0) {
+                    rickY = 0;
+                    rickVY = Math.abs(rickVY); // Bounce down
+                } else if (rickY >= maxY) {
+                    rickY = maxY;
+                    rickVY = -Math.abs(rickVY); // Bounce up
+                }
 
-                // Scale changes get more extreme with speed
-                var scaleIntensity = 0.3 + (speedMultiplier / 60) * 0.5;
-                rickScale = 0.5 + Math.sin(Date.now() / (300 / speedMultiplier)) * scaleIntensity + Math.random() * 0.2;
+                // Scale pulses with speed
+                var scaleIntensity = 0.2 + (speedMultiplier / 80) * 0.4;
+                rickScale = 0.7 + Math.sin(Date.now() / 200) * scaleIntensity;
 
-                // Rotation gets faster and more extreme
-                var rotationSpeed = 200 / speedMultiplier;
-                var rotationAmount = 15 + speedMultiplier * 2;
-                rickRotation = Math.sin(Date.now() / rotationSpeed) * rotationAmount;
+                // Rotation based on movement direction
+                rickRotation = Math.sin(Date.now() / 150) * (10 + speedMultiplier * 0.5);
 
-                // Skew distortion increases with speed
-                var skewIntensity = 10 + speedMultiplier * 1.5;
-                var skewX = Math.sin(Date.now() / (150 / Math.sqrt(speedMultiplier))) * skewIntensity;
-                var skewY = Math.cos(Date.now() / (180 / Math.sqrt(speedMultiplier))) * (skewIntensity * 0.5);
+                // Skew/wobble increases with speed
+                var skewIntensity = 5 + speedMultiplier * 0.8;
+                var skewX = Math.sin(Date.now() / 100) * skewIntensity;
+                var skewY = Math.cos(Date.now() / 120) * (skewIntensity * 0.3);
 
                 // Apply transforms
                 rick.style.left = rickX + 'px';
                 rick.style.top = rickY + 'px';
                 rick.style.transform = 'scale(' + rickScale + ') rotate(' + rickRotation + 'deg) skew(' + skewX + 'deg, ' + skewY + 'deg)';
 
-                // Color distortion speeds up too
-                var hue = (Date.now() / (10 / Math.sqrt(speedMultiplier))) % 360;
-                var saturation = 100 + Math.sin(Date.now() / (500 / speedMultiplier)) * (100 + speedMultiplier * 5);
-                var glowSize = 20 + Math.sin(Date.now() / (100 / speedMultiplier)) * 15 + speedMultiplier;
-                rick.style.filter = 'drop-shadow(0 0 ' + glowSize + 'px rgba(255,255,255,0.8)) hue-rotate(' + hue + 'deg) saturate(' + saturation + '%)';
+                // Color cycling speeds up with velocity
+                var hue = (Date.now() / 8) % 360;
+                var saturation = 150 + Math.sin(Date.now() / 300) * 50;
+                var glowSize = 15 + speedMultiplier * 0.5;
+                rick.style.filter = 'drop-shadow(0 0 ' + glowSize + 'px rgba(255,255,255,0.9)) hue-rotate(' + hue + 'deg) saturate(' + saturation + '%)';
 
                 animationFrame = requestAnimationFrame(animateRick);
             }
@@ -541,13 +541,15 @@
                 discoAudio.play();
                 document.body.style.overflow = 'hidden';
 
-                // Start Rick's crazy dance animation with acceleration
+                // Start Rick's Pong-style bouncing animation
                 startTime = Date.now();
-                speedMultiplier = 1;
-                rickX = Math.random() * (window.innerWidth - 300);
-                rickY = Math.random() * (window.innerHeight - 300);
-                rickVX = (Math.random() - 0.5) * 6 + (Math.random() > 0.5 ? 2 : -2);
-                rickVY = (Math.random() - 0.5) * 6 + (Math.random() > 0.5 ? 2 : -2);
+                speedMultiplier = 2;
+                // Start from a corner area, moving diagonally like Pong
+                rickX = 50;
+                rickY = 50;
+                // Constant diagonal velocity (like DVD logo / Pong ball)
+                rickVX = 3;
+                rickVY = 2.5;
                 animateRick();
             });
 
