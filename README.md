@@ -214,7 +214,9 @@ cargo test test_health_endpoint
 | `/` | GET | Main website |
 | `/health` | GET | Health check (JSON) |
 | `/api/contact` | POST | Submit contact form |
+| `/api/honeypot` | POST | Honeypot data collection |
 | `/view/contacts` | GET | View submissions (requires auth) |
+| `/view/honeypot` | GET | View honeypot attempts (requires auth) |
 | `/*` | GET | Static assets |
 
 ### Contact Form API
@@ -230,6 +232,51 @@ Response:
 {"success": true, "message": "Contact saved successfully", "id": "uuid"}
 ```
 
+## Honeypot System
+
+The server includes a honeypot system that captures and logs unauthorized access attempts to fake admin panels.
+
+### Honeypot Endpoints
+
+| Endpoint | Mimics |
+|----------|--------|
+| `/wp-admin.html` | WordPress admin login |
+| `/admin/` | Django admin login |
+| `/phpmyadmin/` | phpMyAdmin login |
+
+These pages look like real login forms but instead:
+1. Collect browser fingerprint data
+2. Log the attempt with IP address
+3. Play a Rick Astley "Never Gonna Give You Up" animation
+4. Show a fake Windows BSOD
+5. Redirect back to the homepage
+
+### Data Collected
+
+Each honeypot attempt captures:
+
+| Field | Description |
+|-------|-------------|
+| `username` | Attempted username |
+| `password` | Attempted password |
+| `source` | Which honeypot (wordpress/django/phpmyadmin) |
+| `ip` | Client IP address |
+| `screen` | Screen resolution |
+| `timezone` | Browser timezone |
+| `language` | Browser language |
+| `platform` | Operating system |
+| `webgl` | GPU renderer (fingerprint) |
+| `canvas_hash` | Canvas fingerprint |
+| `touch` | Touch device support |
+| `plugins` | Browser plugin count |
+
+### Admin Panel
+
+View honeypot attempts at `/view/honeypot` (requires auth). Features:
+- Sortable table of all attempts
+- Interactive map showing attack origins (using IP geolocation)
+- CSV export capability
+
 ## Data Storage
 
 Contact submissions are stored in `contacts.csv`:
@@ -237,6 +284,13 @@ Contact submissions are stored in `contacts.csv`:
 ```csv
 id,timestamp,name,email,phone,message,service
 uuid,2026-01-15T10:30:00,John Doe,john@example.com,555-1234,Hello,repair
+```
+
+Honeypot attempts are stored in `honeypot_attempts.csv`:
+
+```csv
+id,timestamp,username,password,source,ip,screen,timezone,language,platform,cookies,dnt,webgl,canvas_hash,touch,plugins
+uuid,2026-01-15T10:30:00,admin,password123,wordpress,192.168.1.1,1920x1080,America/Chicago,en-US,Win32,true,false,NVIDIA GeForce,abc123...,false,3
 ```
 
 ### Decoupled Processing

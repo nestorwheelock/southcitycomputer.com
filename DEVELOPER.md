@@ -73,6 +73,8 @@ Key components:
 #[include = "css/*.min.css"]
 #[include = "js/*.min.js"]
 #[include = "images/*.webp"]
+#[include = "admin/*.html"]
+#[include = "phpmyadmin/*.html"]
 struct Asset;
 
 // Static file handler
@@ -83,6 +85,11 @@ async fn serve_static(path: web::Path<String>) -> impl Responder {
 // Contact form API
 async fn submit_contact(form: web::Json<ContactForm>) -> impl Responder {
     // Validate, generate UUID, write to CSV
+}
+
+// Honeypot API
+async fn handle_honeypot(req: HttpRequest, body: web::Json<HoneypotAttempt>) -> impl Responder {
+    // Extract IP, log attempt with fingerprint, write to CSV
 }
 ```
 
@@ -400,6 +407,139 @@ Optional:
 |-------|---------|---------|
 | wry | WebView | `desktop` |
 | tao | Window management | `desktop` |
+
+## Honeypot System
+
+The honeypot system catches and logs unauthorized access attempts to fake admin panels.
+
+### Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Honeypot Pages                           │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
+│  │ wp-admin    │  │   /admin/   │  │    /phpmyadmin/     │  │
+│  │  .html      │  │  (Django)   │  │                     │  │
+│  │ (WordPress) │  │             │  │                     │  │
+│  └──────┬──────┘  └──────┬──────┘  └──────────┬──────────┘  │
+│         │                │                     │             │
+│         └────────────────┼─────────────────────┘             │
+│                          ▼                                   │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │              JavaScript Fingerprint Collection         │  │
+│  │  - Screen resolution    - WebGL renderer (GPU)        │  │
+│  │  - Timezone             - Canvas fingerprint          │  │
+│  │  - Language             - Touch support               │  │
+│  │  - Platform (OS)        - Plugin count                │  │
+│  └───────────────────────────────────────────────────────┘  │
+│                          │                                   │
+│                          ▼                                   │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │              POST /api/honeypot                        │  │
+│  │  { username, password, source, fingerprint data }     │  │
+│  └───────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│                     Rust Server                              │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │  handle_honeypot()                                     │  │
+│  │  - Extract client IP from request                      │  │
+│  │  - Generate UUID                                       │  │
+│  │  - Append to honeypot_attempts.csv                     │  │
+│  └───────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│                  honeypot_attempts.csv                       │
+│  id,timestamp,username,password,source,ip,fingerprint...    │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### HoneypotAttempt Structure
+
+```rust
+#[derive(Debug, Deserialize)]
+struct HoneypotAttempt {
+    username: String,
+    password: String,
+    source: Option<String>,           // wordpress, django, phpmyadmin
+    screen: Option<String>,           // Screen resolution
+    timezone: Option<String>,         // Browser timezone
+    language: Option<String>,         // Browser language
+    platform: Option<String>,         // OS platform
+    cookies: Option<bool>,            // Cookies enabled
+    dnt: Option<bool>,                // Do Not Track
+    webgl: Option<String>,            // GPU renderer
+    canvas_hash: Option<String>,      // Canvas fingerprint
+    touch: Option<bool>,              // Touch support
+    plugins: Option<String>,          // Plugin count
+}
+```
+
+### Admin Panel Features
+
+The `/view/honeypot` endpoint provides:
+
+1. **Sortable Table**: View all honeypot attempts with columns for:
+   - Timestamp, Source, Username, Password, IP
+   - Fingerprint data (screen, timezone, platform, etc.)
+
+2. **Interactive Map**: Uses Leaflet.js and ipapi.co for IP geolocation
+   - Markers show attack origins
+   - Popups display attempt details
+   - Map auto-zooms to fit all markers
+
+3. **CSV Export**: Download raw data for analysis
+
+### JavaScript Fingerprinting
+
+The honeypot pages collect browser fingerprints using:
+
+```javascript
+function getFingerprint() {
+    var fp = {
+        screen: window.screen.width + 'x' + window.screen.height,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        language: navigator.language,
+        platform: navigator.platform,
+        cookies: navigator.cookieEnabled,
+        dnt: navigator.doNotTrack === '1',
+        touch: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
+        plugins: navigator.plugins ? navigator.plugins.length.toString() : '0'
+    };
+
+    // WebGL renderer (GPU fingerprint)
+    var canvas = document.createElement('canvas');
+    var gl = canvas.getContext('webgl');
+    if (gl) {
+        var debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        if (debugInfo) fp.webgl = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+    }
+
+    // Canvas fingerprint
+    var ctx = canvas.getContext('2d');
+    ctx.textBaseline = 'top';
+    ctx.font = '14px Arial';
+    ctx.fillText('fingerprint', 2, 2);
+    fp.canvas_hash = canvas.toDataURL().slice(-50);
+
+    return fp;
+}
+```
+
+### Adding New Honeypot Pages
+
+1. Create HTML page mimicking target login (e.g., `new-admin/index.html`)
+2. Include fingerprint collection and POST to `/api/honeypot`
+3. Add `source` field to identify the honeypot type
+4. Update RustEmbed includes in main.rs:
+   ```rust
+   #[include = "new-admin/*.html"]
+   ```
+5. Rebuild production binary
 
 ## Security Considerations
 
