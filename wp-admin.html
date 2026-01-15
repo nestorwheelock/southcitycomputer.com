@@ -204,77 +204,60 @@
             cursor: pointer;
             min-width: 200px;
         }
-        #login-error {
-            background: #d63638;
-            color: #fff;
-            padding: 12px;
-            margin-bottom: 16px;
-            border-left: 4px solid #8a0f11;
-            display: none;
-        }
-        #login-error a {
-            color: #fff;
-            text-decoration: underline;
-        }
-        .shake {
-            animation: shake 0.5s;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-        /* Rickroll overlay */
-        #rickroll {
+
+        /* Disco party overlay */
+        #disco {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #ffe66d, #ff6b6b);
-            background-size: 400% 400%;
-            animation: gradientBG 3s ease infinite;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #ffe66d, #ff6b6b, #9b59b6, #3498db, #e74c3c);
+            background-size: 700% 700%;
+            animation: discoGradient 2s ease infinite;
             z-index: 99999;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            overflow: hidden;
         }
-        @keyframes gradientBG {
+        @keyframes discoGradient {
             0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
             100% { background-position: 0% 50%; }
         }
-        #rickroll h1 {
-            color: #fff;
-            font-size: 4rem;
-            text-shadow: 3px 3px 0 #000;
-            animation: bounce 0.5s ease infinite alternate;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-20px); }
-        }
-        #rickroll p {
-            color: #fff;
-            font-size: 1.5rem;
-            text-shadow: 2px 2px 0 #000;
-        }
-        #rickroll-close {
+
+        /* Rick Astley dancing image */
+        #rick-dancer {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #fff;
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 14px;
-            border-radius: 4px;
-            z-index: 100000;
+            width: 300px;
+            height: auto;
+            pointer-events: none;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.8));
         }
+
+        @keyframes rickBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-30px) rotate(5deg) scale(1.1); }
+            50% { transform: translateY(0) rotate(0deg) scale(0.9); }
+            75% { transform: translateY(-20px) rotate(-5deg) scale(1.05); }
+        }
+
+        @keyframes rickWiggle {
+            0%, 100% { transform: skewX(0deg) scaleX(1); }
+            25% { transform: skewX(10deg) scaleX(1.1); }
+            50% { transform: skewX(-10deg) scaleX(0.9); }
+            75% { transform: skewX(5deg) scaleX(1.05); }
+        }
+
+        @keyframes rickDistort {
+            0% { filter: drop-shadow(0 0 20px rgba(255,255,255,0.8)) hue-rotate(0deg); }
+            25% { filter: drop-shadow(0 0 30px rgba(255,0,255,0.8)) hue-rotate(90deg) contrast(1.2); }
+            50% { filter: drop-shadow(0 0 40px rgba(0,255,255,0.8)) hue-rotate(180deg) saturate(2); }
+            75% { filter: drop-shadow(0 0 30px rgba(255,255,0,0.8)) hue-rotate(270deg) brightness(1.3); }
+            100% { filter: drop-shadow(0 0 20px rgba(255,255,255,0.8)) hue-rotate(360deg); }
+        }
+
         /* Windows BSOD */
         #bsod {
             display: none;
@@ -338,6 +321,31 @@
             font-size: 0.75rem;
             margin-top: 20px;
         }
+
+        /* Reboot screen */
+        #reboot {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999999;
+            justify-content: center;
+            align-items: center;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            color: #fff;
+        }
+        #reboot h1 {
+            font-size: 2rem;
+            font-weight: 200;
+            animation: rebootBlink 1s infinite;
+        }
+        @keyframes rebootBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.5; }
+        }
     </style>
 </head>
 <body class="login wp-core-ui">
@@ -349,9 +357,6 @@
                 </svg>
                 <span class="wp-logo-text">WORDPRESS<span class="org">.ORG</span></span>
             </div>
-        </div>
-        <div id="login-error">
-            <strong>Error:</strong> The username or password you entered is incorrect. <a href="#">Lost your password?</a>
         </div>
         <form name="loginform" id="loginform" action="" method="post">
             <p class="intro">Log in to your WordPress.org account to contribute to WordPress, get help in the support forum, or rate and review themes and plugins.</p>
@@ -395,11 +400,9 @@
         </div>
     </div>
 
-    <div id="rickroll">
-        <button id="rickroll-close">You fell for it! Close</button>
-        <h1>NEVER GONNA GIVE YOU UP!</h1>
-        <p>Nice try, hacker.</p>
-        <audio id="rickroll-audio">
+    <div id="disco">
+        <img id="rick-dancer" src="/images/rick-astley.webp" alt="">
+        <audio id="disco-audio">
             <source src="/audio/rickroll.mp3" type="audio/mpeg">
         </audio>
     </div>
@@ -425,23 +428,34 @@
             <div class="qr-text">
                 <p>For more information about this issue and possible fixes, visit<br>https://www.windows.com/stopcode</p>
                 <p>If you call a support person, give them this info:</p>
-                <p class="stop-code">Stop code: HACKER_DETECTED_LMAO</p>
+                <p class="stop-code">Stop code: NOT_WORDPRESS_DUH</p>
             </div>
         </div>
+    </div>
+
+    <div id="reboot">
+        <h1>Rebooting....</h1>
     </div>
 
     <script>
         (function() {
             var form = document.getElementById('loginform');
-            var errorBox = document.getElementById('login-error');
-            var rickroll = document.getElementById('rickroll');
-            var rickrollAudio = document.getElementById('rickroll-audio');
-            var rickrollClose = document.getElementById('rickroll-close');
+            var disco = document.getElementById('disco');
+            var discoAudio = document.getElementById('disco-audio');
+            var rick = document.getElementById('rick-dancer');
             var bsod = document.getElementById('bsod');
             var bsodProgress = document.getElementById('bsod-progress');
+            var reboot = document.getElementById('reboot');
             var hidePassword = document.getElementById('wp-hide-pw');
             var passwordField = document.getElementById('user_pass');
-            var attempts = 0;
+
+            var rickX = 100, rickY = 100;
+            var rickVX = 3, rickVY = 2;
+            var rickScale = 1;
+            var rickRotation = 0;
+            var animationFrame;
+            var startTime = 0;
+            var speedMultiplier = 1;
 
             // Toggle password visibility
             hidePassword.addEventListener('click', function() {
@@ -456,32 +470,91 @@
                 }
             });
 
+            // Animate Rick bouncing around the screen with acceleration
+            function animateRick() {
+                var maxX = window.innerWidth - rick.offsetWidth;
+                var maxY = window.innerHeight - rick.offsetHeight;
+
+                // Calculate elapsed time and accelerate exponentially
+                var elapsed = (Date.now() - startTime) / 1000; // seconds
+                // Speed increases rapidly: starts at 1x, reaches ~50x by end of song (~3.5 min)
+                speedMultiplier = 1 + Math.pow(elapsed / 10, 2.5);
+                speedMultiplier = Math.min(speedMultiplier, 60); // Cap at 60x
+
+                rickX += rickVX * speedMultiplier;
+                rickY += rickVY * speedMultiplier;
+
+                // Bounce off walls with increasing chaos
+                if (rickX <= 0 || rickX >= maxX) {
+                    rickVX = -rickVX * (0.8 + Math.random() * 0.4);
+                    var maxSpeed = 3 + speedMultiplier * 0.5;
+                    rickVX = Math.max(-maxSpeed, Math.min(maxSpeed, rickVX));
+                    if (Math.abs(rickVX) < 1) rickVX = rickVX > 0 ? 1 : -1;
+                }
+                if (rickY <= 0 || rickY >= maxY) {
+                    rickVY = -rickVY * (0.8 + Math.random() * 0.4);
+                    var maxSpeed = 3 + speedMultiplier * 0.5;
+                    rickVY = Math.max(-maxSpeed, Math.min(maxSpeed, rickVY));
+                    if (Math.abs(rickVY) < 1) rickVY = rickVY > 0 ? 1 : -1;
+                }
+
+                rickX = Math.max(0, Math.min(maxX, rickX));
+                rickY = Math.max(0, Math.min(maxY, rickY));
+
+                // Scale changes get more extreme with speed
+                var scaleIntensity = 0.3 + (speedMultiplier / 60) * 0.5;
+                rickScale = 0.5 + Math.sin(Date.now() / (300 / speedMultiplier)) * scaleIntensity + Math.random() * 0.2;
+
+                // Rotation gets faster and more extreme
+                var rotationSpeed = 200 / speedMultiplier;
+                var rotationAmount = 15 + speedMultiplier * 2;
+                rickRotation = Math.sin(Date.now() / rotationSpeed) * rotationAmount;
+
+                // Skew distortion increases with speed
+                var skewIntensity = 10 + speedMultiplier * 1.5;
+                var skewX = Math.sin(Date.now() / (150 / Math.sqrt(speedMultiplier))) * skewIntensity;
+                var skewY = Math.cos(Date.now() / (180 / Math.sqrt(speedMultiplier))) * (skewIntensity * 0.5);
+
+                // Apply transforms
+                rick.style.left = rickX + 'px';
+                rick.style.top = rickY + 'px';
+                rick.style.transform = 'scale(' + rickScale + ') rotate(' + rickRotation + 'deg) skew(' + skewX + 'deg, ' + skewY + 'deg)';
+
+                // Color distortion speeds up too
+                var hue = (Date.now() / (10 / Math.sqrt(speedMultiplier))) % 360;
+                var saturation = 100 + Math.sin(Date.now() / (500 / speedMultiplier)) * (100 + speedMultiplier * 5);
+                var glowSize = 20 + Math.sin(Date.now() / (100 / speedMultiplier)) * 15 + speedMultiplier;
+                rick.style.filter = 'drop-shadow(0 0 ' + glowSize + 'px rgba(255,255,255,0.8)) hue-rotate(' + hue + 'deg) saturate(' + saturation + '%)';
+
+                animationFrame = requestAnimationFrame(animateRick);
+            }
+
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                attempts++;
 
                 // Log the attempt
                 var username = document.getElementById('user_login').value;
                 console.log('Honeypot triggered! Username attempted:', username);
 
-                // Show error first time, rickroll on second attempt
-                if (attempts === 1) {
-                    errorBox.style.display = 'block';
-                    form.classList.add('shake');
-                    setTimeout(function() {
-                        form.classList.remove('shake');
-                    }, 500);
-                } else {
-                    // RICKROLL TIME
-                    rickroll.style.display = 'flex';
-                    rickrollAudio.play();
-                    document.body.style.overflow = 'hidden';
-                }
+                // Any password works - immediately go to disco mode
+                disco.style.display = 'block';
+                discoAudio.play();
+                document.body.style.overflow = 'hidden';
+
+                // Start Rick's crazy dance animation with acceleration
+                startTime = Date.now();
+                speedMultiplier = 1;
+                rickX = Math.random() * (window.innerWidth - 300);
+                rickY = Math.random() * (window.innerHeight - 300);
+                rickVX = (Math.random() - 0.5) * 6 + (Math.random() > 0.5 ? 2 : -2);
+                rickVY = (Math.random() - 0.5) * 6 + (Math.random() > 0.5 ? 2 : -2);
+                animateRick();
             });
 
-            // When rickroll audio ends, show BSOD
-            rickrollAudio.addEventListener('ended', function() {
-                rickroll.style.display = 'none';
+            // When audio ends, show BSOD
+            discoAudio.addEventListener('ended', function() {
+                cancelAnimationFrame(animationFrame);
+                disco.style.display = 'none';
                 bsod.style.display = 'block';
 
                 var progress = 0;
@@ -490,26 +563,28 @@
                     if (progress >= 100) {
                         progress = 100;
                         clearInterval(interval);
+                        bsodProgress.textContent = 'just kidding';
+
+                        // After a pause, show reboot screen
                         setTimeout(function() {
-                            bsodProgress.textContent = 'Just kidding. You got rickrolled!';
-                        }, 2000);
+                            bsod.style.display = 'none';
+                            reboot.style.display = 'flex';
+
+                            // After reboot message, go to homepage
+                            setTimeout(function() {
+                                window.location.href = '/';
+                            }, 3000);
+                        }, 3000);
+                    } else {
+                        bsodProgress.textContent = progress + '% complete';
                     }
-                    bsodProgress.textContent = progress + '% complete';
                 }, 800);
             });
 
-            rickrollClose.addEventListener('click', function() {
-                rickroll.style.display = 'none';
-                rickrollAudio.pause();
-                rickrollAudio.currentTime = 0;
-                document.body.style.overflow = '';
-            });
-
             document.addEventListener('keydown', function(e) {
-                if (rickroll.style.display === 'flex' || bsod.style.display === 'block') {
+                if (disco.style.display === 'block' || bsod.style.display === 'block') {
                     if (e.key === 'Escape' || e.key === 'F4' || (e.altKey && e.key === 'F4')) {
                         e.preventDefault();
-                        alert('Never gonna give you up, never gonna let you down!');
                     }
                 }
             });
