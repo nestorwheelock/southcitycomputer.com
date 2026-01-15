@@ -40,6 +40,23 @@ struct ServiceInquiry {
     answers: std::collections::HashMap<String, serde_json::Value>,
 }
 
+#[derive(Debug, Deserialize)]
+struct HoneypotAttempt {
+    username: String,
+    password: String,
+    source: Option<String>,
+    screen: Option<String>,
+    timezone: Option<String>,
+    language: Option<String>,
+    platform: Option<String>,
+    cookies: Option<bool>,
+    dnt: Option<bool>,
+    webgl: Option<String>,
+    canvas_hash: Option<String>,
+    touch: Option<bool>,
+    plugins: Option<String>,
+}
+
 #[derive(Debug, Serialize)]
 struct ApiResponse {
     success: bool,
@@ -217,6 +234,74 @@ async fn handle_service_inquiry(form: web::Json<ServiceInquiry>) -> HttpResponse
                 message: "Failed to save inquiry".to_string(),
                 id: None,
                 view_url: None,
+            })
+        }
+    }
+}
+
+async fn handle_honeypot(form: web::Json<HoneypotAttempt>, req: HttpRequest) -> HttpResponse {
+    let timestamp = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
+
+    let username = escape_csv_field(&form.username);
+    let password = escape_csv_field(&form.password);
+
+    let ip = req
+        .connection_info()
+        .realip_remote_addr()
+        .map(|s| s.to_string())
+        .unwrap_or_else(|| "unknown".to_string());
+
+    let user_agent = req
+        .headers()
+        .get("User-Agent")
+        .and_then(|h| h.to_str().ok())
+        .map(|s| s.to_string())
+        .unwrap_or_else(|| "unknown".to_string());
+    let user_agent = escape_csv_field(&user_agent);
+
+    // Fingerprint data from client
+    let source = escape_csv_field(form.source.as_deref().unwrap_or("unknown"));
+    let screen = escape_csv_field(form.screen.as_deref().unwrap_or(""));
+    let timezone = escape_csv_field(form.timezone.as_deref().unwrap_or(""));
+    let language = escape_csv_field(form.language.as_deref().unwrap_or(""));
+    let platform = escape_csv_field(form.platform.as_deref().unwrap_or(""));
+    let cookies = if form.cookies.unwrap_or(false) { "yes" } else { "no" };
+    let dnt = if form.dnt.unwrap_or(false) { "yes" } else { "no" };
+    let webgl = escape_csv_field(form.webgl.as_deref().unwrap_or(""));
+    let canvas_hash = escape_csv_field(form.canvas_hash.as_deref().unwrap_or(""));
+    let touch = if form.touch.unwrap_or(false) { "yes" } else { "no" };
+
+    let csv_line = format!("{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n",
+        timestamp, source, username, password, ip, user_agent,
+        screen, timezone, language, platform, cookies, dnt, webgl, canvas_hash, touch);
+
+    let csv_path = Path::new("honeypot_attempts.csv");
+    let file_exists = csv_path.exists();
+
+    let result = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(csv_path)
+        .and_then(|mut file| {
+            if !file_exists {
+                writeln!(file, "timestamp,source,username,password,ip,user_agent,screen,timezone,language,platform,cookies,dnt,webgl,canvas_hash,touch")?;
+            }
+            write!(file, "{}", csv_line)
+        });
+
+    match result {
+        Ok(_) => {
+            println!("[DEV] Honeypot catch: {} / {} from {}", form.username, form.password, ip);
+            HttpResponse::Ok().json(ApiResponse {
+                success: true,
+                message: "Logged".to_string(),
+            })
+        }
+        Err(e) => {
+            eprintln!("[DEV] Error writing honeypot attempt to CSV: {}", e);
+            HttpResponse::InternalServerError().json(ApiResponse {
+                success: false,
+                message: "Failed".to_string(),
             })
         }
     }
@@ -623,6 +708,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(middleware::Logger::new("[DEV] %a \"%r\" %s %b %Dms"))
             .route("/api/contact", web::post().to(handle_contact))
             .route("/api/service-inquiry", web::post().to(handle_service_inquiry))
+            .route("/api/honeypot", web::post().to(handle_honeypot))
             .route("/view/{id}", web::get().to(view_submission))
             .route("/view/{id}/pdf", web::get().to(download_pdf))
             .route("/contact-admin", web::get().to(contact_admin))

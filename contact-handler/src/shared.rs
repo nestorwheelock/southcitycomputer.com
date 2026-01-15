@@ -6,6 +6,8 @@
 #[include = "*.html"]
 #[include = "services/*.html"]
 #[include = "blog/*.html"]
+#[include = "admin/*.html"]
+#[include = "phpmyadmin/*.html"]
 #[include = "css/*.min.css"]
 #[include = "js/*.min.js"]
 #[include = "images/*.webp"]
@@ -76,6 +78,24 @@ struct ServiceInquiryRecord {
     phone: String,
     details: String,
     answers: serde_json::Value,
+}
+
+#[derive(Debug, Deserialize)]
+struct HoneypotAttempt {
+    username: String,
+    password: String,
+    // Fingerprint data sent from client
+    source: Option<String>,           // Which honeypot page (wordpress, django, phpmyadmin)
+    screen: Option<String>,           // Screen resolution
+    timezone: Option<String>,         // Timezone offset
+    language: Option<String>,         // Browser language
+    platform: Option<String>,         // OS platform
+    cookies: Option<bool>,            // Cookies enabled
+    dnt: Option<bool>,                // Do Not Track
+    webgl: Option<String>,            // WebGL renderer (GPU)
+    canvas_hash: Option<String>,      // Canvas fingerprint hash
+    touch: Option<bool>,              // Touch support
+    plugins: Option<String>,          // Browser plugins count
 }
 
 fn generate_short_id() -> String {
@@ -183,6 +203,73 @@ async fn handle_service_inquiry(form: web::Json<ServiceInquiry>) -> HttpResponse
                 message: "Failed to save inquiry".to_string(),
                 id: None,
                 view_url: None,
+            })
+        }
+    }
+}
+
+async fn handle_honeypot(form: web::Json<HoneypotAttempt>, req: HttpRequest) -> HttpResponse {
+    let timestamp = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
+
+    let username = escape_csv_field(&form.username);
+    let password = escape_csv_field(&form.password);
+
+    // Get IP from request headers (check forwarded headers first)
+    let ip = req.connection_info().realip_remote_addr()
+        .map(|s| s.to_string())
+        .unwrap_or_else(|| "unknown".to_string());
+
+    // Get User-Agent from request
+    let user_agent = req.headers().get("User-Agent")
+        .and_then(|v| v.to_str().ok())
+        .map(|s| s.to_string())
+        .unwrap_or_else(|| "unknown".to_string());
+    let user_agent = escape_csv_field(&user_agent);
+
+    // Fingerprint data from client
+    let source = escape_csv_field(form.source.as_deref().unwrap_or("unknown"));
+    let screen = escape_csv_field(form.screen.as_deref().unwrap_or(""));
+    let timezone = escape_csv_field(form.timezone.as_deref().unwrap_or(""));
+    let language = escape_csv_field(form.language.as_deref().unwrap_or(""));
+    let platform = escape_csv_field(form.platform.as_deref().unwrap_or(""));
+    let cookies = if form.cookies.unwrap_or(false) { "yes" } else { "no" };
+    let dnt = if form.dnt.unwrap_or(false) { "yes" } else { "no" };
+    let webgl = escape_csv_field(form.webgl.as_deref().unwrap_or(""));
+    let canvas_hash = escape_csv_field(form.canvas_hash.as_deref().unwrap_or(""));
+    let touch = if form.touch.unwrap_or(false) { "yes" } else { "no" };
+    let plugins = escape_csv_field(form.plugins.as_deref().unwrap_or(""));
+
+    let csv_line = format!("{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n",
+        timestamp, source, username, password, ip, user_agent,
+        screen, timezone, language, platform, cookies, dnt, webgl, canvas_hash, touch);
+
+    let csv_path = Path::new("honeypot_attempts.csv");
+    let file_exists = csv_path.exists();
+
+    let result = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(csv_path)
+        .and_then(|mut file| {
+            if !file_exists {
+                writeln!(file, "timestamp,source,username,password,ip,user_agent,screen,timezone,language,platform,cookies,dnt,webgl,canvas_hash,touch")?;
+            }
+            write!(file, "{}", csv_line)
+        });
+
+    match result {
+        Ok(_) => {
+            eprintln!("Honeypot triggered: {} / {} from {}", form.username, form.password, ip);
+            HttpResponse::Ok().json(ApiResponse {
+                success: true,
+                message: "Logged".to_string(),
+            })
+        }
+        Err(e) => {
+            eprintln!("Error writing honeypot attempt to CSV: {}", e);
+            HttpResponse::InternalServerError().json(ApiResponse {
+                success: false,
+                message: "Failed".to_string(),
             })
         }
     }
@@ -1194,12 +1281,18 @@ async fn contact_admin(req: HttpRequest) -> HttpResponse {
         Err(_) => Vec::new(),
     };
 
+    // Read honeypot attempts
+    let honeypot_attempts: Vec<Vec<String>> = match fs::read_to_string("honeypot_attempts.csv") {
+        Ok(content) => content.lines().skip(1).map(|line| parse_csv_line(line)).collect(),
+        Err(_) => Vec::new(),
+    };
+
     HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
-        .body(generate_admin_html(&contacts, &service_inquiries))
+        .body(generate_admin_html(&contacts, &service_inquiries, &honeypot_attempts))
 }
 
-fn generate_admin_html(contacts: &[Vec<String>], service_inquiries: &[Vec<String>]) -> String {
+fn generate_admin_html(contacts: &[Vec<String>], service_inquiries: &[Vec<String>], honeypot_attempts: &[Vec<String>]) -> String {
     let contact_rows = if contacts.is_empty() {
         "<tr><td colspan=\"6\" style=\"text-align: center; padding: 40px; color: #888;\">No contacts yet</td></tr>".to_string()
     } else {
@@ -1268,6 +1361,45 @@ fn generate_admin_html(contacts: &[Vec<String>], service_inquiries: &[Vec<String
                 format!(
                     "<tr><td><a href=\"/view/{}\">{}</a></td><td>{}</td><td><span class=\"service-tag\">{}</span></td><td>{}</td><td><a href=\"mailto:{}\">{}</a></td><td>{}</td><td>{}</td><td class=\"answers-cell\">{}</td></tr>",
                     id, id, timestamp, service_type, name, email, email, phone, details, answers_html
+                )
+            })
+            .collect::<Vec<_>>()
+            .join("\n")
+    };
+
+    // Collect unique IPs for map (with timestamp for JS)
+    let honeypot_ips: Vec<String> = honeypot_attempts
+        .iter()
+        .filter_map(|fields| {
+            let ip = fields.get(4)?;
+            if ip.is_empty() || ip == "unknown" || ip == "127.0.0.1" { return None; }
+            let timestamp = fields.get(0).unwrap_or(&String::new()).clone();
+            let source = fields.get(1).unwrap_or(&String::new()).clone();
+            Some(format!("{{\"ip\":\"{}\",\"time\":\"{}\",\"source\":\"{}\"}}", ip, timestamp, source))
+        })
+        .collect();
+    let honeypot_ips_json = format!("[{}]", honeypot_ips.join(","));
+
+    let honeypot_rows = if honeypot_attempts.is_empty() {
+        "<tr><td colspan=\"8\" style=\"text-align: center; padding: 40px; color: #888;\">No honeypot attempts yet</td></tr>".to_string()
+    } else {
+        honeypot_attempts
+            .iter()
+            .rev()
+            .map(|fields| {
+                // New CSV format: timestamp,source,username,password,ip,user_agent,screen,timezone,language,platform,cookies,dnt,webgl,canvas_hash,touch
+                let timestamp = fields.get(0).map(|s| html_escape(s)).unwrap_or_default();
+                let source = fields.get(1).map(|s| html_escape(&unescape_csv_field(s))).unwrap_or_default();
+                let username = fields.get(2).map(|s| html_escape(&unescape_csv_field(s))).unwrap_or_default();
+                let password = fields.get(3).map(|s| html_escape(&unescape_csv_field(s))).unwrap_or_default();
+                let ip = fields.get(4).map(|s| html_escape(s)).unwrap_or_default();
+                let screen = fields.get(6).map(|s| html_escape(s)).unwrap_or_default();
+                let platform = fields.get(9).map(|s| html_escape(s)).unwrap_or_default();
+                let webgl = fields.get(12).map(|s| html_escape(&unescape_csv_field(s))).unwrap_or_default();
+
+                format!(
+                    "<tr><td>{}</td><td class=\"source-badge\">{}</td><td class=\"honeypot-cred\">{}</td><td class=\"honeypot-cred\">{}</td><td class=\"ip-cell\" data-ip=\"{}\">{}</td><td>{}</td><td>{}</td><td class=\"webgl-cell\">{}</td></tr>",
+                    timestamp, source, username, password, ip, ip, screen, platform, webgl
                 )
             })
             .collect::<Vec<_>>()
@@ -1393,6 +1525,43 @@ fn generate_admin_html(contacts: &[Vec<String>], service_inquiries: &[Vec<String
             font-weight: 600;
             text-transform: capitalize;
         }}
+        .honeypot-cred {{
+            font-family: monospace;
+            background: #2a2a2a;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #ff6b6b;
+        }}
+        .source-badge {{
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: #8b5cf6;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 600;
+        }}
+        .ip-cell {{
+            font-family: monospace;
+            color: #f59e0b;
+        }}
+        .webgl-cell {{
+            max-width: 200px;
+            font-size: 0.7rem;
+            color: #888;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }}
+        .ua-cell {{
+            max-width: 300px;
+            font-size: 0.75rem;
+            color: #888;
+            word-break: break-all;
+        }}
+        .stat.red .stat-value {{
+            color: #ff6b6b;
+        }}
     </style>
 </head>
 <body>
@@ -1408,9 +1577,13 @@ fn generate_admin_html(contacts: &[Vec<String>], service_inquiries: &[Vec<String
                 <div class="stat-value">{}</div>
                 <div class="stat-label">Service Inquiries</div>
             </div>
+            <div class="stat red">
+                <div class="stat-value">{}</div>
+                <div class="stat-label">Honeypot Catches</div>
+            </div>
             <div class="stat">
                 <div class="stat-value">{}</div>
-                <div class="stat-label">Total</div>
+                <div class="stat-label">Total Legitimate</div>
             </div>
         </div>
 
@@ -1449,14 +1622,86 @@ fn generate_admin_html(contacts: &[Vec<String>], service_inquiries: &[Vec<String
                 {}
             </tbody>
         </table>
+
+        <h2>Honeypot Attack Map</h2>
+        <div id="attack-map" style="height: 400px; border-radius: 12px; margin-bottom: 30px; background: #2a2a2a;"></div>
+
+        <h2>Honeypot Catches</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Source</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>IP</th>
+                    <th>Screen</th>
+                    <th>Platform</th>
+                    <th>GPU</th>
+                </tr>
+            </thead>
+            <tbody>
+                {}
+            </tbody>
+        </table>
     </div>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+    (function() {{
+        var attempts = {};
+        if (attempts.length === 0) {{
+            document.getElementById('attack-map').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;">No attack data with valid IPs yet</div>';
+            return;
+        }}
+
+        var map = L.map('attack-map').setView([30, 0], 2);
+        L.tileLayer('https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}{{r}}.png', {{
+            attribution: '&copy; CartoDB',
+            maxZoom: 19
+        }}).addTo(map);
+
+        var processed = {{}};
+        attempts.forEach(function(a) {{
+            if (processed[a.ip]) return;
+            processed[a.ip] = true;
+
+            fetch('https://ipapi.co/' + a.ip + '/json/')
+                .then(function(r) {{ return r.json(); }})
+                .then(function(geo) {{
+                    if (geo.latitude && geo.longitude) {{
+                        var marker = L.circleMarker([geo.latitude, geo.longitude], {{
+                            radius: 8,
+                            fillColor: '#ff4444',
+                            color: '#ff0000',
+                            weight: 2,
+                            opacity: 1,
+                            fillOpacity: 0.7
+                        }}).addTo(map);
+
+                        marker.bindPopup(
+                            '<strong>' + a.ip + '</strong><br>' +
+                            'Source: ' + a.source + '<br>' +
+                            'Time: ' + a.time + '<br>' +
+                            'Location: ' + (geo.city || 'Unknown') + ', ' + (geo.country_name || 'Unknown')
+                        );
+                    }}
+                }})
+                .catch(function() {{}});
+        }});
+    }})();
+    </script>
 </body>
 </html>"#,
         contacts.len(),
         service_inquiries.len(),
+        honeypot_attempts.len(),
         contacts.len() + service_inquiries.len(),
         contact_rows,
-        service_rows
+        service_rows,
+        honeypot_rows,
+        honeypot_ips_json
     )
 }
 

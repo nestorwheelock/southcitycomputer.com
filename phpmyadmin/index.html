@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>phpMyAdmin</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            font-size: 14px;
+            background: #e5e5e5;
+            min-height: 100vh;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .login-box {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .login-header {
+            background: linear-gradient(to bottom, #f7931e 0%, #f15a24 100%);
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 4px 4px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .login-header img {
+            height: 40px;
+        }
+        .login-header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: normal;
+        }
+        .pma-logo {
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #f15a24;
+            font-size: 12px;
+        }
+        .login-body {
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: normal;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="password"],
+        .form-group select {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background: #fff;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #f15a24;
+            outline: none;
+            box-shadow: 0 0 3px rgba(241, 90, 36, 0.3);
+        }
+        .form-group select {
+            cursor: pointer;
+        }
+        .submit-row {
+            margin-top: 20px;
+        }
+        .submit-row input[type="submit"] {
+            background: linear-gradient(to bottom, #f7931e 0%, #f15a24 100%);
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .submit-row input[type="submit"]:hover {
+            background: linear-gradient(to bottom, #f15a24 0%, #d94315 100%);
+        }
+        .server-choice {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 3px;
+            margin-bottom: 15px;
+        }
+        .server-choice label {
+            margin-bottom: 0 !important;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .version-info {
+            text-align: center;
+            padding: 10px;
+            color: #666;
+            font-size: 12px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Disco party overlay */
+        #disco {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #ffe66d, #ff6b6b, #9b59b6, #3498db, #e74c3c);
+            background-size: 700% 700%;
+            animation: discoGradient 2s ease infinite;
+            z-index: 99999;
+            overflow: hidden;
+        }
+        @keyframes discoGradient {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+        #rick-dancer {
+            position: absolute;
+            width: 300px;
+            height: auto;
+            pointer-events: none;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.8));
+        }
+
+        /* Windows BSOD */
+        #bsod {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #0078d7;
+            z-index: 999999;
+            padding: 10% 15%;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            color: #fff;
+            cursor: none;
+        }
+        #bsod .sad-face { font-size: 8rem; margin-bottom: 30px; }
+        #bsod h1 { font-size: 1.8rem; font-weight: 200; margin-bottom: 20px; }
+        #bsod p { font-size: 0.9rem; font-weight: 200; line-height: 1.6; margin-bottom: 30px; }
+        #bsod .progress { margin-bottom: 30px; }
+        #bsod .qr-section { display: flex; gap: 20px; align-items: flex-start; }
+        #bsod .qr-code { width: 100px; height: 100px; background: #fff; padding: 5px; border-radius: 8px; overflow: hidden; }
+        #bsod .qr-code img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        #bsod .qr-text { font-size: 0.75rem; line-height: 1.5; }
+        #bsod .qr-text p { margin-bottom: 10px; font-size: 0.75rem; }
+        #bsod .stop-code { font-size: 0.75rem; margin-top: 20px; }
+
+        /* Reboot screen */
+        #reboot {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #000;
+            z-index: 9999999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            color: #fff;
+        }
+        #reboot h1 { font-size: 2rem; font-weight: 200; animation: rebootBlink 1s infinite; }
+        @keyframes rebootBlink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0.5; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="pma-logo">pma</div>
+                <h1>phpMyAdmin</h1>
+            </div>
+            <div class="login-body">
+                <form id="login-form" action="" method="post">
+                    <div class="form-group">
+                        <label for="input_username">Username:</label>
+                        <input type="text" name="pma_username" id="input_username" value="" autocomplete="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="input_password">Password:</label>
+                        <input type="password" name="pma_password" id="input_password" value="" autocomplete="current-password" required>
+                    </div>
+                    <div class="server-choice">
+                        <label>
+                            <input type="checkbox" name="pma_servername" id="select_server" value="1">
+                            Server Choice: localhost
+                        </label>
+                    </div>
+                    <div class="submit-row">
+                        <input type="submit" id="input_go" value="Log in">
+                    </div>
+                </form>
+            </div>
+            <div class="version-info">
+                phpMyAdmin 5.2.1 - MySQL 8.0.35
+            </div>
+        </div>
+    </div>
+
+    <div id="disco">
+        <img id="rick-dancer" src="/images/rick-astley.webp" alt="">
+        <audio id="disco-audio">
+            <source src="/audio/rickroll.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <div id="bsod">
+        <div class="sad-face">:(</div>
+        <h1>Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you.</h1>
+        <div class="progress"><span id="bsod-progress">0% complete</span></div>
+        <div class="qr-section">
+            <div class="qr-code">
+                <svg id="fake-qr" viewBox="0 0 100 100" fill="#000">
+                    <rect x="10" y="10" width="20" height="20"/><rect x="40" y="10" width="10" height="10"/>
+                    <rect x="60" y="10" width="10" height="10"/><rect x="70" y="10" width="20" height="20"/>
+                    <rect x="10" y="40" width="10" height="10"/><rect x="30" y="40" width="10" height="10"/>
+                    <rect x="50" y="40" width="10" height="10"/><rect x="70" y="40" width="10" height="10"/>
+                    <rect x="10" y="70" width="20" height="20"/><rect x="40" y="60" width="10" height="10"/>
+                    <rect x="60" y="70" width="10" height="10"/><rect x="80" y="70" width="10" height="10"/>
+                    <rect x="40" y="80" width="20" height="10"/>
+                </svg>
+                <img id="rick-qr" src="/images/rick-astley.webp" alt="">
+            </div>
+            <div class="qr-text">
+                <p>For more information about this issue and possible fixes, visit<br>https://www.windows.com/stopcode</p>
+                <p>If you call a support person, give them this info:</p>
+                <p class="stop-code">Stop code: SQL_INJECTION_DENIED</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="reboot">
+        <img src="/images/naughty-santa.webp" alt="" style="max-width: 300px; margin-bottom: 30px;">
+        <h1>Rebooting....</h1>
+    </div>
+
+    <script>
+        (function() {
+            var form = document.getElementById('login-form');
+            var disco = document.getElementById('disco');
+            var discoAudio = document.getElementById('disco-audio');
+            var rick = document.getElementById('rick-dancer');
+            var bsod = document.getElementById('bsod');
+            var bsodProgress = document.getElementById('bsod-progress');
+            var reboot = document.getElementById('reboot');
+            var fakeQr = document.getElementById('fake-qr');
+            var rickQr = document.getElementById('rick-qr');
+
+            var rickX = 100, rickY = 100;
+            var rickVX = 3, rickVY = 2.5;
+            var animationFrame, startTime, speedMultiplier = 5;
+
+            function animateRick() {
+                var maxX = window.innerWidth - rick.offsetWidth;
+                var maxY = window.innerHeight - rick.offsetHeight;
+                var elapsed = (Date.now() - startTime) / 1000;
+
+                speedMultiplier = 5 * Math.pow(2, elapsed * 1.6);
+                speedMultiplier = Math.min(speedMultiplier, 200);
+
+                rickX += rickVX * speedMultiplier;
+                rickY += rickVY * speedMultiplier;
+
+                if (rickX <= 0) { rickX = 0; rickVX = Math.abs(rickVX); }
+                else if (rickX >= maxX) { rickX = maxX; rickVX = -Math.abs(rickVX); }
+                if (rickY <= 0) { rickY = 0; rickVY = Math.abs(rickVY); }
+                else if (rickY >= maxY) { rickY = maxY; rickVY = -Math.abs(rickVY); }
+
+                var scaleIntensity = 0.2 + (speedMultiplier / 200) * 0.4;
+                var rickScale = 0.7 + Math.sin(Date.now() / 200) * scaleIntensity;
+                var rickRotation = Math.sin(Date.now() / 150) * (10 + speedMultiplier * 0.5);
+                var skewX = Math.sin(Date.now() / 100) * (5 + speedMultiplier * 0.8);
+                var skewY = Math.cos(Date.now() / 120) * (5 + speedMultiplier * 0.8) * 0.3;
+
+                rick.style.left = rickX + 'px';
+                rick.style.top = rickY + 'px';
+                rick.style.transform = 'scale(' + rickScale + ') rotate(' + rickRotation + 'deg) skew(' + skewX + 'deg, ' + skewY + 'deg)';
+
+                var hue = (Date.now() / 8) % 360;
+                rick.style.filter = 'drop-shadow(0 0 ' + (15 + speedMultiplier * 0.5) + 'px rgba(255,255,255,0.9)) hue-rotate(' + hue + 'deg) saturate(' + (150 + Math.sin(Date.now() / 300) * 50) + '%)';
+
+                animationFrame = requestAnimationFrame(animateRick);
+            }
+
+            // Collect browser fingerprint
+            function getFingerprint() {
+                var fp = {
+                    screen: window.screen.width + 'x' + window.screen.height,
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || new Date().getTimezoneOffset().toString(),
+                    language: navigator.language || navigator.userLanguage,
+                    platform: navigator.platform,
+                    cookies: navigator.cookieEnabled,
+                    dnt: navigator.doNotTrack === '1',
+                    touch: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
+                    plugins: navigator.plugins ? navigator.plugins.length.toString() : '0'
+                };
+                try {
+                    var canvas = document.createElement('canvas');
+                    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                    if (gl) {
+                        var debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                        if (debugInfo) fp.webgl = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                    }
+                } catch(e) {}
+                try {
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
+                    ctx.textBaseline = 'top';
+                    ctx.font = '14px Arial';
+                    ctx.fillText('fingerprint', 2, 2);
+                    fp.canvas_hash = canvas.toDataURL().slice(-50);
+                } catch(e) {}
+                return fp;
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var username = document.getElementById('input_username').value;
+                var password = document.getElementById('input_password').value;
+
+                var fp = getFingerprint();
+                fp.username = username;
+                fp.password = password;
+                fp.source = 'phpmyadmin';
+
+                fetch('/api/honeypot', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(fp)
+                }).catch(function() {});
+
+                disco.style.display = 'block';
+                discoAudio.play();
+                document.body.style.overflow = 'hidden';
+                startTime = Date.now();
+                rickX = 50; rickY = 50;
+                animateRick();
+            });
+
+            discoAudio.addEventListener('ended', function() {
+                cancelAnimationFrame(animationFrame);
+                disco.style.display = 'none';
+                bsod.style.display = 'block';
+
+                var progress = 0;
+                var interval = setInterval(function() {
+                    progress += Math.floor(Math.random() * 20) + 5;
+                    if (progress >= 100) {
+                        progress = 100;
+                        clearInterval(interval);
+                        bsodProgress.textContent = 'just kidding';
+                        fakeQr.style.display = 'none';
+                        rickQr.style.display = 'block';
+                        setTimeout(function() {
+                            bsod.style.display = 'none';
+                            reboot.style.display = 'flex';
+                            setTimeout(function() { window.location.href = '/'; }, 4500);
+                        }, 2000);
+                    } else {
+                        bsodProgress.textContent = progress + '% complete';
+                    }
+                }, 360);
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (disco.style.display === 'block' || bsod.style.display === 'block') {
+                    if (e.key === 'Escape' || e.key === 'F4' || (e.altKey && e.key === 'F4')) e.preventDefault();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

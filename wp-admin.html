@@ -308,6 +308,14 @@
             height: 100px;
             background: #fff;
             padding: 5px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        #bsod .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
         }
         #bsod .qr-text {
             font-size: 0.75rem;
@@ -332,6 +340,7 @@
             height: 100%;
             background: #000;
             z-index: 9999999;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             font-family: "Segoe UI", Tahoma, sans-serif;
@@ -414,8 +423,8 @@
             <span id="bsod-progress">0% complete</span>
         </div>
         <div class="qr-section">
-            <div class="qr-code">
-                <svg viewBox="0 0 100 100" fill="#000">
+            <div class="qr-code" id="qr-code-box">
+                <svg id="fake-qr" viewBox="0 0 100 100" fill="#000">
                     <rect x="10" y="10" width="20" height="20"/><rect x="40" y="10" width="10" height="10"/>
                     <rect x="60" y="10" width="10" height="10"/><rect x="70" y="10" width="20" height="20"/>
                     <rect x="10" y="40" width="10" height="10"/><rect x="30" y="40" width="10" height="10"/>
@@ -424,6 +433,7 @@
                     <rect x="60" y="70" width="10" height="10"/><rect x="80" y="70" width="10" height="10"/>
                     <rect x="40" y="80" width="20" height="10"/>
                 </svg>
+                <img id="rick-qr" src="/images/rick-astley.webp" alt="">
             </div>
             <div class="qr-text">
                 <p>For more information about this issue and possible fixes, visit<br>https://www.windows.com/stopcode</p>
@@ -434,6 +444,7 @@
     </div>
 
     <div id="reboot">
+        <img src="/images/naughty-santa.webp" alt="" style="max-width: 300px; margin-bottom: 30px;">
         <h1>Rebooting....</h1>
     </div>
 
@@ -448,6 +459,8 @@
             var reboot = document.getElementById('reboot');
             var hidePassword = document.getElementById('wp-hide-pw');
             var passwordField = document.getElementById('user_pass');
+            var fakeQr = document.getElementById('fake-qr');
+            var rickQr = document.getElementById('rick-qr');
 
             var rickX = 100, rickY = 100;
             var rickVX = 3, rickVY = 2;
@@ -456,6 +469,7 @@
             var animationFrame;
             var startTime = 0;
             var speedMultiplier = 1;
+            var songDuration = 0;
 
             // Toggle password visibility
             hidePassword.addEventListener('click', function() {
@@ -470,38 +484,92 @@
                 }
             });
 
+            // Create tracer/ghost effect
+            var lastTracerTime = 0;
+            function createTracer() {
+                if (speedMultiplier < 15) return; // Only show tracers when fast
+                var now = Date.now();
+                var tracerInterval = Math.max(20, 150 - speedMultiplier); // More frequent as speed increases
+                if (now - lastTracerTime < tracerInterval) return;
+                lastTracerTime = now;
+
+                var ghost = document.createElement('img');
+                ghost.src = rick.src;
+                ghost.style.cssText = 'position:absolute;width:300px;pointer-events:none;z-index:99998;' +
+                    'left:' + rickX + 'px;top:' + rickY + 'px;' +
+                    'transform:' + rick.style.transform + ';' +
+                    'opacity:0.6;filter:hue-rotate(' + ((Date.now() / 5) % 360) + 'deg) blur(2px);';
+                disco.appendChild(ghost);
+
+                // Fade out and remove - slower fade to fill screen
+                var opacity = 0.7;
+                var fadeInterval = setInterval(function() {
+                    opacity -= 0.03;
+                    if (opacity <= 0) {
+                        clearInterval(fadeInterval);
+                        ghost.remove();
+                    } else {
+                        ghost.style.opacity = opacity;
+                    }
+                }, 40);
+            }
+
             // Animate Rick like a Pong ball - bouncing off walls with acceleration
             function animateRick() {
                 var maxX = window.innerWidth - rick.offsetWidth;
                 var maxY = window.innerHeight - rick.offsetHeight;
 
-                // Calculate elapsed time - accelerate continuously like Pong
+                // Calculate elapsed time - accelerate FAST (short clip!)
                 var elapsed = (Date.now() - startTime) / 1000; // seconds
-                // Smooth acceleration: starts at 2, increases steadily
-                speedMultiplier = 2 + elapsed * 0.3; // Gets faster every second
-                speedMultiplier = Math.min(speedMultiplier, 80); // Cap at very fast
+
+                // Aggressive exponential acceleration from the start
+                // Starts at 5, doubles every ~0.6 seconds, goes absolutely insane
+                speedMultiplier = 5 * Math.pow(2, elapsed * 1.6);
+                speedMultiplier = Math.min(speedMultiplier, 200); // Cap at ludicrous speed
+
+                // Create tracer effect when moving fast
+                createTracer();
 
                 // Move Rick (Pong-style constant velocity in each direction)
                 rickX += rickVX * speedMultiplier;
                 rickY += rickVY * speedMultiplier;
 
-                // Bounce off left/right walls (like Pong)
-                if (rickX <= 0) {
-                    rickX = 0;
-                    rickVX = Math.abs(rickVX); // Bounce right
-                } else if (rickX >= maxX) {
-                    rickX = maxX;
-                    rickVX = -Math.abs(rickVX); // Bounce left
+                // Add some chaos - randomly change direction slightly
+                if (Math.random() < 0.02) {
+                    rickVX += (Math.random() - 0.5) * 2;
+                    rickVY += (Math.random() - 0.5) * 2;
+                    // Keep velocity reasonable
+                    rickVX = Math.max(-5, Math.min(5, rickVX));
+                    rickVY = Math.max(-5, Math.min(5, rickVY));
                 }
 
-                // Bounce off top/bottom walls (like Pong)
+                // Bounce off left/right walls with randomization
+                if (rickX <= 0) {
+                    rickX = 0;
+                    rickVX = Math.abs(rickVX) + (Math.random() - 0.3);
+                    rickVY += (Math.random() - 0.5) * 1.5; // Add vertical chaos
+                } else if (rickX >= maxX) {
+                    rickX = maxX;
+                    rickVX = -Math.abs(rickVX) - (Math.random() - 0.3);
+                    rickVY += (Math.random() - 0.5) * 1.5;
+                }
+
+                // Bounce off top/bottom walls with randomization
                 if (rickY <= 0) {
                     rickY = 0;
-                    rickVY = Math.abs(rickVY); // Bounce down
+                    rickVY = Math.abs(rickVY) + (Math.random() - 0.3);
+                    rickVX += (Math.random() - 0.5) * 1.5; // Add horizontal chaos
                 } else if (rickY >= maxY) {
                     rickY = maxY;
-                    rickVY = -Math.abs(rickVY); // Bounce up
+                    rickVY = -Math.abs(rickVY) - (Math.random() - 0.3);
+                    rickVX += (Math.random() - 0.5) * 1.5;
                 }
+
+                // Clamp velocities to prevent going too slow or too extreme
+                rickVX = Math.max(-6, Math.min(6, rickVX));
+                rickVY = Math.max(-6, Math.min(6, rickVY));
+                if (Math.abs(rickVX) < 1) rickVX = rickVX < 0 ? -1.5 : 1.5;
+                if (Math.abs(rickVY) < 1) rickVY = rickVY < 0 ? -1.5 : 1.5;
 
                 // Scale pulses with speed
                 var scaleIntensity = 0.2 + (speedMultiplier / 80) * 0.4;
@@ -529,12 +597,67 @@
                 animationFrame = requestAnimationFrame(animateRick);
             }
 
+            // Get song duration when metadata loads
+            discoAudio.addEventListener('loadedmetadata', function() {
+                songDuration = discoAudio.duration;
+            });
+
+            // Collect browser fingerprint
+            function getFingerprint() {
+                var fp = {
+                    screen: window.screen.width + 'x' + window.screen.height,
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || new Date().getTimezoneOffset().toString(),
+                    language: navigator.language || navigator.userLanguage,
+                    platform: navigator.platform,
+                    cookies: navigator.cookieEnabled,
+                    dnt: navigator.doNotTrack === '1',
+                    touch: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
+                    plugins: navigator.plugins ? navigator.plugins.length.toString() : '0'
+                };
+
+                // WebGL renderer (GPU info)
+                try {
+                    var canvas = document.createElement('canvas');
+                    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                    if (gl) {
+                        var debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                        if (debugInfo) {
+                            fp.webgl = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                        }
+                    }
+                } catch(e) {}
+
+                // Canvas fingerprint hash
+                try {
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
+                    ctx.textBaseline = 'top';
+                    ctx.font = '14px Arial';
+                    ctx.fillText('fingerprint', 2, 2);
+                    fp.canvas_hash = canvas.toDataURL().slice(-50);
+                } catch(e) {}
+
+                return fp;
+            }
+
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                // Log the attempt
+                // Get credentials
                 var username = document.getElementById('user_login').value;
-                console.log('Honeypot triggered! Username attempted:', username);
+                var password = document.getElementById('user_pass').value;
+
+                // Collect fingerprint and POST to honeypot API
+                var fp = getFingerprint();
+                fp.username = username;
+                fp.password = password;
+                fp.source = 'wordpress';
+
+                fetch('/api/honeypot', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(fp)
+                }).catch(function() {}); // Fire and forget
 
                 // Any password works - immediately go to disco mode
                 disco.style.display = 'block';
@@ -543,7 +666,7 @@
 
                 // Start Rick's Pong-style bouncing animation
                 startTime = Date.now();
-                speedMultiplier = 2;
+                speedMultiplier = 3;
                 // Start from a corner area, moving diagonally like Pong
                 rickX = 50;
                 rickY = 50;
@@ -561,11 +684,15 @@
 
                 var progress = 0;
                 var interval = setInterval(function() {
-                    progress += Math.floor(Math.random() * 15) + 1;
+                    progress += Math.floor(Math.random() * 20) + 5;
                     if (progress >= 100) {
                         progress = 100;
                         clearInterval(interval);
                         bsodProgress.textContent = 'just kidding';
+
+                        // Swap QR code for Rick's picture
+                        fakeQr.style.display = 'none';
+                        rickQr.style.display = 'block';
 
                         // After a pause, show reboot screen
                         setTimeout(function() {
@@ -575,12 +702,12 @@
                             // After reboot message, go to homepage
                             setTimeout(function() {
                                 window.location.href = '/';
-                            }, 3000);
-                        }, 3000);
+                            }, 4500);
+                        }, 2000);
                     } else {
                         bsodProgress.textContent = progress + '% complete';
                     }
-                }, 800);
+                }, 360);
             });
 
             document.addEventListener('keydown', function(e) {

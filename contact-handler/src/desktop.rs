@@ -77,6 +77,7 @@ fn main() {
                     .wrap(middleware::Compress::default())
                     .route("/api/contact", web::post().to(handle_contact))
                     .route("/api/service-inquiry", web::post().to(handle_service_inquiry))
+                    .route("/api/honeypot", web::post().to(handle_honeypot))
                     .route("/view/{id}", web::get().to(view_submission))
                     .route("/view/{id}/pdf", web::get().to(download_pdf))
                     .route("/whitepaper/pdf/{lang}", web::get().to(download_whitepaper_pdf))

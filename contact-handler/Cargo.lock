@@ -2916,7 +2916,7 @@ dependencies = [
 
 [[package]]
 name = "scc-server"
-version = "0.2.0"
+version = "1.0.13"
 dependencies = [
  "actix-cors",
  "actix-files",
