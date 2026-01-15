@@ -1,0 +1,51 @@
+# Dual License
+
+This project is available under two licenses:
+
+1. **GNU General Public License v3.0 (GPLv3)** - For non-commercial and open source use
+2. **Commercial License** - For commercial use without GPL restrictions
+
+## Non-Commercial / Open Source Use
+
+For non-commercial use, educational purposes, personal projects, or open source projects,
+this software is licensed under the GNU General Public License v3.0.
+
+See [LICENSE-GPL](LICENSE-GPL) for the full GPLv3 license text.
+
+## Commercial Use
+
+For commercial use, including but not limited to:
+- Using this software in a commercial product or service
+- Using this software to generate revenue
+- Using this software in a business environment without releasing source code
+- Removing or modifying the attribution requirements
+
+You must obtain a commercial license from South City Computer.
+
+See [LICENSE-COMMERCIAL](LICENSE-COMMERCIAL) for commercial licensing terms.
+
+## Which License Do I Need?
+
+| Use Case | License Required |
+|----------|------------------|
+| Personal website | GPLv3 (free) |
+| Open source project | GPLv3 (free) |
+| Educational/learning | GPLv3 (free) |
+| Non-profit organization | GPLv3 (free) |
+| Commercial website | Commercial License |
+| SaaS product | Commercial License |
+| Selling to clients | Commercial License |
+| Closed-source derivative | Commercial License |
+
+## Contact
+
+For commercial licensing inquiries:
+- Email: license@southcitycomputer.com
+- Website: https://southcitycomputer.com
+
+## Summary
+
+- **Free for non-commercial use** under GPLv3
+- **Commercial license required** for business/commercial use
+- Source code must remain available under GPLv3
+- Commercial license removes GPL restrictions

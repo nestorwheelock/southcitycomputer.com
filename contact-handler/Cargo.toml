@@ -39,3 +39,15 @@ path = "src/main.rs"
 name = "scc-desktop"
 path = "src/desktop.rs"
 required-features = ["desktop"]
+
+[[bin]]
+name = "scc-benchmark"
+path = "src/benchmark.rs"
+
+[[bin]]
+name = "scc-perf-client"
+path = "src/perf_client.rs"
+
+[[bin]]
+name = "scc-dev"
+path = "src/dev_server.rs"

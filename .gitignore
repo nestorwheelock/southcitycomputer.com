@@ -12,9 +12,11 @@ contact-handler/target/
 Thumbs.db
 
 # Local data files (contain user submissions)
-contacts.csv
-service_inquiries.csv
+*.csv
 accounts.txt
+
+# Log files
+*.log
 
 # Android build
 android-app/app/build/
