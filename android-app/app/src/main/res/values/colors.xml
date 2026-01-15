@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="magenta">#E91E8C</color>
+    <color name="cyan">#00BCD4</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="black">#1A1A1A</color>
+    <color name="white">#FFFFFF</color>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Outer circle with gradient effect using layers -->
+    <path
+        android:pathData="M100,10 A90,90 0 1,1 99.9,10"
+        android:fillColor="#E91E8C"/>
+
+    <!-- Inner circle -->
+    <path
+        android:pathData="M100,25 A75,75 0 1,1 99.9,25"
+        android:fillColor="#FFFFFF"/>
+
+    <!-- Computer/monitor shape -->
+    <path
+        android:pathData="M55,70 L145,70 L145,120 L55,120 Z"
+        android:fillColor="#1A1A1A"/>
+
+    <!-- Screen -->
+    <path
+        android:pathData="M62,77 L138,77 L138,113 L62,113 Z"
+        android:fillColor="#00BCD4"/>
+
+    <!-- Stand -->
+    <path
+        android:pathData="M90,120 L110,120 L110,135 L90,135 Z"
+        android:fillColor="#1A1A1A"/>
+
+    <!-- Base -->
+    <path
+        android:pathData="M70,135 L130,135 L130,145 L70,145 Z"
+        android:fillColor="#1A1A1A"/>
+
+    <!-- Code lines on screen -->
+    <path
+        android:pathData="M68,85 L95,85"
+        android:strokeColor="#FFEB3B"
+        android:strokeWidth="3"/>
+    <path
+        android:pathData="M68,93 L85,93"
+        android:strokeColor="#E91E8C"
+        android:strokeWidth="3"/>
+    <path
+        android:pathData="M68,101 L110,101"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"/>
+
+</vector>

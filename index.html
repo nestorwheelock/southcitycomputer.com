@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>South City Computer | Software Consulting & Development</title>
+    <meta name="description" content="South City Computer - Friendly honest advice since 2006. Software consulting, custom app development, and systems programming from Puerto Morelos, Mexico.">
+    <meta name="keywords" content="software consulting, app development, Rust programming, Python Django, systems programming, Puerto Morelos, Mexico">
+    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <img src="images/logo.webp" alt="South City Computer">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#about" data-i18n="nav.about">About</a></li>
+                <li><a href="#services" data-i18n="nav.services">Services</a></li>
+                <li><a href="paradise.html" data-i18n="nav.paradise" data-i18n-href-es="paradise-es.html">Paradise</a></li>
+                <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+                <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang="en" title="English" onclick="setLanguage('en'); return false;">
+                    <svg viewBox="0 0 60 30" class="flag-icon">
+                        <rect width="60" height="30" fill="#002868"/>
+                        <path d="M0,3.5h60 M0,10.5h60 M0,17.5h60 M0,24.5h60" stroke="#bf0a30" stroke-width="3"/>
+                        <path d="M0,7h60 M0,14h60 M0,21h60 M0,28h60" stroke="#fff" stroke-width="3"/>
+                        <rect width="24" height="16" fill="#002868"/>
+                        <g fill="#fff">
+                            <circle cx="4" cy="2.5" r="0.8"/><circle cx="8" cy="2.5" r="0.8"/><circle cx="12" cy="2.5" r="0.8"/><circle cx="16" cy="2.5" r="0.8"/><circle cx="20" cy="2.5" r="0.8"/>
+                            <circle cx="6" cy="5" r="0.8"/><circle cx="10" cy="5" r="0.8"/><circle cx="14" cy="5" r="0.8"/><circle cx="18" cy="5" r="0.8"/>
+                            <circle cx="4" cy="7.5" r="0.8"/><circle cx="8" cy="7.5" r="0.8"/><circle cx="12" cy="7.5" r="0.8"/><circle cx="16" cy="7.5" r="0.8"/><circle cx="20" cy="7.5" r="0.8"/>
+                            <circle cx="6" cy="10" r="0.8"/><circle cx="10" cy="10" r="0.8"/><circle cx="14" cy="10" r="0.8"/><circle cx="18" cy="10" r="0.8"/>
+                            <circle cx="4" cy="12.5" r="0.8"/><circle cx="8" cy="12.5" r="0.8"/><circle cx="12" cy="12.5" r="0.8"/><circle cx="16" cy="12.5" r="0.8"/><circle cx="20" cy="12.5" r="0.8"/>
+                        </g>
+                    </svg>
+                </button>
+                <button class="lang-btn" data-lang="es" title="Español" onclick="setLanguage('es'); return false;">
+                    <svg viewBox="0 0 60 30" class="flag-icon">
+                        <rect width="60" height="7.5" fill="#006341"/>
+                        <rect y="7.5" width="60" height="15" fill="#fff"/>
+                        <rect y="22.5" width="60" height="7.5" fill="#ce1126"/>
+                        <circle cx="30" cy="15" r="4" fill="#8b4513"/>
+                        <ellipse cx="30" cy="15" rx="2.5" ry="3" fill="#006341"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <img src="images/logo-gradient.webp" alt="South City Computer" class="hero-logo">
+            <h1 class="hero-tagline" data-i18n="hero.tagline">Friendly Honest Advice Since 2006</h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">Now serving from Puerto Morelos, Mexico</p>
+            <div class="hero-cta">
+                <a href="#services" class="btn btn-primary" data-i18n="hero.services">Our Services</a>
+                <a href="#contact" class="btn btn-secondary" data-i18n="hero.contact">Get in Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title" data-i18n="about.title">Our Story</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3 data-i18n="about.heading">From St. Louis Storefront to Caribbean Consulting</h3>
+                    <p data-i18n="about.p1">South City Computer started in 2006 on Ivanhoe Avenue in the Lindenwood Park neighborhood of St. Louis. For years, we provided computer repair, sales, and honest technical advice to the local community from our signature storefront with its colorful window signs and industrial-chic interior.</p>
+                    <p data-i18n="about.p2">Today, we've traded the Gateway to the West for the Caribbean coast. Based in Puerto Morelos, Mexico, we've evolved from hardware repair to software craftsmanship. Our focus is now on consulting, custom application development, and systems programming&mdash;bringing the same friendly, honest approach that built our reputation.</p>
+                    <p data-i18n="about.p3">Whether you need a Rust CLI tool, a Django web application, or expert guidance on your software architecture, we bring decades of hands-on experience from the trenches of technology.</p>
+                </div>
+                <div class="about-gallery">
+                    <div class="gallery-item">
+                        <img src="images/storefront.webp" alt="Original South City Computer storefront in St. Louis">
+                        <span class="gallery-caption" data-i18n="about.cap1">The original St. Louis storefront</span>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/store-interior.webp" alt="Store interior with signature blue lighting">
+                        <span class="gallery-caption" data-i18n="about.cap2">Our signature style</span>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/repair-work.webp" alt="Hands-on computer repair work">
+                        <span class="gallery-caption" data-i18n="about.cap3">Always hands-on</span>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/wall-mural.webp" alt="Graffiti art mural on building">
+                        <span class="gallery-caption" data-i18n="about.cap4">Local art and culture</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="location-banner location-banner-beach">
+        <div class="location-banner-content">
+            <h2 data-i18n="banner.beach.title">Now Based in Paradise</h2>
+            <p data-i18n="banner.beach.subtitle">Puerto Morelos, Mexico</p>
+            <a href="paradise.html" class="btn btn-secondary banner-cta" data-i18n="banner.beach.cta" data-i18n-href-es="paradise-es.html">Meet Me in Paradise</a>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title" data-i18n="services.title">Software Development Services</h2>
+            <p class="section-intro" data-i18n="services.intro">Two decades of experience solving real problems. Professional software development with transparent pricing and honest timelines. We handle the technical details so you can focus on your business.</p>
+            <div class="services-grid">
+                <a href="services/software-consulting.html" class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="services.consulting.title">Software Consulting</h3>
+                    <p data-i18n="services.consulting.desc">Architecture reviews, code audits, and technical guidance. We help you make the right decisions before you write a single line of code.</p>
+                </a>
+                <a href="services/custom-development.html" class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="services.dev.title">Custom App and Web Development</h3>
+                    <p data-i18n="services.dev.desc">From CLI tools in Rust to full-stack web applications with Django. We build exactly what you need, nothing more, nothing less.</p>
+                </a>
+                <a href="services/systems-programming.html" class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="services.systems.title">Systems Programming</h3>
+                    <p data-i18n="services.systems.desc">Unix/Linux infrastructure, tooling, automation, and performance optimization. The unglamorous work that makes everything else possible.</p>
+                </a>
+                <a href="services/ai-integration.html" class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="services.ai.title">AI/ML Integration</h3>
+                    <p data-i18n="services.ai.desc">Practical applications of language models and data analysis. Not hype&mdash;real solutions that add value to your workflows.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="location-banner location-banner-malecon">
+        <div class="location-banner-content">
+            <h2 data-i18n="banner.malecon.title">Caribbean Craftsmanship</h2>
+            <p data-i18n="banner.malecon.subtitle">Quality code from the Riviera Maya</p>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title" data-i18n="projects.title">Projects</h2>
+            <p class="section-intro" data-i18n="projects.intro">Built with code, not bloated frameworks. Quality work you can inspect.</p>
+            <div class="projects-grid">
+                <a href="blog/faster-websites.html" class="project-card project-card-featured" data-i18n-href-es="blog/faster-websites-es.html">
+                    <div class="project-card-content">
+                        <div class="project-text">
+                            <div class="project-lang" data-i18n="projects.case.label">Case Study</div>
+                            <h3 data-i18n="projects.case.title">The 52ms Website</h3>
+                            <p data-i18n="projects.case.desc">How we built this site to load 46x faster than average—using Rust and WebP. Read why speed matters for your business.</p>
+                        </div>
+                        <img src="images/thumb-scc.webp" alt="South City Computer website preview" class="project-thumb">
+                    </div>
+                </a>
+                <a href="blog/petfriendlyvet.html" class="project-card project-card-featured" data-i18n-href-es="blog/petfriendlyvet-es.html">
+                    <div class="project-card-content">
+                        <div class="project-text">
+                            <div class="project-lang" data-i18n="projects.web.label">Web Design</div>
+                            <h3 data-i18n="projects.web.title">Pet Friendly Vet</h3>
+                            <p data-i18n="projects.web.desc">Professional veterinary website generated from Facebook business content using AI. Fast, mobile-friendly, and SEO-optimized.</p>
+                        </div>
+                        <img src="images/thumb-petfriendlyvet.webp" alt="Pet Friendly Vet website preview" class="project-thumb">
+                    </div>
+                </a>
+                <a href="https://github.com/nestorwheelock/gitdone" target="_blank" rel="noopener" class="project-card">
+                    <div class="project-lang">Rust</div>
+                    <h3>gitdone</h3>
+                    <p>A performance-focused wrapper for git that accelerates workflow efficiency. Because your time matters.</p>
+                </a>
+                <a href="https://github.com/nestorwheelock/osint-AI-framework" target="_blank" rel="noopener" class="project-card">
+                    <div class="project-lang">Python</div>
+                    <h3>osint-AI-framework</h3>
+                    <p>Django-based intelligence framework leveraging language models for data analysis. AI that actually does something useful.</p>
+                </a>
+                <a href="https://github.com/nestorwheelock/my_rust" target="_blank" rel="noopener" class="project-card">
+                    <div class="project-lang">Rust</div>
+                    <h3>my_rust</h3>
+                    <p>Interactive menu system designed for Rust applications. Clean, reusable, and battle-tested.</p>
+                </a>
+                <a href="https://github.com/nestorwheelock/zm_vid_html_gen" target="_blank" rel="noopener" class="project-card">
+                    <div class="project-lang">Rust</div>
+                    <h3>zm_vid_html_gen</h3>
+                    <p>Generates HTML documentation from ZoneMinder video event data. Turn surveillance footage into organized reports.</p>
+                </a>
+                <a href="https://github.com/nestorwheelock/dir_zip" target="_blank" rel="noopener" class="project-card">
+                    <div class="project-lang">Rust</div>
+                    <h3>dir_zip</h3>
+                    <p>Compresses directories with password encryption capabilities. Simple, secure, fast.</p>
+                </a>
+                <a href="projects.html" class="project-card project-card-more" data-i18n-href-es="projects-es.html">
+                    <h3 data-i18n="projects.viewall.title">View All Projects</h3>
+                    <p data-i18n="projects.viewall.desc">See our complete portfolio of client work and open source tools.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="location-banner location-banner-harbor">
+        <div class="location-banner-content">
+            <h2 data-i18n="banner.harbor.title">Let's Build Something</h2>
+            <p data-i18n="banner.harbor.subtitle">Your next project starts here</p>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" data-i18n="contact.title">Get in Touch</h2>
+            <p class="section-intro" data-i18n="contact.intro">Have a project in mind? Let's talk about how we can help.</p>
+            <div class="contact-wrapper">
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="name" data-i18n="contact.name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" data-i18n="contact.email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" data-i18n="contact.phone">Phone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message" data-i18n="contact.message">Message *</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        <span class="btn-text" data-i18n="contact.send">Send Message</span>
+                        <span class="btn-loading" data-i18n="contact.sending">Sending...</span>
+                    </button>
+                    <div class="form-status"></div>
+                </form>
+                <div class="contact-sidebar">
+                    <div class="chat-widget">
+                        <div class="chat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h4 data-i18n="contact.chat">Live Chat</h4>
+                        <p data-i18n="contact.coming">Coming Soon</p>
+                        <span class="chat-badge" data-i18n="contact.indev">In Development</span>
+                    </div>
+                    <div class="location-info">
+                        <h4 data-i18n="contact.location">Location</h4>
+                        <p data-i18n="contact.address">Puerto Morelos, Riviera Maya<br>Between Cancun &amp; Playa Del Carmen<br>Mexico</p>
+                    </div>
+                    <div class="helpdesk-stub">
+                        <div class="helpdesk-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                        </div>
+                        <h4 data-i18n="contact.helpdesk.title">Support Helpdesk</h4>
+                        <p data-i18n="contact.helpdesk.desc">Check your support ticket status</p>
+                        <a href="https://help.southcitycomputer.com" class="helpdesk-btn disabled" target="_blank">
+                            <span data-i18n="contact.helpdesk.login">Login to Helpdesk</span>
+                        </a>
+                        <span class="coming-badge" data-i18n="contact.coming">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="it-support" class="it-support">
+        <div class="container">
+            <h2 class="section-title" data-i18n="services.it.heading">Local IT Support</h2>
+            <p class="section-intro" data-i18n="services.it.intro">We selectively perform repairs and on-site IT services for local clients. We are no longer a walk-in brick and mortar business. Contact us to see if your problem is one we handle.</p>
+            <div class="it-services-scroller">
+                <div class="it-services-track">
+                    <a href="services/computer-repair.html" class="it-service-item">
+                        <img src="images/computer-repair-window-sign.webp" alt="Computer Repair">
+                    </a>
+                    <a href="services/data-recovery.html" class="it-service-item">
+                        <img src="images/data-recovery-window-sign.webp" alt="Data Recovery">
+                    </a>
+                    <a href="services/business-it.html" class="it-service-item">
+                        <img src="images/business-it-window-sign.webp" alt="Business IT">
+                    </a>
+                    <a href="services/computer-support.html" class="it-service-item">
+                        <img src="images/computer-support-window-sign.webp" alt="Computer Support">
+                    </a>
+                    <a href="services/computer-sales.html" class="it-service-item">
+                        <img src="images/computer-sale-window-sign.webp" alt="Computer Sales">
+                    </a>
+                    <a href="services/e-waste-recycling.html" class="it-service-item">
+                        <img src="images/computer-recycle-window-sign.webp" alt="Computer Recycling">
+                    </a>
+                    <!-- Duplicated for seamless loop -->
+                    <a href="services/computer-repair.html" class="it-service-item">
+                        <img src="images/computer-repair-window-sign.webp" alt="Computer Repair">
+                    </a>
+                    <a href="services/data-recovery.html" class="it-service-item">
+                        <img src="images/data-recovery-window-sign.webp" alt="Data Recovery">
+                    </a>
+                    <a href="services/business-it.html" class="it-service-item">
+                        <img src="images/business-it-window-sign.webp" alt="Business IT">
+                    </a>
+                    <a href="services/computer-support.html" class="it-service-item">
+                        <img src="images/computer-support-window-sign.webp" alt="Computer Support">
+                    </a>
+                    <a href="services/computer-sales.html" class="it-service-item">
+                        <img src="images/computer-sale-window-sign.webp" alt="Computer Sales">
+                    </a>
+                    <a href="services/e-waste-recycling.html" class="it-service-item">
+                        <img src="images/computer-recycle-window-sign.webp" alt="Computer Recycling">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-left">
+                    <a href="/app/" class="app-download-link">
+                        <img src="images/logo-gradient.webp" alt="South City Computer App" class="app-icon-img">
+                        <span class="app-download-text" data-i18n="footer.download">Download our App</span>
+                    </a>
+                </div>
+                <div class="footer-center">
+                    <div class="overall-rating">
+                        <span class="rating-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        <span class="rating-number">4.7</span>
+                        <span class="rating-text" data-i18n="footer.rating">out of 200+ reviews</span>
+                    </div>
+                    <div class="reviews-scroller">
+                        <div class="review-track">
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.1">"South City went above and beyond. I work online and rely on my laptop daily. Nestor fixed all issues on a rush basis and I didn't lose any working hours. He's extremely knowledgeable and patient with luddites, too. If I could give more than 5 stars, I would!"</p>
+                                <span class="review-author">- Melissa Troemel</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.2">"They are the best! I have never worked with a better computer tech company. This company diagnosed my issue and fixed it. It was complicated but he solved my problem. I am a small business. Nestor is officially our new IT department."</p>
+                                <span class="review-author">- Alice Prince</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.3">"The staff here is super helpful, thoughtful and great to work with! The owner does a lot of the repairs himself and does quality work! He was able to get the water damaged laptop up and running again!"</p>
+                                <span class="review-author">- Kevin Nestor</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.4">"These guys always find the way to get you going. Our computer was completely disabled, still they saved the important info and even borrowed an old computer to complete the presentation that was due that day. They saved the day!"</p>
+                                <span class="review-author">- Mario Orduna</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.5">"Great service, quick, complete. Katrina is a saint as she walked me through the process to make transferred files accessible. Recommend to anyone needing top notch, professional computer service."</p>
+                                <span class="review-author">- Jack Pendleton</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.6">"Absolutely amazing experience! I utterly panicked when my laptop would no longer turn on, right in the middle of finals week, and I didn't know what I was going to do. They had my laptop fixed and ready in less than 24 hours!"</p>
+                                <span class="review-author">- Christina Hadfield</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.7">"These guys really know what they're doing! They are extremely knowledgeable and have a delightfully quirky space that is fun to visit. Their support ticket system is easy to use and keeps you updated."</p>
+                                <span class="review-author">- Howard Krohn</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.8">"Took in my wife's computer that was running really slow and freezing up. South City tested the computer, backed up all the files, installed a new hard drive and re-installed the files quickly and at a great price."</p>
+                                <span class="review-author">- Michael Davis</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.9">"Great service...reasonable prices...they took my old laptop and rebuilt the unit into a solid state..installed Linux..installed some new programs... best place to go!"</p>
+                                <span class="review-author">- Jane Steinhauer</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.10">"South City Computer site had an easy to use ticket system, he got back to me quickly, was flexible in scheduling and definitely showed concern for transparency as he walked me through each step."</p>
+                                <span class="review-author">- Berkeley Souza</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.11">"My daughter damaged the screen to her laptop. They repaired it like it was brand new. Once the part arrived the repair was made that day. The charge for service seemed very reasonable."</p>
+                                <span class="review-author">- Todd Evans</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.12">"Excellent work. Have used them before, even buying a refurbished computer from them several years ago. The only place I would consider taking my computer. Would not hesitate to recommend them."</p>
+                                <span class="review-author">- Jenni Richards, RN</span>
+                            </div>
+                            <!-- Duplicate for infinite scroll -->
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.1">"South City went above and beyond. I work online and rely on my laptop daily. Nestor fixed all issues on a rush basis and I didn't lose any working hours. He's extremely knowledgeable and patient with luddites, too. If I could give more than 5 stars, I would!"</p>
+                                <span class="review-author">- Melissa Troemel</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.2">"They are the best! I have never worked with a better computer tech company. This company diagnosed my issue and fixed it. It was complicated but he solved my problem. I am a small business. Nestor is officially our new IT department."</p>
+                                <span class="review-author">- Alice Prince</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.3">"The staff here is super helpful, thoughtful and great to work with! The owner does a lot of the repairs himself and does quality work! He was able to get the water damaged laptop up and running again!"</p>
+                                <span class="review-author">- Kevin Nestor</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.4">"These guys always find the way to get you going. Our computer was completely disabled, still they saved the important info and even borrowed an old computer to complete the presentation that was due that day. They saved the day!"</p>
+                                <span class="review-author">- Mario Orduna</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.5">"Great service, quick, complete. Katrina is a saint as she walked me through the process to make transferred files accessible. Recommend to anyone needing top notch, professional computer service."</p>
+                                <span class="review-author">- Jack Pendleton</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.6">"Absolutely amazing experience! I utterly panicked when my laptop would no longer turn on, right in the middle of finals week, and I didn't know what I was going to do. They had my laptop fixed and ready in less than 24 hours!"</p>
+                                <span class="review-author">- Christina Hadfield</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.7">"These guys really know what they're doing! They are extremely knowledgeable and have a delightfully quirky space that is fun to visit. Their support ticket system is easy to use and keeps you updated."</p>
+                                <span class="review-author">- Howard Krohn</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.8">"Took in my wife's computer that was running really slow and freezing up. South City tested the computer, backed up all the files, installed a new hard drive and re-installed the files quickly and at a great price."</p>
+                                <span class="review-author">- Michael Davis</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.9">"Great service...reasonable prices...they took my old laptop and rebuilt the unit into a solid state..installed Linux..installed some new programs... best place to go!"</p>
+                                <span class="review-author">- Jane Steinhauer</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.10">"South City Computer site had an easy to use ticket system, he got back to me quickly, was flexible in scheduling and definitely showed concern for transparency as he walked me through each step."</p>
+                                <span class="review-author">- Berkeley Souza</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.11">"My daughter damaged the screen to her laptop. They repaired it like it was brand new. Once the part arrived the repair was made that day. The charge for service seemed very reasonable."</p>
+                                <span class="review-author">- Todd Evans</span>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text" data-i18n="review.12">"Excellent work. Have used them before, even buying a refurbished computer from them several years ago. The only place I would consider taking my computer. Would not hesitate to recommend them."</p>
+                                <span class="review-author">- Jenni Richards, RN</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <h4 data-i18n="footer.connect">Connect</h4>
+                    <a href="https://github.com/nestorwheelock" target="_blank" rel="noopener" class="social-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        GitHub
+                    </a>
+                    <a href="https://facebook.com/southcitycomputer" target="_blank" rel="noopener" class="social-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        Facebook
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footer.copyright">&copy; 2006&ndash;2026 South City Computer. All rights reserved.<br>Built in Rust at South City Computer.</p>
+                <p class="version-tag">v1.0.4</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.min.js"></script>
+</body>
+</html>

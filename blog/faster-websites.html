@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Your Website Speed Matters More Than You Think | South City Computer</title>
+    <meta name="description" content="Learn how we built a website that loads in 52 milliseconds and why speed directly impacts your bottom line.">
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+    <style>
+        .blog-article {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            line-height: 1.8;
+        }
+        .blog-article h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .blog-article h2 {
+            color: #1a5276;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .blog-article p {
+            margin-bottom: 1.5rem;
+            color: #444;
+        }
+        .stat-box {
+            background: linear-gradient(135deg, #1a5276, #2980b9);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .stat-box .big-number {
+            font-size: 4rem;
+            font-weight: bold;
+            display: block;
+        }
+        .stat-box .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .comparison-table th {
+            background: #f8f9fa;
+            color: #1a5276;
+        }
+        .highlight-row {
+            background: #e8f4fd;
+        }
+        .cta-section {
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .cta-section h3 {
+            color: #1a5276;
+            margin-bottom: 1rem;
+        }
+        .btn-cta {
+            display: inline-block;
+            background: #1a5276;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: transform 0.2s;
+        }
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            background: #2980b9;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        blockquote {
+            border-left: 4px solid #1a5276;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #555;
+        }
+        .screenshot-preview {
+            max-width: 100%;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <script src="../js/main.min.js"></script>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../images/logo.webp" alt="South City Computer">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../#about">About</a></li>
+                <li><a href="../#services">Services</a></li>
+                <li><a href="../paradise.html">Paradise</a></li>
+                <li><a href="../#projects">Projects</a></li>
+                <li><a href="../#contact">Contact</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang="en" title="English" onclick="setLanguage('en'); return false;">
+                    <svg viewBox="0 0 60 30" class="flag-icon">
+                        <rect width="60" height="30" fill="#002868"/>
+                        <path d="M0,3.5h60 M0,10.5h60 M0,17.5h60 M0,24.5h60" stroke="#bf0a30" stroke-width="3"/>
+                        <path d="M0,7h60 M0,14h60 M0,21h60 M0,28h60" stroke="#fff" stroke-width="3"/>
+                        <rect width="24" height="16" fill="#002868"/>
+                        <g fill="#fff">
+                            <circle cx="4" cy="2.5" r="0.8"/><circle cx="8" cy="2.5" r="0.8"/><circle cx="12" cy="2.5" r="0.8"/><circle cx="16" cy="2.5" r="0.8"/><circle cx="20" cy="2.5" r="0.8"/>
+                            <circle cx="6" cy="5" r="0.8"/><circle cx="10" cy="5" r="0.8"/><circle cx="14" cy="5" r="0.8"/><circle cx="18" cy="5" r="0.8"/>
+                            <circle cx="4" cy="7.5" r="0.8"/><circle cx="8" cy="7.5" r="0.8"/><circle cx="12" cy="7.5" r="0.8"/><circle cx="16" cy="7.5" r="0.8"/><circle cx="20" cy="7.5" r="0.8"/>
+                            <circle cx="6" cy="10" r="0.8"/><circle cx="10" cy="10" r="0.8"/><circle cx="14" cy="10" r="0.8"/><circle cx="18" cy="10" r="0.8"/>
+                            <circle cx="4" cy="12.5" r="0.8"/><circle cx="8" cy="12.5" r="0.8"/><circle cx="12" cy="12.5" r="0.8"/><circle cx="16" cy="12.5" r="0.8"/><circle cx="20" cy="12.5" r="0.8"/>
+                        </g>
+                    </svg>
+                </button>
+                <button class="lang-btn" data-lang="es" title="Español" onclick="setLanguage('es'); return false;">
+                    <svg viewBox="0 0 60 30" class="flag-icon">
+                        <rect width="60" height="7.5" fill="#006341"/>
+                        <rect y="7.5" width="60" height="15" fill="#fff"/>
+                        <rect y="22.5" width="60" height="7.5" fill="#ce1126"/>
+                        <circle cx="30" cy="15" r="4" fill="#8b4513"/>
+                        <ellipse cx="30" cy="15" rx="2.5" ry="3" fill="#006341"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <article class="blog-article">
+        <h1>Why Your Website Speed Matters More Than You Think</h1>
+        <div class="blog-meta">
+            <span>January 2026</span> | <span>5 min read</span> | <span>By South City Computer</span>
+        </div>
+
+        <p>We recently rebuilt our own website from scratch. Not because the old one was broken, but because we wanted to prove something: <strong>a website can load in under a second</strong>. In fact, ours loads in 52 milliseconds.</p>
+
+        <img src="../images/screenshot-scc.webp" alt="South City Computer website screenshot - fast loading web design example" class="screenshot-preview">
+
+        <p>Before you dismiss this as technical navel-gazing, let us show you why this matters for your business.</p>
+
+        <h2>The Numbers Don't Lie</h2>
+
+        <p>Every second your website takes to load costs you money. This isn't opinion—it's backed by research from Google, Amazon, and countless studies:</p>
+
+        <div class="stat-box">
+            <span class="big-number">53%</span>
+            <span class="stat-label">of visitors abandon sites that take over 3 seconds to load</span>
+        </div>
+
+        <table class="comparison-table">
+            <tr>
+                <th>Load Time</th>
+                <th>Bounce Rate</th>
+                <th>Conversion Rate</th>
+            </tr>
+            <tr class="highlight-row">
+                <td><strong>1 second</strong></td>
+                <td>7%</td>
+                <td>39%</td>
+            </tr>
+            <tr>
+                <td>3 seconds</td>
+                <td>11%</td>
+                <td>~15%</td>
+            </tr>
+            <tr>
+                <td>5 seconds</td>
+                <td>38%</td>
+                <td>0.6%</td>
+            </tr>
+        </table>
+
+        <p>That's not a typo. Sites loading in 1 second convert at <strong>39%</strong>. At 5 seconds? Just <strong>0.6%</strong>. That's a 65x difference in sales effectiveness.</p>
+
+        <h2>What Most Agencies Won't Tell You</h2>
+
+        <p>Most web agencies use WordPress or similar platforms because they're fast to develop—not because they're fast for your customers. The average WordPress site takes <strong>2.5-3 seconds on desktop and over 13 seconds on mobile</strong>.</p>
+
+        <p>They'll tell you to add a caching plugin. Then a CDN. Then an image optimizer. Pretty soon you're paying for a dozen services to make a slow platform slightly less slow.</p>
+
+        <blockquote>
+            "We don't build fast sites. We build sites that are fast by design."
+        </blockquote>
+
+        <h2>What We Did Differently</h2>
+
+        <p>For our website, we took a different approach:</p>
+
+        <p><strong>1. We wrote it in Rust.</strong> Not because it's trendy, but because Rust web servers handle 600+ requests per second on basic hardware. WordPress handles about 30.</p>
+
+        <p><strong>2. We optimized every image.</strong> Modern WebP format reduced our images from 20MB to 4.3MB—a 78% reduction—with no visible quality loss.</p>
+
+        <p><strong>3. We eliminated unnecessary requests.</strong> Our entire site—HTML, CSS, JavaScript, and all images—loads from a single 13MB binary. No database queries. No file system access. Everything served from memory.</p>
+
+        <p>The result?</p>
+
+        <div class="stat-box">
+            <span class="big-number">52ms</span>
+            <span class="stat-label">Total page load time—46x faster than the average website</span>
+        </div>
+
+        <h2>Does Every Business Need This?</h2>
+
+        <p>Honestly? No. If you're a local bakery with 50 visitors a day, WordPress is fine.</p>
+
+        <p>But if you're:</p>
+        <ul>
+            <li>Running paid advertising (every second costs you ad spend)</li>
+            <li>Competing for SEO rankings (Google uses speed as a ranking factor)</li>
+            <li>Selling anything online (speed directly impacts conversions)</li>
+            <li>Building your brand (slow sites feel unprofessional)</li>
+        </ul>
+
+        <p>...then website speed isn't a nice-to-have. It's competitive advantage.</p>
+
+        <h2>The Good News</h2>
+
+        <p>You don't need to rebuild everything from scratch. Often, the biggest wins come from:</p>
+
+        <p><strong>Image optimization</strong> — Converting to modern formats can cut load times by 50% alone.</p>
+
+        <p><strong>CDN setup</strong> — Cloudflare's free tier can dramatically improve performance for global visitors.</p>
+
+        <p><strong>Removing bloat</strong> — That carousel plugin you never use? It's still loading JavaScript on every page view.</p>
+
+        <p>We can audit your current site and show you exactly where the bottlenecks are—often with fixes that take hours, not weeks.</p>
+
+        <div class="cta-section">
+            <h3>Ready to Speed Up Your Website?</h3>
+            <p>Get a free performance audit. We'll analyze your site, identify the bottlenecks, and give you a clear plan to fix them.</p>
+            <a href="../#contact" class="btn-cta">Get Your Free Audit</a>
+        </div>
+
+        <h2>Want the Technical Details?</h2>
+
+        <p>For developers and technical decision-makers, we've published a comprehensive white paper documenting our entire optimization process, including benchmark data, code samples, and architecture decisions.</p>
+
+        <p><a href="whitepaper.html" class="back-link">Read the Full Technical White Paper →</a></p>
+
+        <a href="../#projects" class="back-link">← Back to Projects</a>
+    </article>
+
+    <footer class="footer service-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2006&ndash;2026 South City Computer. All rights reserved.</p>
+                <p>Built in Rust at South City Computer.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

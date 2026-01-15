@@ -1,0 +1,158 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v1.0.5)'
+        required: true
+        type: string
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-server-linux:
+    name: Build Server (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build server binary
+        working-directory: contact-handler
+        run: cargo build --release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: scc-server-linux
+          path: contact-handler/target/release/scc-server
+
+  build-desktop-linux:
+    name: Build Desktop (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libgtk-3-dev \
+            libwebkit2gtk-4.0-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            libsoup2.4-dev \
+            libjavascriptcoregtk-4.0-dev
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build desktop binary
+        working-directory: contact-handler
+        run: cargo build --release --features desktop --bin scc-desktop
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: scc-desktop-linux
+          path: contact-handler/target/release/scc-desktop
+
+  build-desktop-windows:
+    name: Build Desktop (Windows)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build desktop binary
+        working-directory: contact-handler
+        run: cargo build --release --features desktop --bin scc-desktop
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: scc-desktop-windows
+          path: contact-handler/target/release/scc-desktop.exe
+
+  release:
+    name: Create Release
+    needs: [build-server-linux, build-desktop-linux, build-desktop-windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Prepare release files
+        run: |
+          mkdir -p release
+
+          # Linux server
+          cp artifacts/scc-server-linux/scc-server release/scc-server-linux
+          chmod +x release/scc-server-linux
+
+          # Linux desktop
+          cp artifacts/scc-desktop-linux/scc-desktop release/scc-desktop-linux
+          chmod +x release/scc-desktop-linux
+
+          # Windows desktop
+          cp artifacts/scc-desktop-windows/scc-desktop.exe release/scc-desktop-windows.exe
+
+          # Create checksums
+          cd release
+          sha256sum * > SHA256SUMS.txt
+
+      - name: Get version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "VERSION=${{ inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.VERSION }}
+          name: South City Computer ${{ steps.version.outputs.VERSION }}
+          body: |
+            ## Downloads
+
+            | Platform | Binary | Description |
+            |----------|--------|-------------|
+            | Linux | `scc-server-linux` | Web server (standalone) |
+            | Linux | `scc-desktop-linux` | Desktop application |
+            | Windows | `scc-desktop-windows.exe` | Desktop application |
+
+            ### Web Server
+            The `scc-server` binary is a standalone web server with all assets embedded.
+            Run it with `./scc-server-linux` and visit `http://localhost:9000`.
+
+            ### Desktop App
+            The desktop applications wrap the web server in a native window using WebView2 (Windows) or WebKitGTK (Linux).
+            Simply run the executable and the app will open in a native window.
+
+            ### Checksums
+            SHA256 checksums are available in `SHA256SUMS.txt`.
+          files: |
+            release/scc-server-linux
+            release/scc-desktop-linux
+            release/scc-desktop-windows.exe
+            release/SHA256SUMS.txt
+          draft: false
+          prerelease: false

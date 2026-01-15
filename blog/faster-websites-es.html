@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Por Qué la Velocidad de Tu Sitio Web Importa Más de lo Que Crees | South City Computer</title>
+    <meta name="description" content="Aprende cómo construimos un sitio web que carga en 52 milisegundos y por qué la velocidad impacta directamente en tus resultados.">
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+    <style>
+        .blog-article {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            line-height: 1.8;
+        }
+        .blog-article h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .blog-article h2 {
+            color: #1a5276;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .blog-article p {
+            margin-bottom: 1.5rem;
+            color: #444;
+        }
+        .stat-box {
+            background: linear-gradient(135deg, #1a5276, #2980b9);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .stat-box .big-number {
+            font-size: 4rem;
+            font-weight: bold;
+            display: block;
+        }
+        .stat-box .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .comparison-table th {
+            background: #f8f9fa;
+            color: #1a5276;
+        }
+        .highlight-row {
+            background: #e8f4fd;
+        }
+        .cta-section {
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .cta-section h3 {
+            color: #1a5276;
+            margin-bottom: 1rem;
+        }
+        .btn-cta {
+            display: inline-block;
+            background: #1a5276;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: transform 0.2s;
+        }
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            background: #2980b9;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        blockquote {
+            border-left: 4px solid #1a5276;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #555;
+        }
+        .screenshot-preview {
+            max-width: 100%;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <script src="../js/main.min.js"></script>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../images/logo.webp" alt="South City Computer">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../#about">Nosotros</a></li>
+                <li><a href="../#services">Servicios</a></li>
+                <li><a href="../paradise-es.html">Paraíso</a></li>
+                <li><a href="../#projects">Proyectos</a></li>
+                <li><a href="../#contact">Contacto</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang="en" title="English" onclick="setLanguage('en'); return false;">
+                    <svg viewBox="0 0 60 30" class="flag-icon">
+                        <rect width="60" height="30" fill="#002868"/>
+                        <path d="M0,3.5h60 M0,10.5h60 M0,17.5h60 M0,24.5h60" stroke="#bf0a30" stroke-width="3"/>
+                        <path d="M0,7h60 M0,14h60 M0,21h60 M0,28h60" stroke="#fff" stroke-width="3"/>
+                        <rect width="24" height="16" fill="#002868"/>
+                        <g fill="#fff">
+                            <circle cx="4" cy="2.5" r="0.8"/><circle cx="8" cy="2.5" r="0.8"/><circle cx="12" cy="2.5" r="0.8"/><circle cx="16" cy="2.5" r="0.8"/><circle cx="20" cy="2.5" r="0.8"/>
+                            <circle cx="6" cy="5" r="0.8"/><circle cx="10" cy="5" r="0.8"/><circle cx="14" cy="5" r="0.8"/><circle cx="18" cy="5" r="0.8"/>
+                            <circle cx="4" cy="7.5" r="0.8"/><circle cx="8" cy="7.5" r="0.8"/><circle cx="12" cy="7.5" r="0.8"/><circle cx="16" cy="7.5" r="0.8"/><circle cx="20" cy="7.5" r="0.8"/>
+                            <circle cx="6" cy="10" r="0.8"/><circle cx="10" cy="10" r="0.8"/><circle cx="14" cy="10" r="0.8"/><circle cx="18" cy="10" r="0.8"/>
+                            <circle cx="4" cy="12.5" r="0.8"/><circle cx="8" cy="12.5" r="0.8"/><circle cx="12" cy="12.5" r="0.8"/><circle cx="16" cy="12.5" r="0.8"/><circle cx="20" cy="12.5" r="0.8"/>
+                        </g>
+                    </svg>
+                </button>
+                <button class="lang-btn" data-lang="es" title="Español" onclick="setLanguage('es'); return false;">
+                    <svg viewBox="0 0 60 30" class="flag-icon">
+                        <rect width="60" height="7.5" fill="#006341"/>
+                        <rect y="7.5" width="60" height="15" fill="#fff"/>
+                        <rect y="22.5" width="60" height="7.5" fill="#ce1126"/>
+                        <circle cx="30" cy="15" r="4" fill="#8b4513"/>
+                        <ellipse cx="30" cy="15" rx="2.5" ry="3" fill="#006341"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <article class="blog-article">
+        <h1>Por Qué la Velocidad de Tu Sitio Web Importa Más de lo Que Crees</h1>
+        <div class="blog-meta">
+            <span>Enero 2026</span> | <span>5 min de lectura</span> | <span>Por South City Computer</span>
+        </div>
+
+        <p>Recientemente reconstruimos nuestro propio sitio web desde cero. No porque el anterior estuviera roto, sino porque queríamos demostrar algo: <strong>un sitio web puede cargar en menos de un segundo</strong>. De hecho, el nuestro carga en 52 milisegundos.</p>
+
+        <img src="../images/screenshot-scc.webp" alt="Captura de pantalla del sitio web South City Computer - ejemplo de diseño web rápido" class="screenshot-preview">
+
+        <p>Antes de que descartes esto como tecnicismos irrelevantes, permítenos mostrarte por qué esto importa para tu negocio.</p>
+
+        <h2>Los Números No Mienten</h2>
+
+        <p>Cada segundo que tu sitio web tarda en cargar te cuesta dinero. Esto no es opinión—está respaldado por investigaciones de Google, Amazon y numerosos estudios:</p>
+
+        <div class="stat-box">
+            <span class="big-number">53%</span>
+            <span class="stat-label">de los visitantes abandonan sitios que tardan más de 3 segundos en cargar</span>
+        </div>
+
+        <table class="comparison-table">
+            <tr>
+                <th>Tiempo de Carga</th>
+                <th>Tasa de Rebote</th>
+                <th>Tasa de Conversión</th>
+            </tr>
+            <tr class="highlight-row">
+                <td><strong>1 segundo</strong></td>
+                <td>7%</td>
+                <td>39%</td>
+            </tr>
+            <tr>
+                <td>3 segundos</td>
+                <td>11%</td>
+                <td>~15%</td>
+            </tr>
+            <tr>
+                <td>5 segundos</td>
+                <td>38%</td>
+                <td>0.6%</td>
+            </tr>
+        </table>
+
+        <p>No es un error de escritura. Los sitios que cargan en 1 segundo convierten al <strong>39%</strong>. ¿A los 5 segundos? Solo <strong>0.6%</strong>. Eso es una diferencia de 65 veces en efectividad de ventas.</p>
+
+        <h2>Lo Que la Mayoría de las Agencias No Te Dicen</h2>
+
+        <p>La mayoría de las agencias web usan WordPress o plataformas similares porque son rápidas de desarrollar—no porque sean rápidas para tus clientes. El sitio promedio de WordPress tarda <strong>2.5-3 segundos en escritorio y más de 13 segundos en móvil</strong>.</p>
+
+        <p>Te dirán que agregues un plugin de caché. Luego un CDN. Luego un optimizador de imágenes. Muy pronto estás pagando por una docena de servicios para hacer que una plataforma lenta sea ligeramente menos lenta.</p>
+
+        <blockquote>
+            "No construimos sitios rápidos. Construimos sitios que son rápidos por diseño."
+        </blockquote>
+
+        <h2>Lo Que Hicimos Diferente</h2>
+
+        <p>Para nuestro sitio web, tomamos un enfoque diferente:</p>
+
+        <p><strong>1. Lo escribimos en Rust.</strong> No porque esté de moda, sino porque los servidores web en Rust manejan más de 600 solicitudes por segundo en hardware básico. WordPress maneja aproximadamente 30.</p>
+
+        <p><strong>2. Optimizamos cada imagen.</strong> El formato moderno WebP redujo nuestras imágenes de 20MB a 4.3MB—una reducción del 78%—sin pérdida visible de calidad.</p>
+
+        <p><strong>3. Eliminamos solicitudes innecesarias.</strong> Todo nuestro sitio—HTML, CSS, JavaScript y todas las imágenes—carga desde un único binario de 13MB. Sin consultas a bases de datos. Sin acceso al sistema de archivos. Todo servido desde memoria.</p>
+
+        <p>¿El resultado?</p>
+
+        <div class="stat-box">
+            <span class="big-number">52ms</span>
+            <span class="stat-label">Tiempo total de carga—46 veces más rápido que el sitio web promedio</span>
+        </div>
+
+        <h2>¿Todo Negocio Necesita Esto?</h2>
+
+        <p>¿Honestamente? No. Si eres una panadería local con 50 visitantes al día, WordPress está bien.</p>
+
+        <p>Pero si estás:</p>
+        <ul>
+            <li>Ejecutando publicidad pagada (cada segundo te cuesta inversión en anuncios)</li>
+            <li>Compitiendo por rankings de SEO (Google usa la velocidad como factor de clasificación)</li>
+            <li>Vendiendo cualquier cosa en línea (la velocidad impacta directamente las conversiones)</li>
+            <li>Construyendo tu marca (los sitios lentos se sienten poco profesionales)</li>
+        </ul>
+
+        <p>...entonces la velocidad del sitio web no es un lujo. Es una ventaja competitiva.</p>
+
+        <h2>Las Buenas Noticias</h2>
+
+        <p>No necesitas reconstruir todo desde cero. A menudo, las mayores ganancias vienen de:</p>
+
+        <p><strong>Optimización de imágenes</strong> — Convertir a formatos modernos puede reducir los tiempos de carga en un 50% solo con eso.</p>
+
+        <p><strong>Configuración de CDN</strong> — El nivel gratuito de Cloudflare puede mejorar dramáticamente el rendimiento para visitantes globales.</p>
+
+        <p><strong>Eliminar el exceso</strong> — ¿Ese plugin de carrusel que nunca usas? Sigue cargando JavaScript en cada vista de página.</p>
+
+        <p>Podemos auditar tu sitio actual y mostrarte exactamente dónde están los cuellos de botella—a menudo con soluciones que toman horas, no semanas.</p>
+
+        <div class="cta-section">
+            <h3>¿Listo para Acelerar Tu Sitio Web?</h3>
+            <p>Obtén una auditoría de rendimiento gratuita. Analizaremos tu sitio, identificaremos los cuellos de botella y te daremos un plan claro para solucionarlos.</p>
+            <a href="../#contact" class="btn-cta">Obtener Tu Auditoría Gratuita</a>
+        </div>
+
+        <h2>¿Quieres los Detalles Técnicos?</h2>
+
+        <p>Para desarrolladores y tomadores de decisiones técnicas, hemos publicado un documento técnico completo que documenta todo nuestro proceso de optimización, incluyendo datos de benchmark, ejemplos de código y decisiones de arquitectura.</p>
+
+        <p><a href="whitepaper-es.html" class="back-link">Leer el Documento Técnico Completo →</a></p>
+
+        <a href="../#projects" class="back-link">← Volver a Proyectos</a>
+    </article>
+
+    <footer class="footer service-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2006&ndash;2026 South City Computer. Todos los derechos reservados.<br>Construido en Rust en South City Computer.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

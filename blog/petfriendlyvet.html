@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Friendly Vet Website - AI-Powered Web Design from Facebook Content | South City Computer</title>
+    <meta name="description" content="How we built a professional veterinary website for Dr. Pablo Rojo Mendoza in Puerto Morelos using AI to transform Facebook business content into a fast, SEO-optimized website.">
+    <meta name="keywords" content="veterinarian website design, Puerto Morelos vet, AI web development, Facebook to website, Dr Pablo Rojo Mendoza, Pet Friendly Vet">
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+    <link rel="canonical" href="https://southcitycomputer.com/blog/petfriendlyvet.html">
+    <meta property="og:title" content="Pet Friendly Vet - AI-Powered Website from Facebook Content">
+    <meta property="og:description" content="Case study: Building a professional veterinary website using AI and scraped Facebook content.">
+    <meta property="og:type" content="article">
+    <style>
+        .blog-article {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            line-height: 1.8;
+        }
+        .blog-article h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        .blog-meta {
+            color: #666;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .blog-article h2 {
+            color: #1a5276;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .blog-article p {
+            margin-bottom: 1.5rem;
+            color: #444;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #1a5276, #2980b9);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+        .highlight-box h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        .highlight-box a {
+            color: #7fdbff;
+        }
+        .vet-info {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border-left: 4px solid #1a5276;
+        }
+        .vet-info h3 {
+            color: #1a5276;
+            margin-bottom: 1rem;
+        }
+        .vet-info ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        .vet-info li {
+            margin-bottom: 0.5rem;
+            color: #444;
+        }
+        .cta-section {
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .cta-section h3 {
+            color: #1a5276;
+            margin-bottom: 1rem;
+        }
+        .btn-cta {
+            display: inline-block;
+            background: #1a5276;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: transform 0.2s;
+        }
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            background: #2980b9;
+        }
+        .btn-visit {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin: 1rem 0.5rem;
+            transition: transform 0.2s;
+        }
+        .btn-visit:hover {
+            transform: translateY(-2px);
+            background: #2ecc71;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .process-steps {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+        }
+        .process-steps li {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 1.5rem;
+        }
+        .process-steps li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 36px;
+            height: 36px;
+            background: #1a5276;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .screenshot-preview {
+            max-width: 100%;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <script src="../js/main.min.js"></script>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../images/logo.webp" alt="South City Computer">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../#about">About</a></li>
+                <li><a href="../#services">Services</a></li>
+                <li><a href="../paradise.html">Paradise</a></li>
+                <li><a href="../#projects">Projects</a></li>
+                <li><a href="../#contact">Contact</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang="en" title="English" onclick="setLanguage('en'); return false;">
+                    <svg viewBox="0 0 60 30" class="flag-icon">
+                        <rect width="60" height="30" fill="#002868"/>
+                        <path d="M0,3.5h60 M0,10.5h60 M0,17.5h60 M0,24.5h60" stroke="#bf0a30" stroke-width="3"/>
+                        <path d="M0,7h60 M0,14h60 M0,21h60 M0,28h60" stroke="#fff" stroke-width="3"/>
+                        <rect width="24" height="16" fill="#002868"/>
+                        <g fill="#fff">
+                            <circle cx="4" cy="2.5" r="0.8"/><circle cx="8" cy="2.5" r="0.8"/><circle cx="12" cy="2.5" r="0.8"/><circle cx="16" cy="2.5" r="0.8"/><circle cx="20" cy="2.5" r="0.8"/>
+                            <circle cx="6" cy="5" r="0.8"/><circle cx="10" cy="5" r="0.8"/><circle cx="14" cy="5" r="0.8"/><circle cx="18" cy="5" r="0.8"/>
+                            <circle cx="4" cy="7.5" r="0.8"/><circle cx="8" cy="7.5" r="0.8"/><circle cx="12" cy="7.5" r="0.8"/><circle cx="16" cy="7.5" r="0.8"/><circle cx="20" cy="7.5" r="0.8"/>
+                            <circle cx="6" cy="10" r="0.8"/><circle cx="10" cy="10" r="0.8"/><circle cx="14" cy="10" r="0.8"/><circle cx="18" cy="10" r="0.8"/>
+                            <circle cx="4" cy="12.5" r="0.8"/><circle cx="8" cy="12.5" r="0.8"/><circle cx="12" cy="12.5" r="0.8"/><circle cx="16" cy="12.5" r="0.8"/><circle cx="20" cy="12.5" r="0.8"/>
+                        </g>
+                    </svg>
+                </button>
+                <button class="lang-btn" data-lang="es" title="Español" onclick="setLanguage('es'); return false;">
+                    <svg viewBox="0 0 60 30" class="flag-icon">
+                        <rect width="60" height="7.5" fill="#006341"/>
+                        <rect y="7.5" width="60" height="15" fill="#fff"/>
+                        <rect y="22.5" width="60" height="7.5" fill="#ce1126"/>
+                        <circle cx="30" cy="15" r="4" fill="#8b4513"/>
+                        <ellipse cx="30" cy="15" rx="2.5" ry="3" fill="#006341"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <article class="blog-article">
+        <h1>Pet Friendly Vet: From Facebook Page to Professional Website</h1>
+        <div class="blog-meta">
+            <span>January 2026</span> | <span>4 min read</span> | <span>Web Design Case Study</span>
+        </div>
+
+        <p>When Dr. Pablo Rojo Mendoza needed a professional online presence for his veterinary clinic in Puerto Morelos, he had years of client reviews and business information scattered across Facebook. We transformed that content into a fast, professional website in under a day.</p>
+
+        <a href="https://petfriendlyvet.com" target="_blank" rel="noopener">
+            <img src="../images/screenshot-petfriendlyvet.webp" alt="Pet Friendly Vet website screenshot - Dr. Pablo Rojo Mendoza veterinary clinic in Puerto Morelos" class="screenshot-preview">
+        </a>
+
+        <div class="highlight-box">
+            <h3>Visit Pet Friendly Veterinaria</h3>
+            <p>See the finished website and learn more about Dr. Pablo's veterinary services.</p>
+            <a href="https://petfriendlyvet.com" target="_blank" rel="noopener" class="btn-visit">Visit petfriendlyvet.com</a>
+        </div>
+
+        <h2>The Challenge: Great Business, No Website</h2>
+
+        <p>Dr. Pablo runs one of the most respected veterinary clinics in the Riviera Maya region. His Facebook page had glowing 5-star reviews, detailed service information, and years of happy client testimonials. But without a proper website, he was missing out on:</p>
+
+        <ul>
+            <li><strong>Search engine visibility</strong> - Tourists and new residents searching for "veterinarian Puerto Morelos" couldn't find him</li>
+            <li><strong>Professional credibility</strong> - A Facebook-only presence doesn't convey the expertise of a specialist with diplomas in Internal Medicine and Clinical Pathology</li>
+            <li><strong>24/7 information access</strong> - Clients couldn't easily find hours, services, or contact information without navigating Facebook</li>
+        </ul>
+
+        <h2>Our AI-Powered Solution</h2>
+
+        <p>We used a combination of web scraping and AI content generation to build a complete website from existing Facebook content:</p>
+
+        <ol class="process-steps">
+            <li><strong>Content Extraction</strong> - We scraped Dr. Pablo's Facebook business page, collecting service descriptions, photos, hours, contact information, and client reviews.</li>
+            <li><strong>AI Content Generation</strong> - Using language models, we transformed the raw Facebook content into professional, SEO-optimized website copy that accurately represents his services and expertise.</li>
+            <li><strong>Domain Registration</strong> - We secured petfriendlyvet.com - a memorable, professional domain that matches his clinic name.</li>
+            <li><strong>Fast, Mobile-First Design</strong> - Built a responsive website optimized for the mobile devices tourists use when searching for emergency vet care.</li>
+            <li><strong>SEO Optimization</strong> - Structured the content with proper meta tags, schema markup, and keyword optimization for local search visibility.</li>
+        </ol>
+
+        <h2>About Dr. Pablo Rojo Mendoza, MVZ</h2>
+
+        <div class="vet-info">
+            <h3>Credentials & Specializations</h3>
+            <ul>
+                <li>Diplomas in Internal Medicine and Clinical Pathology</li>
+                <li>Specialist in diagnostic cytology</li>
+                <li>Member of the Latin American Society of Veterinary Clinical Pathology (SLAPCV)</li>
+                <li>Bilingual: Native Spanish speaker, fluent English</li>
+            </ul>
+            <h3>Services</h3>
+            <ul>
+                <li>Veterinary consultations and preventive care</li>
+                <li>Clinical laboratory with in-house diagnostics</li>
+                <li>Travel health certificates (domestic & international)</li>
+                <li>Exotic animal care (birds, reptiles, wildlife)</li>
+                <li>Pet cancer diagnosis and coordinated care</li>
+                <li>Veterinary pharmacy and premium pet foods</li>
+            </ul>
+            <h3>Location & Hours</h3>
+            <ul>
+                <li><strong>Address:</strong> Puerto Morelos, Quintana Roo, Mexico</li>
+                <li><strong>Phone:</strong> +52-998-316-2438</li>
+                <li><strong>Hours:</strong> Mon-Sat 9AM-9PM, Sun 9AM-5PM</li>
+            </ul>
+        </div>
+
+        <h2>Results: Professional Presence in One Day</h2>
+
+        <p>The finished website gives Dr. Pablo:</p>
+
+        <ul>
+            <li><strong>Google visibility</strong> - Now appears in local search results for veterinary services</li>
+            <li><strong>Professional credibility</strong> - A polished web presence that reflects his expertise</li>
+            <li><strong>Easy updates</strong> - Simple content management for hours, services, and announcements</li>
+            <li><strong>Fast loading</strong> - Optimized for mobile users on vacation with spotty connections</li>
+        </ul>
+
+        <div class="cta-section">
+            <h3>Need a Website for Your Business?</h3>
+            <p>We can transform your Facebook page, Google Business profile, or existing content into a professional, SEO-optimized website. Fast turnaround, fair pricing.</p>
+            <a href="../#contact" class="btn-cta">Get Started</a>
+            <a href="https://petfriendlyvet.com" target="_blank" rel="noopener" class="btn-visit">See the Result</a>
+        </div>
+
+        <a href="../#projects" class="back-link">&larr; Back to Projects</a>
+    </article>
+
+    <footer class="footer service-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2006&ndash;2026 South City Computer. All rights reserved.</p>
+                <p>Built in Rust at South City Computer.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

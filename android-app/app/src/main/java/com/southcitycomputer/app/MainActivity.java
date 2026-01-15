@@ -1,0 +1,83 @@
+package com.southcitycomputer.app;
+
+import android.os.Bundle;
+import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private static final String WEBSITE_URL = "https://southcitycomputer.com";
+
+    private WebView webView;
+    private ProgressBar progressBar;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        webView = findViewById(R.id.webView);
+        progressBar = findViewById(R.id.progressBar);
+
+        setupWebView();
+        webView.loadUrl(WEBSITE_URL);
+    }
+
+    private void setupWebView() {
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(false);
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setAllowContentAccess(true);
+        webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // Keep all navigation within the app
+                if (url.contains("southcitycomputer.com")) {
+                    view.loadUrl(url);
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress < 100) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setProgress(newProgress);
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+}

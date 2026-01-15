@@ -1,0 +1,11 @@
+South City Computer Contact Handler
+===================================
+Starting server on http://0.0.0.0:9000
+
+Endpoints:
+  POST /api/contact    - Submit contact form
+  GET  /contact-admin  - View contacts (requires auth)
+  GET  /health         - Health check
+
+Static files served from parent directory
+

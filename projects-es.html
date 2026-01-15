@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos | South City Computer - Portafolio de Desarrollo de Software</title>
+    <meta name="description" content="Explora nuestro portafolio de proyectos de software: desarrollo web, herramientas CLI en Rust, aplicaciones Django y contribuciones de código abierto.">
+    <meta name="keywords" content="proyectos de software, portafolio desarrollo web, proyectos Rust, aplicaciones Django, código abierto, South City Computer">
+    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="canonical" href="https://southcitycomputer.com/projects-es.html">
+    <style>
+        .projects-page {
+            padding: 120px 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .projects-page h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+            text-align: center;
+        }
+        .projects-intro {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .projects-section {
+            margin-bottom: 4rem;
+        }
+        .projects-section h2 {
+            color: #1a5276;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+        }
+        .project-item {
+            background: #1a1a2e;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+        .project-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+        }
+        .project-screenshot {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: top;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .project-content {
+            padding: 24px;
+        }
+        .project-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .project-tag.rust {
+            background: linear-gradient(135deg, #f74c00, #ff7e33);
+        }
+        .project-tag.python {
+            background: linear-gradient(135deg, #3776ab, #ffd43b);
+        }
+        .project-tag.web {
+            background: linear-gradient(135deg, #1a5276, #2980b9);
+        }
+        .project-item h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+        .project-item p {
+            color: #aaa;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 16px;
+            color: #7fdbff;
+            font-size: 0.9rem;
+        }
+        .project-link:hover {
+            text-decoration: underline;
+        }
+        .github-section {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+        }
+        .github-section h2 {
+            color: white;
+            border: none;
+            margin-bottom: 1rem;
+        }
+        .github-section p {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+        }
+        .btn-github {
+            display: inline-block;
+            background: white;
+            color: #1a1a2e;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .btn-github:hover {
+            transform: translateY(-2px);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 480px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="js/main.min.js"></script>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="./" class="nav-logo">
+                <img src="images/logo.webp" alt="South City Computer">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="./#about">Nosotros</a></li>
+                <li><a href="./#services">Servicios</a></li>
+                <li><a href="paradise-es.html">Paraíso</a></li>
+                <li><a href="projects-es.html">Proyectos</a></li>
+                <li><a href="./#contact">Contacto</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang="en" title="English" onclick="setLanguage('en'); return false;">
+                    <svg viewBox="0 0 60 30" class="flag-icon">
+                        <rect width="60" height="30" fill="#002868"/>
+                        <path d="M0,3.5h60 M0,10.5h60 M0,17.5h60 M0,24.5h60" stroke="#bf0a30" stroke-width="3"/>
+                        <path d="M0,7h60 M0,14h60 M0,21h60 M0,28h60" stroke="#fff" stroke-width="3"/>
+                        <rect width="24" height="16" fill="#002868"/>
+                        <g fill="#fff">
+                            <circle cx="4" cy="2.5" r="0.8"/><circle cx="8" cy="2.5" r="0.8"/><circle cx="12" cy="2.5" r="0.8"/><circle cx="16" cy="2.5" r="0.8"/><circle cx="20" cy="2.5" r="0.8"/>
+                            <circle cx="6" cy="5" r="0.8"/><circle cx="10" cy="5" r="0.8"/><circle cx="14" cy="5" r="0.8"/><circle cx="18" cy="5" r="0.8"/>
+                            <circle cx="4" cy="7.5" r="0.8"/><circle cx="8" cy="7.5" r="0.8"/><circle cx="12" cy="7.5" r="0.8"/><circle cx="16" cy="7.5" r="0.8"/><circle cx="20" cy="7.5" r="0.8"/>
+                            <circle cx="6" cy="10" r="0.8"/><circle cx="10" cy="10" r="0.8"/><circle cx="14" cy="10" r="0.8"/><circle cx="18" cy="10" r="0.8"/>
+                            <circle cx="4" cy="12.5" r="0.8"/><circle cx="8" cy="12.5" r="0.8"/><circle cx="12" cy="12.5" r="0.8"/><circle cx="16" cy="12.5" r="0.8"/><circle cx="20" cy="12.5" r="0.8"/>
+                        </g>
+                    </svg>
+                </button>
+                <button class="lang-btn" data-lang="es" title="Español" onclick="setLanguage('es'); return false;">
+                    <svg viewBox="0 0 60 30" class="flag-icon">
+                        <rect width="60" height="7.5" fill="#006341"/>
+                        <rect y="7.5" width="60" height="15" fill="#fff"/>
+                        <rect y="22.5" width="60" height="7.5" fill="#ce1126"/>
+                        <circle cx="30" cy="15" r="4" fill="#8b4513"/>
+                        <ellipse cx="30" cy="15" rx="2.5" ry="3" fill="#006341"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="projects-page">
+        <h1>Nuestros Proyectos</h1>
+        <p class="projects-intro">Una colección de sitios web, herramientas y aplicaciones que hemos construido. Código de calidad, soluciones reales, sin relleno.</p>
+
+        <section class="projects-section">
+            <h2>Trabajo para Clientes y Casos de Estudio</h2>
+            <div class="project-grid">
+                <a href="blog/faster-websites-es.html" class="project-item">
+                    <img src="images/screenshot-scc.webp" alt="Sitio web South City Computer" class="project-screenshot">
+                    <div class="project-content">
+                        <span class="project-tag web">Caso de Estudio</span>
+                        <h3>El Sitio Web de 52ms</h3>
+                        <p>Cómo construimos este sitio para cargar 46 veces más rápido que el promedio—usando Rust, WebP y asistentes de código con IA.</p>
+                        <span class="project-link">Leer el caso de estudio →</span>
+                    </div>
+                </a>
+                <a href="blog/petfriendlyvet-es.html" class="project-item">
+                    <img src="images/screenshot-petfriendlyvet.webp" alt="Sitio web Pet Friendly Vet" class="project-screenshot">
+                    <div class="project-content">
+                        <span class="project-tag web">Diseño Web</span>
+                        <h3>Pet Friendly Vet</h3>
+                        <p>Sitio web veterinario profesional generado desde contenido de Facebook usando IA. Rápido, móvil-amigable, optimizado para SEO.</p>
+                        <span class="project-link">Ver detalles del proyecto →</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="projects-section">
+            <h2>Herramientas de Código Abierto</h2>
+            <div class="project-grid">
+                <a href="https://github.com/nestorwheelock/gitdone" target="_blank" rel="noopener" class="project-item">
+                    <div class="project-content">
+                        <span class="project-tag rust">Rust</span>
+                        <h3>gitdone</h3>
+                        <p>Un wrapper enfocado en rendimiento para git que acelera la eficiencia del flujo de trabajo. Porque tu tiempo importa.</p>
+                        <span class="project-link">Ver en GitHub →</span>
+                    </div>
+                </a>
+                <a href="https://github.com/nestorwheelock/osint-AI-framework" target="_blank" rel="noopener" class="project-item">
+                    <div class="project-content">
+                        <span class="project-tag python">Python</span>
+                        <h3>osint-AI-framework</h3>
+                        <p>Framework de inteligencia basado en Django que aprovecha modelos de lenguaje para análisis de datos. IA que realmente hace algo útil.</p>
+                        <span class="project-link">Ver en GitHub →</span>
+                    </div>
+                </a>
+                <a href="https://github.com/nestorwheelock/my_rust" target="_blank" rel="noopener" class="project-item">
+                    <div class="project-content">
+                        <span class="project-tag rust">Rust</span>
+                        <h3>my_rust</h3>
+                        <p>Sistema de menú interactivo diseñado para aplicaciones Rust. Limpio, reutilizable y probado en batalla.</p>
+                        <span class="project-link">Ver en GitHub →</span>
+                    </div>
+                </a>
+                <a href="https://github.com/nestorwheelock/zm_vid_html_gen" target="_blank" rel="noopener" class="project-item">
+                    <div class="project-content">
+                        <span class="project-tag rust">Rust</span>
+                        <h3>zm_vid_html_gen</h3>
+                        <p>Genera documentación HTML desde datos de eventos de video de ZoneMinder. Convierte grabaciones de vigilancia en reportes organizados.</p>
+                        <span class="project-link">Ver en GitHub →</span>
+                    </div>
+                </a>
+                <a href="https://github.com/nestorwheelock/dir_zip" target="_blank" rel="noopener" class="project-item">
+                    <div class="project-content">
+                        <span class="project-tag rust">Rust</span>
+                        <h3>dir_zip</h3>
+                        <p>Comprime directorios con capacidades de encriptación con contraseña. Simple, seguro, rápido.</p>
+                        <span class="project-link">Ver en GitHub →</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="github-section">
+            <h2>Más en GitHub</h2>
+            <p>Explora proyectos adicionales, experimentos y contribuciones en nuestro perfil de GitHub.</p>
+            <a href="https://github.com/nestorwheelock" target="_blank" rel="noopener" class="btn-github">github.com/nestorwheelock</a>
+        </section>
+
+        <a href="./" class="back-link">← Volver al Inicio</a>
+    </main>
+
+    <footer class="footer service-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2006&ndash;2026 South City Computer. Todos los derechos reservados.<br>Construido en Rust en South City Computer.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

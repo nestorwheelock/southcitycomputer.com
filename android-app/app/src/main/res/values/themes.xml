@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.SouthCityComputer" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/magenta</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/cyan</item>
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/black</item>
+    </style>
+
+    <style name="Theme.SouthCityComputer.Splash" parent="Theme.SouthCityComputer">
+        <item name="android:windowBackground">@drawable/splash_gradient</item>
+        <item name="android:statusBarColor">@color/magenta</item>
+    </style>
+</resources>

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Sitio Web Sub-Segundo: Documento Técnico | South City Computer</title>
+    <meta name="description" content="Documentación técnica sobre cómo lograr cargas de página 46 veces más rápidas usando Rust, WebP y arquitectura residente en memoria.">
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+    <style>
+        .whitepaper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            line-height: 1.7;
+        }
+        .whitepaper h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .whitepaper .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .whitepaper h2 {
+            color: #1a5276;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #1a5276;
+        }
+        .whitepaper h3 {
+            color: #2980b9;
+            margin-top: 2rem;
+        }
+        .whitepaper p {
+            margin-bottom: 1rem;
+            color: #444;
+        }
+        .whitepaper ul, .whitepaper ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        .whitepaper li {
+            margin-bottom: 0.5rem;
+        }
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        .data-table th, .data-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .data-table th {
+            background: #1a5276;
+            color: white;
+        }
+        .data-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        .toc h3 {
+            margin-top: 0;
+            color: #1a5276;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        .toc a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        .chart {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #1a5276;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .download-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <script src="../js/main.min.js"></script>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../images/logo.webp" alt="South City Computer">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../#about">Nosotros</a></li>
+                <li><a href="../#services">Servicios</a></li>
+                <li><a href="../paradise-es.html">Paraíso</a></li>
+                <li><a href="../#projects">Proyectos</a></li>
+                <li><a href="../#contact">Contacto</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang="en" title="English" onclick="setLanguage('en'); return false;">
+                    <svg viewBox="0 0 60 30" class="flag-icon">
+                        <rect width="60" height="30" fill="#002868"/>
+                        <path d="M0,3.5h60 M0,10.5h60 M0,17.5h60 M0,24.5h60" stroke="#bf0a30" stroke-width="3"/>
+                        <path d="M0,7h60 M0,14h60 M0,21h60 M0,28h60" stroke="#fff" stroke-width="3"/>
+                        <rect width="24" height="16" fill="#002868"/>
+                        <g fill="#fff">
+                            <circle cx="4" cy="2.5" r="0.8"/><circle cx="8" cy="2.5" r="0.8"/><circle cx="12" cy="2.5" r="0.8"/><circle cx="16" cy="2.5" r="0.8"/><circle cx="20" cy="2.5" r="0.8"/>
+                            <circle cx="6" cy="5" r="0.8"/><circle cx="10" cy="5" r="0.8"/><circle cx="14" cy="5" r="0.8"/><circle cx="18" cy="5" r="0.8"/>
+                            <circle cx="4" cy="7.5" r="0.8"/><circle cx="8" cy="7.5" r="0.8"/><circle cx="12" cy="7.5" r="0.8"/><circle cx="16" cy="7.5" r="0.8"/><circle cx="20" cy="7.5" r="0.8"/>
+                            <circle cx="6" cy="10" r="0.8"/><circle cx="10" cy="10" r="0.8"/><circle cx="14" cy="10" r="0.8"/><circle cx="18" cy="10" r="0.8"/>
+                            <circle cx="4" cy="12.5" r="0.8"/><circle cx="8" cy="12.5" r="0.8"/><circle cx="12" cy="12.5" r="0.8"/><circle cx="16" cy="12.5" r="0.8"/><circle cx="20" cy="12.5" r="0.8"/>
+                        </g>
+                    </svg>
+                </button>
+                <button class="lang-btn" data-lang="es" title="Español" onclick="setLanguage('es'); return false;">
+                    <svg viewBox="0 0 60 30" class="flag-icon">
+                        <rect width="60" height="7.5" fill="#006341"/>
+                        <rect y="7.5" width="60" height="15" fill="#fff"/>
+                        <rect y="22.5" width="60" height="7.5" fill="#ce1126"/>
+                        <circle cx="30" cy="15" r="4" fill="#8b4513"/>
+                        <ellipse cx="30" cy="15" rx="2.5" ry="3" fill="#006341"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <article class="whitepaper">
+        <h1>El Sitio Web Sub-Segundo</h1>
+        <p class="subtitle">Cómo Logramos Cargas de Página 46 Veces Más Rápidas Usando Rust, WebP y Arquitectura Residente en Memoria</p>
+        <p><em>South City Computer | Enero 2026</em></p>
+
+        <div class="toc">
+            <h3>Tabla de Contenidos</h3>
+            <ul>
+                <li><a href="#resumen-ejecutivo">1. Resumen Ejecutivo</a></li>
+                <li><a href="#caso-negocio">2. El Caso de Negocio para la Velocidad</a></li>
+                <li><a href="#metodologia">3. Metodología</a></li>
+                <li><a href="#implementacion">4. Implementación Técnica</a></li>
+                <li><a href="#resultados">5. Resultados de Benchmark</a></li>
+                <li><a href="#comparacion">6. Comparación: Personalizado vs WordPress + CDN</a></li>
+                <li><a href="#conclusiones">7. Conclusiones</a></li>
+            </ul>
+        </div>
+
+        <h2 id="resumen-ejecutivo">1. Resumen Ejecutivo</h2>
+
+        <p>Este documento técnico documenta nuestro viaje experimental para construir el sitio web más rápido posible para un pequeño negocio. A través de optimización sistemática, logramos:</p>
+
+        <ul>
+            <li><strong>Cargas de página 46 veces más rápidas</strong> (de 2.4 segundos a 52 milisegundos)</li>
+            <li><strong>Reducción del 78%</strong> en el peso de imágenes (de 20MB a 4.3MB)</li>
+            <li><strong>Tiempos de respuesta sub-milisegundo</strong> para activos principales</li>
+            <li><strong>600-700 solicitudes/segundo</strong> de rendimiento en hardware modesto</li>
+        </ul>
+
+        <h2 id="caso-negocio">2. El Caso de Negocio para la Velocidad</h2>
+
+        <h3>2.1 Las Expectativas de los Usuarios Han Cambiado</h3>
+
+        <p>El 47% de los usuarios ahora esperan tiempos de carga menores a 2 segundos, más estricto que los 4 segundos de hace unos años. El 53% de los usuarios móviles abandonan sitios que tardan más de 3 segundos.</p>
+
+        <h3>2.2 El Precipicio de la Tasa de Rebote</h3>
+
+        <table class="data-table">
+            <tr>
+                <th>Tiempo de Carga</th>
+                <th>Tasa de Rebote</th>
+                <th>Cambio</th>
+            </tr>
+            <tr>
+                <td>1 segundo</td>
+                <td>7%</td>
+                <td>Base</td>
+            </tr>
+            <tr>
+                <td>3 segundos</td>
+                <td>11%</td>
+                <td>+57%</td>
+            </tr>
+            <tr>
+                <td>5 segundos</td>
+                <td>38%</td>
+                <td>+443%</td>
+            </tr>
+        </table>
+
+        <h3>2.3 Impacto en la Tasa de Conversión</h3>
+
+        <p>Los sitios que cargan en 1 segundo logran tasas de conversión del 39%. A los 5.7 segundos, esto cae al 0.6%—una diferencia de 65 veces. Las tasas de conversión de sitios web caen un promedio de 4.42% por cada segundo adicional de tiempo de carga.</p>
+
+        <h3>2.4 Casos de Estudio del Mundo Real</h3>
+
+        <table class="data-table">
+            <tr>
+                <th>Empresa</th>
+                <th>Mejora</th>
+                <th>Resultado de Negocio</th>
+            </tr>
+            <tr>
+                <td>Amazon</td>
+                <td>100ms más rápido</td>
+                <td>1% más ventas (~$3.8B/año)</td>
+            </tr>
+            <tr>
+                <td>Renault</td>
+                <td>1s mejora en LCP</td>
+                <td>13% aumento en conversiones</td>
+            </tr>
+            <tr>
+                <td>Vodafone</td>
+                <td>31% mejora en LCP</td>
+                <td>8% aumento en ventas</td>
+            </tr>
+        </table>
+
+        <h2 id="metodologia">3. Metodología</h2>
+
+        <h3>3.1 Sujeto de Prueba</h3>
+
+        <p>Sitio web de South City Computer presentando:</p>
+        <ul>
+            <li>Diseño de página única con 5 secciones</li>
+            <li>15 fotografías de alta calidad</li>
+            <li>Contenido bilingüe (Inglés/Español)</li>
+            <li>Formulario de contacto con entrega por email</li>
+        </ul>
+
+        <h3>3.2 Rondas de Prueba</h3>
+
+<pre>
+Ronda 1: Línea Base
+├── nginx + Rust API + JPEG desde disco
+└── Resultado: 2.4 segundos de carga
+
+Ronda 2: Optimización de Imágenes
+├── Convertir todas las imágenes a WebP
+└── Resultado: 78% reducción de tamaño
+
+Ronda 3: Optimización Completa
+├── Binario monolítico en Rust
+├── Todos los activos embebidos en memoria
+├── CSS/JS minificados
+└── Resultado: 52ms de carga
+</pre>
+
+        <h2 id="implementacion">4. Implementación Técnica</h2>
+
+        <h3>4.1 Arquitectura Tradicional vs Optimizada</h3>
+
+<pre>
+STACK TRADICIONAL
+─────────────────────────────────────────
+Solicitud → nginx → [Lectura Disco] → Respuesta
+                ↓
+            [Proxy] → PHP/MySQL → Base de Datos
+
+BINARIO MONOLÍTICO EN RUST
+─────────────────────────────────────────
+Solicitud → Binario Rust → [Memoria] → Respuesta
+                  │
+                  ├── Todo HTML/CSS/JS en memoria
+                  ├── Todas las imágenes en memoria
+                  └── Manejadores API compilados
+
+Un solo proceso, cero I/O de disco, respuesta sub-ms
+</pre>
+
+        <h3>4.2 ¿Por Qué Rust?</h3>
+
+        <p>Los frameworks web de Rust consistentemente lideran los benchmarks de rendimiento:</p>
+
+        <table class="data-table">
+            <tr>
+                <th>Framework</th>
+                <th>Rendimiento (sol/s)</th>
+            </tr>
+            <tr>
+                <td>Actix-Web (Rust)</td>
+                <td>~680,000</td>
+            </tr>
+            <tr>
+                <td>Axum (Rust)</td>
+                <td>~650,000</td>
+            </tr>
+            <tr>
+                <td>Go (net/http)</td>
+                <td>~450,000</td>
+            </tr>
+            <tr>
+                <td>Express (Node.js)</td>
+                <td>~150,000</td>
+            </tr>
+            <tr>
+                <td>Django (Python)</td>
+                <td>~30,000</td>
+            </tr>
+        </table>
+
+        <p>Notablemente, Cloudflare reconstruyó toda su infraestructura de borde en Rust, logrando una mejora del 25% en rendimiento.</p>
+
+        <h3>4.3 Optimización de Imágenes WebP</h3>
+
+        <table class="data-table">
+            <tr>
+                <th>Imagen</th>
+                <th>Tamaño JPEG</th>
+                <th>Tamaño WebP</th>
+                <th>Reducción</th>
+            </tr>
+            <tr>
+                <td>store-interior</td>
+                <td>3.0 MB</td>
+                <td>400 KB</td>
+                <td>87%</td>
+            </tr>
+            <tr>
+                <td>repair-work</td>
+                <td>2.9 MB</td>
+                <td>361 KB</td>
+                <td>88%</td>
+            </tr>
+            <tr>
+                <td>puerto-morelos-plaza</td>
+                <td>2.9 MB</td>
+                <td>1.1 MB</td>
+                <td>62%</td>
+            </tr>
+            <tr>
+                <td><strong>TOTAL</strong></td>
+                <td><strong>20 MB</strong></td>
+                <td><strong>4.3 MB</strong></td>
+                <td><strong>78%</strong></td>
+            </tr>
+        </table>
+
+        <h2 id="resultados">5. Resultados de Benchmark</h2>
+
+        <h3>5.1 Tiempos de Respuesta</h3>
+
+        <table class="data-table">
+            <tr>
+                <th>Activo</th>
+                <th>Tamaño</th>
+                <th>Tiempo de Respuesta</th>
+                <th>Rendimiento</th>
+            </tr>
+            <tr>
+                <td>index.html</td>
+                <td>32 KB</td>
+                <td>0.8ms</td>
+                <td>666 sol/s</td>
+            </tr>
+            <tr>
+                <td>style.min.css</td>
+                <td>16 KB</td>
+                <td>0.8ms</td>
+                <td>625 sol/s</td>
+            </tr>
+            <tr>
+                <td>main.min.js</td>
+                <td>13 KB</td>
+                <td>0.7ms</td>
+                <td>714 sol/s</td>
+            </tr>
+            <tr>
+                <td>storefront.webp</td>
+                <td>128 KB</td>
+                <td>6.6ms</td>
+                <td>178 sol/s</td>
+            </tr>
+            <tr>
+                <td>plaza.webp</td>
+                <td>1 MB</td>
+                <td>2.9ms</td>
+                <td>500 sol/s</td>
+            </tr>
+        </table>
+
+        <h3>5.2 Carga de Página Completa</h3>
+
+<div class="chart">
+TIEMPO DE CARGA DE PÁGINA COMPLETA
+
+Ronda 1 (JPEG, nginx+disco):
+████████████████████████████████████  2,400ms
+
+Ronda 3 (WebP, Rust, memoria):
+█                                        52ms
+
+Mejora: 46 veces más rápido
+</div>
+
+        <h3>5.3 Resumen de Optimización</h3>
+
+        <table class="data-table">
+            <tr>
+                <th>Métrica</th>
+                <th>Antes</th>
+                <th>Después</th>
+                <th>Mejora</th>
+            </tr>
+            <tr>
+                <td>Total imágenes</td>
+                <td>20 MB</td>
+                <td>4.3 MB</td>
+                <td>78% más pequeño</td>
+            </tr>
+            <tr>
+                <td>Tamaño binario</td>
+                <td>28 MB</td>
+                <td>13 MB</td>
+                <td>54% más pequeño</td>
+            </tr>
+            <tr>
+                <td>Tamaño CSS</td>
+                <td>21 KB</td>
+                <td>16 KB</td>
+                <td>24% más pequeño</td>
+            </tr>
+            <tr>
+                <td>Carga de página</td>
+                <td>~2.4s</td>
+                <td>~52ms</td>
+                <td>46x más rápido</td>
+            </tr>
+            <tr>
+                <td>Uso de memoria</td>
+                <td>50-200 MB</td>
+                <td>~10 MB</td>
+                <td>5-20x menos</td>
+            </tr>
+        </table>
+
+        <h2 id="comparacion">6. Comparación: Personalizado vs WordPress + CDN</h2>
+
+        <h3>6.1 Realidad del Rendimiento de WordPress</h3>
+
+        <p>WordPress alimenta el 43% de los sitios web, pero el rendimiento varía significativamente:</p>
+        <ul>
+            <li>Carga promedio de WordPress en escritorio: <strong>2.5-3 segundos</strong></li>
+            <li>Carga promedio de WordPress en móvil: <strong>13.25 segundos</strong></li>
+            <li>WordPress ocupa el <strong>puesto 15 de 20 CMSs</strong> en velocidad</li>
+        </ul>
+
+        <h3>6.2 ¿Puede Cloudflare Arreglar WordPress?</h3>
+
+        <p>Cloudflare proporciona mejoras significativas para contenido estático, pero no puede arreglar:</p>
+        <ul>
+            <li>Renderizado lento del lado del servidor (PHP/MySQL)</li>
+            <li>Sobrecarga de plugins (el sitio promedio de WordPress tiene más de 20 plugins)</li>
+            <li>Latencia de consultas a base de datos</li>
+            <li>Cargas de página grandes</li>
+        </ul>
+
+        <h3>6.3 Cuándo Usar Qué</h3>
+
+        <p><strong>Elige WordPress cuando:</strong></p>
+        <ul>
+            <li>El contenido cambia frecuentemente (se necesitan características de CMS)</li>
+            <li>Usuarios no técnicos gestionan el contenido</li>
+            <li>El tiempo de lanzamiento es crítico</li>
+        </ul>
+
+        <p><strong>Elige código personalizado cuando:</strong></p>
+        <ul>
+            <li>El rendimiento es una ventaja competitiva</li>
+            <li>El contenido es relativamente estático</li>
+            <li>Los rankings SEO son críticos en un nicho competitivo</li>
+            <li>Los costos de memoria/cómputo importan</li>
+        </ul>
+
+        <h2 id="conclusiones">7. Conclusiones</h2>
+
+        <h3>7.1 Hallazgos Clave</h3>
+
+        <ol>
+            <li><strong>La optimización de imágenes tiene el mayor ROI</strong> — La conversión a WebP sola proporciona una reducción del 78% con mínimo esfuerzo.</li>
+            <li><strong>Rust sobresale para aplicaciones críticas en rendimiento</strong> — Más de 600 sol/s en hardware básico con tiempos de respuesta sub-milisegundo.</li>
+            <li><strong>Los CDNs nivelan el campo de juego significativamente</strong> — Cloudflare puede hacer que WordPress sea competitivo para contenido estático.</li>
+            <li><strong>El código personalizado en Rust/Go proporciona rendimiento 10-100x mejor</strong> que lenguajes interpretados con frameworks pesados.</li>
+        </ol>
+
+        <h3>7.2 La Conclusión Final</h3>
+
+        <p>Para la mayoría de los sitios web, <strong>imágenes WebP + CDN de Cloudflare</strong> proporciona el 80% del beneficio con el 10% del esfuerzo.</p>
+
+        <p>Para nichos competitivos donde cada milisegundo importa, la <strong>arquitectura Rust + residente en memoria</strong> proporciona un rendimiento sin igual que ninguna cantidad de caché puede replicar.</p>
+
+        <div class="download-section">
+            <h3>Descargar Este Documento Técnico</h3>
+            <p>Guarda este documento técnico como PDF para leer sin conexión o compartir con tu equipo.</p>
+            <a href="/whitepaper/pdf/es" class="btn-cta" style="display:inline-block;background:linear-gradient(135deg, #e91e8c, #00bcd4);color:white;padding:15px 40px;border-radius:30px;text-decoration:none;margin-bottom:1rem;">Descargar PDF</a>
+        </div>
+
+        <div class="download-section">
+            <h3>¿Preguntas o Necesitas Ayuda?</h3>
+            <p>Estamos encantados de discutir tu caso de uso específico y recomendar el enfoque correcto para tu negocio.</p>
+            <a href="../#contact" class="btn-cta" style="display:inline-block;background:#1a5276;color:white;padding:15px 40px;border-radius:30px;text-decoration:none;">Contáctanos</a>
+        </div>
+
+        <a href="faster-websites-es.html" class="back-link">← Volver al Artículo</a>
+        <br>
+        <a href="../#projects" class="back-link">← Volver a Proyectos</a>
+    </article>
+
+    <footer class="footer service-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2006&ndash;2026 South City Computer. Todos los derechos reservados.<br>Construido en Rust en South City Computer.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
