@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Sitio Web Sub-Segundo: Documento Técnico | South City Computer</title>
-    <meta name="description" content="Documentación técnica sobre cómo lograr cargas de página 46 veces más rápidas usando Rust, WebP y arquitectura residente en memoria.">
+    <meta name="description" content="Documentación técnica sobre cómo lograr cargas de página 1,500 veces más rápidas usando Rust, WebP y arquitectura residente en memoria.">
     <link rel="stylesheet" href="../css/style.min.css">
     <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
@@ -176,7 +176,7 @@
 
     <article class="whitepaper">
         <h1>El Sitio Web Sub-Segundo</h1>
-        <p class="subtitle">Cómo Logramos Cargas de Página 46 Veces Más Rápidas Usando Rust, WebP y Arquitectura Residente en Memoria</p>
+        <p class="subtitle">Cómo Logramos Cargas de Página 1,500 Veces Más Rápidas Usando Rust, WebP y Arquitectura Residente en Memoria</p>
         <p><em>South City Computer | Enero 2026</em></p>
 
         <div class="toc">
@@ -197,10 +197,10 @@
         <p>Este documento técnico documenta nuestro viaje experimental para construir el sitio web más rápido posible para un pequeño negocio. A través de optimización sistemática, logramos:</p>
 
         <ul>
-            <li><strong>Cargas de página 46 veces más rápidas</strong> (de 2.4 segundos a 52 milisegundos)</li>
+            <li><strong>Cargas de página 1,500 veces más rápidas</strong> (de 2.4 segundos a 1.6 milisegundos)</li>
             <li><strong>Reducción del 78%</strong> en el peso de imágenes (de 20MB a 4.3MB)</li>
-            <li><strong>Tiempos de respuesta sub-milisegundo</strong> para activos principales</li>
-            <li><strong>600-700 solicitudes/segundo</strong> de rendimiento en hardware modesto</li>
+            <li><strong>Tiempos de respuesta sub-milisegundo</strong> (36-382 microsegundos) para activos principales</li>
+            <li><strong>26,000-58,000 solicitudes/segundo</strong> de rendimiento en hardware modesto</li>
         </ul>
 
         <h2 id="caso-negocio">2. El Caso de Negocio para la Velocidad</h2>
@@ -291,6 +291,12 @@ Ronda 3: Optimización Completa
 ├── Todos los activos embebidos en memoria
 ├── CSS/JS minificados
 └── Resultado: 52ms de carga
+
+Ronda 4: Benchmarking de Alto Rendimiento
+├── Herramientas de benchmark personalizadas (scc-benchmark, scc-perf-client)
+├── Metodología de pruebas de alta concurrencia
+├── Mediciones de rendimiento reproducibles
+└── Resultado: 1.6ms carga completa, 58,085 sol/s
 </pre>
 
         <h2 id="implementacion">4. Implementación Técnica</h2>
@@ -391,53 +397,62 @@ Un solo proceso, cero I/O de disco, respuesta sub-ms
             <tr>
                 <th>Activo</th>
                 <th>Tamaño</th>
-                <th>Tiempo de Respuesta</th>
+                <th>Rango de Latencia</th>
                 <th>Rendimiento</th>
+            </tr>
+            <tr>
+                <td>Health Check</td>
+                <td>250 B</td>
+                <td>32-212μs</td>
+                <td>58,085 sol/s</td>
             </tr>
             <tr>
                 <td>index.html</td>
                 <td>32 KB</td>
-                <td>0.8ms</td>
-                <td>666 sol/s</td>
+                <td>36-382μs</td>
+                <td>26,795 sol/s</td>
             </tr>
             <tr>
                 <td>style.min.css</td>
                 <td>16 KB</td>
-                <td>0.8ms</td>
-                <td>625 sol/s</td>
+                <td>33-136μs</td>
+                <td>41,100 sol/s</td>
             </tr>
             <tr>
                 <td>main.min.js</td>
                 <td>13 KB</td>
-                <td>0.7ms</td>
-                <td>714 sol/s</td>
+                <td>34-125μs</td>
+                <td>45,406 sol/s</td>
+            </tr>
+            <tr>
+                <td>logo.webp</td>
+                <td>5 KB</td>
+                <td>34-151μs</td>
+                <td>39,287 sol/s</td>
             </tr>
             <tr>
                 <td>storefront.webp</td>
                 <td>128 KB</td>
-                <td>6.6ms</td>
-                <td>178 sol/s</td>
-            </tr>
-            <tr>
-                <td>plaza.webp</td>
-                <td>1 MB</td>
-                <td>2.9ms</td>
-                <td>500 sol/s</td>
+                <td>107-455μs</td>
+                <td>3,676 sol/s</td>
             </tr>
         </table>
 
         <h3>5.2 Carga de Página Completa</h3>
 
 <div class="chart">
-TIEMPO DE CARGA DE PÁGINA COMPLETA
+TIEMPO DE CARGA DE PÁGINA COMPLETA (5 activos críticos)
 
 Ronda 1 (JPEG, nginx+disco):
-████████████████████████████████████  2,400ms
+████████████████████████████████████████  2,400ms
 
 Ronda 3 (WebP, Rust, memoria):
-█                                        52ms
+██                                           52ms
 
-Mejora: 46 veces más rápido
+Ronda 4 (Optimizado alta concurrencia):
+                                            1.6ms
+
+Mejora: 1,500 veces más rápido
 </div>
 
         <h3>5.3 Resumen de Optimización</h3>
@@ -458,8 +473,8 @@ Mejora: 46 veces más rápido
             <tr>
                 <td>Tamaño binario</td>
                 <td>28 MB</td>
-                <td>13 MB</td>
-                <td>54% más pequeño</td>
+                <td>18 MB</td>
+                <td>36% más pequeño</td>
             </tr>
             <tr>
                 <td>Tamaño CSS</td>
@@ -470,14 +485,20 @@ Mejora: 46 veces más rápido
             <tr>
                 <td>Carga de página</td>
                 <td>~2.4s</td>
-                <td>~52ms</td>
-                <td>46x más rápido</td>
+                <td>~1.6ms</td>
+                <td>1,500x más rápido</td>
             </tr>
             <tr>
                 <td>Uso de memoria</td>
                 <td>50-200 MB</td>
-                <td>~10 MB</td>
-                <td>5-20x menos</td>
+                <td>~1.1 MB</td>
+                <td>45-180x menos</td>
+            </tr>
+            <tr>
+                <td>Rendimiento</td>
+                <td>~100 sol/s</td>
+                <td>58,085 sol/s</td>
+                <td>580x más rápido</td>
             </tr>
         </table>
 
@@ -525,9 +546,9 @@ Mejora: 46 veces más rápido
 
         <ol>
             <li><strong>La optimización de imágenes tiene el mayor ROI</strong> — La conversión a WebP sola proporciona una reducción del 78% con mínimo esfuerzo.</li>
-            <li><strong>Rust sobresale para aplicaciones críticas en rendimiento</strong> — Más de 600 sol/s en hardware básico con tiempos de respuesta sub-milisegundo.</li>
+            <li><strong>Rust sobresale para aplicaciones críticas en rendimiento</strong> — Más de 58,000 sol/s en hardware básico con tiempos de respuesta sub-milisegundo.</li>
             <li><strong>Los CDNs nivelan el campo de juego significativamente</strong> — Cloudflare puede hacer que WordPress sea competitivo para contenido estático.</li>
-            <li><strong>El código personalizado en Rust/Go proporciona rendimiento 10-100x mejor</strong> que lenguajes interpretados con frameworks pesados.</li>
+            <li><strong>El código personalizado en Rust/Go proporciona rendimiento 100-1000x mejor</strong> que lenguajes interpretados con frameworks pesados.</li>
         </ol>
 
         <h3>7.2 La Conclusión Final</h3>

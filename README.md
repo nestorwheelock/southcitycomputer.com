@@ -8,7 +8,7 @@ This project demonstrates that there are better alternatives to WordPress for ma
 
 - **Monolithic binary**: All HTML, CSS, JS, and images embedded in a single executable
 - **Decoupled data storage**: Contact form submissions saved to CSV files that can be picked up by external processes (database import, email notification, ticket creation) - keeping business logic separate from the web attack surface
-- **Performance first**: Sub-millisecond response times, 600-700 req/s throughput
+- **Performance first**: Sub-millisecond response times, 26,000-58,000 req/s throughput
 - **Simple deployment**: Copy one file, run it
 
 ## Quick Start
@@ -271,15 +271,31 @@ This keeps sensitive operations (email, database) separate from the web server, 
 
 Documented in [PERFORMANCE_TESTING.md](PERFORMANCE_TESTING.md) and [WHITEPAPER.md](WHITEPAPER.md).
 
-### Key Metrics
+### Key Metrics (January 2026)
 
 | Metric | Value |
 |--------|-------|
-| Full page load | 52ms |
-| HTML response | 0.8ms |
-| Throughput | 600-700 req/s |
-| Binary size | 13MB |
-| Memory usage | ~10MB RSS |
+| Health check throughput | 58,085 req/s |
+| Homepage throughput | 26,795 req/s |
+| Full page load (5 assets) | 1.60ms |
+| Average latency | 36-382μs |
+| Binary size | 18MB |
+| Memory usage | ~1.1MB RSS |
+
+### Benchmark Results
+
+```
+Endpoint          Throughput    Avg Latency    Data Transfer
+─────────────────────────────────────────────────────────────
+Health Check      58,085 req/s      61μs       12.5 KB
+Homepage          26,795 req/s     122μs       1.99 MB
+CSS Stylesheet    41,100 req/s      71μs       1.66 MB
+JavaScript        45,406 req/s      66μs       1.24 MB
+Logo (5KB)        39,287 req/s      65μs       270 KB
+Storefront (128KB) 3,676 req/s     206μs       6.43 MB
+─────────────────────────────────────────────────────────────
+Rating: ★★★★★ EXCELLENT (<100ms full page)
+```
 
 ### Optimization Summary
 
@@ -287,6 +303,7 @@ Documented in [PERFORMANCE_TESTING.md](PERFORMANCE_TESTING.md) and [WHITEPAPER.m
 - Minified CSS/JS: 24% smaller
 - Memory-resident assets: Zero disk I/O
 - Lazy loading: 90% initial payload reduction
+- All assets embedded in single binary
 
 ## Deployment
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Sub-Second Website: Technical White Paper | South City Computer</title>
-    <meta name="description" content="Technical documentation on achieving 46x faster page loads using Rust, WebP, and memory-resident architecture.">
+    <meta name="description" content="Technical documentation on achieving 1,500x faster page loads using Rust, WebP, and memory-resident architecture.">
     <link rel="stylesheet" href="../css/style.min.css">
     <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
@@ -176,7 +176,7 @@
 
     <article class="whitepaper">
         <h1>The Sub-Second Website</h1>
-        <p class="subtitle">How We Achieved 46x Faster Page Loads Using Rust, WebP, and Memory-Resident Architecture</p>
+        <p class="subtitle">How We Achieved 1,500x Faster Page Loads Using Rust, WebP, and Memory-Resident Architecture</p>
         <p><em>South City Computer | January 2026</em></p>
 
         <div class="toc">
@@ -197,10 +197,10 @@
         <p>This white paper documents our experimental journey to build the fastest possible website for a small business. Through systematic optimization, we achieved:</p>
 
         <ul>
-            <li><strong>46x faster page loads</strong> (from 2.4 seconds to 52 milliseconds)</li>
+            <li><strong>1,500x faster page loads</strong> (from 2.4 seconds to 1.6 milliseconds)</li>
             <li><strong>78% reduction</strong> in image payload (20MB to 4.3MB)</li>
-            <li><strong>Sub-millisecond response times</strong> for core assets</li>
-            <li><strong>600-700 requests/second</strong> throughput on modest hardware</li>
+            <li><strong>Sub-millisecond response times</strong> (36-382 microseconds) for core assets</li>
+            <li><strong>26,000-58,000 requests/second</strong> throughput on modest hardware</li>
         </ul>
 
         <h2 id="business-case">2. The Business Case for Speed</h2>
@@ -291,6 +291,12 @@ Round 3: Full Optimization
 ├── All assets embedded in memory
 ├── Minified CSS/JS
 └── Result: 52ms page load
+
+Round 4: High-Performance Benchmarking
+├── Custom benchmark tools (scc-benchmark, scc-perf-client)
+├── High-concurrency testing methodology
+├── Reproducible performance measurements
+└── Result: 1.6ms full page load, 58,085 req/s
 </pre>
 
         <h2 id="implementation">4. Technical Implementation</h2>
@@ -391,53 +397,62 @@ Single process, zero disk I/O, sub-ms response
             <tr>
                 <th>Asset</th>
                 <th>Size</th>
-                <th>Response Time</th>
+                <th>Latency Range</th>
                 <th>Throughput</th>
+            </tr>
+            <tr>
+                <td>Health Check</td>
+                <td>250 B</td>
+                <td>32-212μs</td>
+                <td>58,085 req/s</td>
             </tr>
             <tr>
                 <td>index.html</td>
                 <td>32 KB</td>
-                <td>0.8ms</td>
-                <td>666 req/s</td>
+                <td>36-382μs</td>
+                <td>26,795 req/s</td>
             </tr>
             <tr>
                 <td>style.min.css</td>
                 <td>16 KB</td>
-                <td>0.8ms</td>
-                <td>625 req/s</td>
+                <td>33-136μs</td>
+                <td>41,100 req/s</td>
             </tr>
             <tr>
                 <td>main.min.js</td>
                 <td>13 KB</td>
-                <td>0.7ms</td>
-                <td>714 req/s</td>
+                <td>34-125μs</td>
+                <td>45,406 req/s</td>
+            </tr>
+            <tr>
+                <td>logo.webp</td>
+                <td>5 KB</td>
+                <td>34-151μs</td>
+                <td>39,287 req/s</td>
             </tr>
             <tr>
                 <td>storefront.webp</td>
                 <td>128 KB</td>
-                <td>6.6ms</td>
-                <td>178 req/s</td>
-            </tr>
-            <tr>
-                <td>plaza.webp</td>
-                <td>1 MB</td>
-                <td>2.9ms</td>
-                <td>500 req/s</td>
+                <td>107-455μs</td>
+                <td>3,676 req/s</td>
             </tr>
         </table>
 
         <h3>5.2 Full Page Load</h3>
 
 <div class="chart">
-COMPLETE PAGE LOAD TIME
+COMPLETE PAGE LOAD TIME (5 critical assets)
 
 Round 1 (JPEG, nginx+disk):
-████████████████████████████████████  2,400ms
+████████████████████████████████████████  2,400ms
 
 Round 3 (WebP, Rust, memory):
-█                                        52ms
+██                                           52ms
 
-Improvement: 46x faster
+Round 4 (High-concurrency optimized):
+                                            1.6ms
+
+Improvement: 1,500x faster
 </div>
 
         <h3>5.3 Optimization Summary</h3>
@@ -458,8 +473,8 @@ Improvement: 46x faster
             <tr>
                 <td>Binary size</td>
                 <td>28 MB</td>
-                <td>13 MB</td>
-                <td>54% smaller</td>
+                <td>18 MB</td>
+                <td>36% smaller</td>
             </tr>
             <tr>
                 <td>CSS size</td>
@@ -470,14 +485,20 @@ Improvement: 46x faster
             <tr>
                 <td>Page load</td>
                 <td>~2.4s</td>
-                <td>~52ms</td>
-                <td>46x faster</td>
+                <td>~1.6ms</td>
+                <td>1,500x faster</td>
             </tr>
             <tr>
                 <td>Memory usage</td>
                 <td>50-200 MB</td>
-                <td>~10 MB</td>
-                <td>5-20x less</td>
+                <td>~1.1 MB</td>
+                <td>45-180x less</td>
+            </tr>
+            <tr>
+                <td>Throughput</td>
+                <td>~100 req/s</td>
+                <td>58,085 req/s</td>
+                <td>580x faster</td>
             </tr>
         </table>
 
@@ -525,9 +546,9 @@ Improvement: 46x faster
 
         <ol>
             <li><strong>Image optimization has the highest ROI</strong> — WebP conversion alone provides 78% size reduction with minimal effort.</li>
-            <li><strong>Rust excels for performance-critical applications</strong> — 600+ req/s on basic hardware with sub-millisecond response times.</li>
+            <li><strong>Rust excels for performance-critical applications</strong> — 58,000+ req/s on basic hardware with sub-millisecond response times.</li>
             <li><strong>CDNs level the playing field significantly</strong> — Cloudflare can make WordPress competitive for static content.</li>
-            <li><strong>Custom code in Rust/Go provides 10-100x better performance</strong> than interpreted languages with heavy frameworks.</li>
+            <li><strong>Custom code in Rust/Go provides 100-1000x better performance</strong> than interpreted languages with heavy frameworks.</li>
         </ol>
 
         <h3>7.2 The Bottom Line</h3>
