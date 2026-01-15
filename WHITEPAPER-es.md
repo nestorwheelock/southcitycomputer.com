@@ -506,7 +506,7 @@ INTERNET PÚBLICO
        │    (Folleto estático)                          │
        │                                                │
        │    ┌──────────────────────────────────────┐   │
-       │    │  Binario Rust (18MB, en memoria)     │   │
+       │    │  Binario Rust (19MB, en memoria)     │   │
        │    │  • Sin base de datos                 │   │
        │    │  • Sin sesiones de usuario           │   │
        │    │  • 58,000 req/s throughput           │   │

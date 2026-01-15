@@ -279,7 +279,7 @@ Documentado en [PERFORMANCE_TESTING.md](PERFORMANCE_TESTING.md) y [WHITEPAPER.md
 | Throughput página principal | 26,795 req/s |
 | Carga completa de página (5 activos) | 1.60ms |
 | Latencia promedio | 36-382μs |
-| Tamaño del binario | 18MB |
+| Tamaño del binario | 19MB |
 | Uso de memoria | ~1.1MB RSS |
 
 ### Resultados de Benchmark

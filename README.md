@@ -279,7 +279,7 @@ Documented in [PERFORMANCE_TESTING.md](PERFORMANCE_TESTING.md) and [WHITEPAPER.m
 | Homepage throughput | 26,795 req/s |
 | Full page load (5 assets) | 1.60ms |
 | Average latency | 36-382μs |
-| Binary size | 18MB |
+| Binary size | 19MB |
 | Memory usage | ~1.1MB RSS |
 
 ### Benchmark Results

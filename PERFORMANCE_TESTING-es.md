@@ -255,12 +255,12 @@ Carga de Página Completa (5 activos above-fold):
 
 ### Comparación de Rendimiento
 
-| Métrica | Ronda 1 | Ronda 3 | Ronda 4 | Mejora |
-|---------|---------|---------|---------|--------|
-| Carga página | 2.4s | 52ms | 1.6ms | **1,500x** |
-| Health req/s | ~100 | 700 | 58,085 | **580x** |
-| Tamaño binario | 28MB | 13MB | 18MB | - |
-| Memoria RSS | 10MB | 10MB | 1.1MB | **9x** |
+| Métrica | Ronda 1 | Ronda 3 | Ronda 4 | Ronda 5 | Mejora |
+|---------|---------|---------|---------|---------|--------|
+| Carga página | 2.4s | 52ms | 1.6ms | 1.6ms | **1,500x** |
+| Health req/s | ~100 | 700 | 58,085 | 58,085 | **580x** |
+| Tamaño binario | 28MB | 13MB | 18MB | 19MB | - |
+| Memoria RSS | 10MB | 10MB | 1.1MB | 1.1MB | **9x** |
 
 ### Hallazgos Clave
 

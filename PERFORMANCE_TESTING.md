@@ -255,12 +255,12 @@ Full Page Load (5 above-fold assets):
 
 ### Performance Comparison
 
-| Metric | Round 1 | Round 3 | Round 4 | Improvement |
-|--------|---------|---------|---------|-------------|
-| Page load | 2.4s | 52ms | 1.6ms | **1,500x** |
-| Health req/s | ~100 | 700 | 58,085 | **580x** |
-| Binary size | 28MB | 13MB | 18MB | - |
-| Memory RSS | 10MB | 10MB | 1.1MB | **9x** |
+| Metric | Round 1 | Round 3 | Round 4 | Round 5 | Improvement |
+|--------|---------|---------|---------|---------|-------------|
+| Page load | 2.4s | 52ms | 1.6ms | 1.6ms | **1,500x** |
+| Health req/s | ~100 | 700 | 58,085 | 58,085 | **580x** |
+| Binary size | 28MB | 13MB | 18MB | 19MB | - |
+| Memory RSS | 10MB | 10MB | 1.1MB | 1.1MB | **9x** |
 
 ### Key Findings
 

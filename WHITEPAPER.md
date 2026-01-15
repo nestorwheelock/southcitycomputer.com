@@ -504,7 +504,7 @@ PUBLIC INTERNET
        │    (Static brochure)                           │
        │                                                │
        │    ┌──────────────────────────────────────┐   │
-       │    │  Rust Binary (18MB, in-memory)       │   │
+       │    │  Rust Binary (19MB, in-memory)       │   │
        │    │  • No database                       │   │
        │    │  • No user sessions                  │   │
        │    │  • 58,000 req/s throughput           │   │
