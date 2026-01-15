@@ -1,0 +1,16 @@
+# Cloudflare API Configuration
+# Copy this to cloudflare.conf and fill in your values
+#
+# Get your API token from: https://dash.cloudflare.com/profile/api-tokens
+# Create a token with these permissions:
+#   - Zone:Zone Settings:Edit
+#   - Zone:Cache Purge:Purge
+#   - Zone:Page Rules:Edit (optional, for page rules)
+#
+# Find your Zone ID in the Cloudflare dashboard:
+#   1. Go to your domain
+#   2. Scroll down on the right sidebar
+#   3. Copy the "Zone ID"
+
+CF_API_TOKEN="your_api_token_here"
+CF_ZONE_ID="your_zone_id_here"

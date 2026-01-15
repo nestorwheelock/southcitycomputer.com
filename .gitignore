@@ -34,3 +34,4 @@ backups/
 
 # Node modules
 node_modules/
+scripts/cloudflare.conf
