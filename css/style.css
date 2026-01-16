@@ -636,10 +636,49 @@ a:hover {
     text-align: center;
 }
 
+.paradise-intro .creativity-heading {
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 24px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+
 .paradise-intro p {
     color: rgba(255,255,255,0.85);
     font-size: 1.1rem;
     line-height: 1.7;
+}
+
+.packages-intro {
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    font-size: 1.1rem;
+    margin-bottom: 32px;
+}
+
+.paradise-why {
+    max-width: 800px;
+    margin: 60px auto;
+    text-align: center;
+    padding: 40px;
+    background: rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px);
+}
+
+.paradise-why h2 {
+    color: #fff;
+    margin-bottom: 16px;
+}
+
+.paradise-why p {
+    color: rgba(255,255,255,0.85);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.paradise-why strong {
+    color: #fff;
 }
 
 .paradise-gallery {
