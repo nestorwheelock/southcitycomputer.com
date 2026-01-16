@@ -509,12 +509,21 @@ a:hover {
     transition: all var(--transition);
     text-decoration: none;
     color: inherit;
+    border: 1px solid transparent;
+    animation: shimmerBorder 3s ease-in-out infinite;
+}
+
+@keyframes shimmerBorder {
+    0%, 100% { border-color: rgba(233, 30, 140, 0.3); }
+    50% { border-color: rgba(233, 30, 140, 0.7); }
 }
 
 .service-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-md);
     color: inherit;
+    border-color: var(--magenta);
+    animation: none;
 }
 
 .service-icon {
