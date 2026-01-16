@@ -551,62 +551,62 @@ a:hover {
     margin-bottom: 40px;
 }
 
-.it-services-scroller {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
-}
-
-.it-services-track {
-    display: flex;
+.it-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 24px;
-    animation: scroll-it-services 20s linear infinite;
-    width: max-content;
 }
 
-.it-services-track:hover {
-    animation-play-state: paused;
-}
-
-@keyframes scroll-it-services {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-.it-service-item {
-    flex: 0 0 auto;
+.it-service-card {
+    display: block;
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-md);
     transition: transform var(--transition), box-shadow var(--transition);
+    text-decoration: none;
 }
 
-.it-service-item:hover {
-    transform: scale(1.03);
+.it-service-card:hover {
+    transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
 }
 
-.it-service-item img {
-    width: auto;
-    height: 400px;
+.it-service-card img {
+    width: 100%;
+    height: auto;
     display: block;
 }
 
-@media (max-width: 900px) {
-    .it-service-item img {
-        height: 320px;
+@media (max-width: 768px) {
+    .it-services-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        padding: 8px 4px 16px;
+        margin: 0 -24px;
+        padding-left: 24px;
+        padding-right: 24px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .it-services-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .it-service-card {
+        flex: 0 0 260px;
+        min-width: 260px;
+        scroll-snap-align: start;
     }
 }
 
-@media (max-width: 600px) {
-    .it-service-item img {
-        height: 260px;
+@media (max-width: 480px) {
+    .it-service-card {
+        flex: 0 0 220px;
+        min-width: 220px;
     }
 }
 
