@@ -562,9 +562,10 @@ a:hover {
 
 .it-services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 280px));
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
-    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .it-service-card {
@@ -574,7 +575,6 @@ a:hover {
     box-shadow: var(--shadow-md);
     transition: transform var(--transition), box-shadow var(--transition);
     text-decoration: none;
-    max-width: 280px;
 }
 
 .it-service-card:hover {
