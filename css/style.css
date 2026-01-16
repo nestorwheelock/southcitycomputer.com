@@ -553,8 +553,9 @@ a:hover {
 
 .it-services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 280px));
     gap: 24px;
+    justify-content: center;
 }
 
 .it-service-card {
@@ -564,6 +565,7 @@ a:hover {
     box-shadow: var(--shadow-md);
     transition: transform var(--transition), box-shadow var(--transition);
     text-decoration: none;
+    max-width: 280px;
 }
 
 .it-service-card:hover {
@@ -573,7 +575,8 @@ a:hover {
 
 .it-service-card img {
     width: 100%;
-    height: auto;
+    height: 200px;
+    object-fit: cover;
     display: block;
 }
 
