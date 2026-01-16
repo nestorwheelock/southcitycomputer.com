@@ -581,28 +581,94 @@ document.addEventListener('DOMContentLoaded', function() {
 // ===========================================
 
 var psychedelicActive = false;
+var psychedelicIntensity = null; // 'microdose' or 'macrodose'
 var originalTextContent = new Map();
 
+// Show intensity selector popup
 function togglePsychedelic() {
-    psychedelicActive = !psychedelicActive;
-    var body = document.body;
-    var btn = document.querySelector('.psychedelic-toggle');
-
     if (psychedelicActive) {
-        body.classList.add('psychedelic-mode');
-        btn.classList.add('active');
-        applyRandomAnimations();
-        wrapLettersInSpans();
+        // If already active, turn it off
+        deactivatePsychedelic();
     } else {
-        body.classList.remove('psychedelic-mode');
-        btn.classList.remove('active');
-        removeRandomAnimations();
-        unwrapLetters();
+        // Show the intensity popup
+        showIntensityPopup();
     }
 }
 
-function applyRandomAnimations() {
-    // Apply random animation delays and durations to all elements
+function showIntensityPopup() {
+    var popup = document.getElementById('psychedelic-popup');
+    if (popup) {
+        popup.classList.add('active');
+    }
+}
+
+function hideIntensityPopup() {
+    var popup = document.getElementById('psychedelic-popup');
+    if (popup) {
+        popup.classList.remove('active');
+    }
+}
+
+function selectIntensity(intensity) {
+    hideIntensityPopup();
+    psychedelicIntensity = intensity;
+    activatePsychedelic(intensity);
+}
+
+function activatePsychedelic(intensity) {
+    psychedelicActive = true;
+    var body = document.body;
+    var btn = document.querySelector('.psychedelic-toggle');
+
+    body.classList.add('psychedelic-mode');
+    if (btn) btn.classList.add('active');
+
+    if (intensity === 'microdose') {
+        body.classList.add('microdose-mode');
+        applyMicrodoseAnimations();
+    } else {
+        body.classList.remove('microdose-mode');
+        applyMacrodoseAnimations();
+    }
+
+    wrapLettersInSpans(intensity);
+}
+
+function deactivatePsychedelic() {
+    psychedelicActive = false;
+    psychedelicIntensity = null;
+    var body = document.body;
+    var btn = document.querySelector('.psychedelic-toggle');
+
+    body.classList.remove('psychedelic-mode');
+    body.classList.remove('microdose-mode');
+    if (btn) btn.classList.remove('active');
+
+    removeRandomAnimations();
+    unwrapLetters();
+}
+
+// Microdose: Subtle, slow, uniform animations
+function applyMicrodoseAnimations() {
+    var elements = document.querySelectorAll('section, .container, .card, .service-card, .project-card, .gallery-item, .review-item, .btn, img, h1, h2, h3, h4, p, a, li, span');
+
+    elements.forEach(function(el, index) {
+        // More uniform timing for microdose - less randomness
+        var delay = (index % 5) * 0.5; // Staggered but predictable
+        var duration = 8 + (index % 3); // Slow, 8-10 seconds
+
+        el.style.setProperty('--breathe-delay', index % 10);
+        el.style.animationDelay = delay + 's';
+        el.style.animationDuration = duration + 's';
+        el.style.animationDirection = 'normal';
+    });
+
+    // Slow, subtle random movement for microdose
+    startMicrodoseMovement();
+}
+
+// Macrodose: Wild, fast, random animations (original behavior)
+function applyMacrodoseAnimations() {
     var elements = document.querySelectorAll('section, .container, .card, .service-card, .project-card, .gallery-item, .review-item, .btn, img, h1, h2, h3, h4, p, a, li, span');
 
     elements.forEach(function(el) {
@@ -619,8 +685,8 @@ function applyRandomAnimations() {
         el.style.animationDirection = direction;
     });
 
-    // Add subtle continuous random movement
-    startRandomMovement();
+    // Wild random movement for macrodose
+    startMacrodoseMovement();
 }
 
 function removeRandomAnimations() {
@@ -639,9 +705,26 @@ function removeRandomAnimations() {
 
 var randomMovementInterval;
 
-function startRandomMovement() {
+// Microdose movement - very subtle, slow
+function startMicrodoseMovement() {
     randomMovementInterval = setInterval(function() {
-        if (!psychedelicActive) return;
+        if (!psychedelicActive || psychedelicIntensity !== 'microdose') return;
+
+        var elements = document.querySelectorAll('.psychedelic-mode h1, .psychedelic-mode h2, .psychedelic-mode h3');
+        elements.forEach(function(el) {
+            if (Math.random() > 0.9) { // Less frequent
+                var x = (Math.random() - 0.5) * 1; // Tiny movement
+                var y = (Math.random() - 0.5) * 1;
+                el.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+            }
+        });
+    }, 500); // Less frequent updates
+}
+
+// Macrodose movement - wild and chaotic
+function startMacrodoseMovement() {
+    randomMovementInterval = setInterval(function() {
+        if (!psychedelicActive || psychedelicIntensity !== 'macrodose') return;
 
         var elements = document.querySelectorAll('.psychedelic-mode h1, .psychedelic-mode h2, .psychedelic-mode h3, .psychedelic-mode p, .psychedelic-mode .btn');
         elements.forEach(function(el) {
@@ -663,7 +746,7 @@ function stopRandomMovement() {
     }
 }
 
-function wrapLettersInSpans() {
+function wrapLettersInSpans(intensity) {
     // Select text elements to wrap
     var textElements = document.querySelectorAll('.psychedelic-mode h1, .psychedelic-mode h2, .psychedelic-mode h3, .psychedelic-mode .hero-tagline, .psychedelic-mode .hero-subtitle');
 
@@ -682,8 +765,16 @@ function wrapLettersInSpans() {
             if (char === ' ') {
                 html += ' ';
             } else {
-                var delay = (Math.random() * 1.5).toFixed(2);
-                var duration = (1 + Math.random() * 1).toFixed(2);
+                var delay, duration;
+                if (intensity === 'microdose') {
+                    // Uniform, slow timing for microdose
+                    delay = ((i % 10) * 0.3).toFixed(2);
+                    duration = '4';
+                } else {
+                    // Random timing for macrodose
+                    delay = (Math.random() * 1.5).toFixed(2);
+                    duration = (1 + Math.random() * 1).toFixed(2);
+                }
                 html += '<span class="psyche-letter" style="--letter-delay: ' + delay + 's; animation-duration: ' + duration + 's;">' + char + '</span>';
             }
         }
@@ -700,5 +791,7 @@ function unwrapLetters() {
     originalTextContent.clear();
 }
 
-// Make toggle globally accessible
+// Make functions globally accessible
 window.togglePsychedelic = togglePsychedelic;
+window.selectIntensity = selectIntensity;
+window.hideIntensityPopup = hideIntensityPopup;

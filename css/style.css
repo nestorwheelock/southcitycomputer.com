@@ -142,6 +142,35 @@ a:hover {
     width: 100%;
 }
 
+/* Tech Retreats Banner Link */
+.nav-banner {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: #fff !important;
+    padding: 6px 14px !important;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: bannerPulse 2s ease-in-out infinite;
+    box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+}
+
+.nav-banner:hover {
+    background: linear-gradient(135deg, #f7931e, #ff6b35);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+}
+
+.nav-banner::after {
+    display: none !important;
+}
+
+@keyframes bannerPulse {
+    0%, 100% { box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3); }
+    50% { box-shadow: 0 2px 12px rgba(255, 107, 53, 0.5); }
+}
+
 /* Language Switcher */
 .lang-switcher {
     display: flex;
