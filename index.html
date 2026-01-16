@@ -59,6 +59,27 @@
         </div>
     </nav>
 
+    <!-- Psychedelic Intensity Selector -->
+    <div id="psychedelic-popup" class="psychedelic-popup" onclick="if(event.target === this) hideIntensityPopup();">
+        <div class="psychedelic-popup-content">
+            <h2 class="popup-title">Choose Your Journey</h2>
+            <p class="popup-subtitle">Select your intensity level</p>
+            <div class="intensity-options">
+                <button class="intensity-btn microdose" onclick="selectIntensity('microdose');">
+                    <span class="btn-icon">~</span>
+                    <strong>Microdose</strong>
+                    <span class="btn-desc">Subtle & gentle waves</span>
+                </button>
+                <button class="intensity-btn macrodose" onclick="selectIntensity('macrodose');">
+                    <span class="btn-icon">*</span>
+                    <strong>Macrodose</strong>
+                    <span class="btn-desc">Full psychedelic experience</span>
+                </button>
+            </div>
+            <button class="popup-close" onclick="hideIntensityPopup();">Maybe Later</button>
+        </div>
+    </div>
+
     <section id="hero" class="hero">
         <div class="hero-background"></div>
         <div class="hero-content">
@@ -516,7 +537,7 @@
             </div>
             <div class="footer-bottom">
                 <p data-i18n="footer.copyright">&copy; 2006&ndash;2026 South City Computer. All rights reserved.<br>Built in Rust at South City Computer.</p>
-                <p class="version-tag">v1.0.13</p>
+                <p class="version-tag">v1.0.16</p>
             </div>
         </div>
     </footer>

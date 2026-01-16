@@ -2374,7 +2374,197 @@ a:hover {
    PSYCHEDELIC MODE - Tie Dye Trip
    =========================================== */
 
-/* Tie-dye button */
+/* Intensity Selector Popup */
+.psychedelic-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.psychedelic-popup.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.psychedelic-popup-content {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    animation: popupPulse 2s ease-in-out infinite;
+}
+
+.psychedelic-popup-content::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: conic-gradient(
+        from 0deg,
+        #ff0080, #ff8c00, #ffff00, #00ff00,
+        #00ffff, #0080ff, #8000ff, #ff0080
+    );
+    border-radius: 26px;
+    z-index: -1;
+    animation: rainbowSpin 4s linear infinite;
+}
+
+@keyframes popupPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+@keyframes rainbowSpin {
+    from { filter: hue-rotate(0deg); }
+    to { filter: hue-rotate(360deg); }
+}
+
+.popup-title {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px rgba(255,0,128,0.5);
+}
+
+.popup-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 32px;
+}
+
+.intensity-options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.intensity-btn {
+    padding: 20px 32px;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.intensity-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.intensity-btn:hover::before {
+    left: 100%;
+}
+
+/* Microdose button - soft, subtle */
+.intensity-btn.microdose {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.intensity-btn.microdose:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+}
+
+.intensity-btn.microdose .btn-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+}
+
+.intensity-btn.microdose .btn-desc {
+    font-size: 0.8rem;
+    font-weight: normal;
+    opacity: 0.9;
+    display: block;
+    margin-top: 4px;
+}
+
+/* Macrodose button - intense, vibrant */
+.intensity-btn.macrodose {
+    background: conic-gradient(
+        from 0deg,
+        #ff0080, #ff8c00, #ffff00, #00ff00,
+        #00ffff, #0080ff, #8000ff, #ff0080
+    );
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 20px rgba(255,0,128,0.5);
+    animation: macrodoseGlow 2s ease-in-out infinite;
+}
+
+.intensity-btn.macrodose:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(255,0,128,0.7);
+}
+
+@keyframes macrodoseGlow {
+    0%, 100% { filter: hue-rotate(0deg) brightness(1); }
+    50% { filter: hue-rotate(30deg) brightness(1.1); }
+}
+
+.intensity-btn.macrodose .btn-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+}
+
+.intensity-btn.macrodose .btn-desc {
+    font-size: 0.8rem;
+    font-weight: normal;
+    opacity: 0.9;
+    display: block;
+    margin-top: 4px;
+}
+
+/* Cancel/close button */
+.popup-close {
+    margin-top: 24px;
+    padding: 12px 24px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.popup-close:hover {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+}
+
+/* Tie-dye button - shows when psychedelic is OFF */
 .psychedelic-toggle {
     width: 32px;
     height: 32px;
@@ -2391,6 +2581,7 @@ a:hover {
     margin-left: 12px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
+    display: inline-block;
 }
 
 .psychedelic-toggle:hover {
@@ -2415,7 +2606,7 @@ a:hover {
     to { filter: hue-rotate(360deg); }
 }
 
-/* Active state for button */
+/* Active state for button - fast spin and pulse */
 .psychedelic-toggle.active {
     animation: tiedyeSpin 1s linear infinite, tiedyePulse 0.5s ease infinite;
     border-color: #fff;
@@ -2665,4 +2856,178 @@ body.psychedelic-mode .review-item {
     0%, 100% { transform: rotate(0deg) scale(1); }
     25% { transform: rotate(1deg) scale(1.02); }
     75% { transform: rotate(-1deg) scale(0.98); }
+}
+
+/* ===========================================
+   MICRODOSE MODE - Subtle & Gentle
+   =========================================== */
+
+/* Override body filter for microdose - much gentler */
+body.psychedelic-mode.microdose-mode {
+    animation: bodyTripMicro 12s ease-in-out infinite;
+}
+
+@keyframes bodyTripMicro {
+    0%, 100% { filter: hue-rotate(0deg) saturate(1.05); }
+    50% { filter: hue-rotate(15deg) saturate(1.1); }
+}
+
+/* Microdose: Elements breathe very slowly and subtly */
+body.psychedelic-mode.microdose-mode section,
+body.psychedelic-mode.microdose-mode .container,
+body.psychedelic-mode.microdose-mode .card,
+body.psychedelic-mode.microdose-mode .service-card,
+body.psychedelic-mode.microdose-mode .project-card,
+body.psychedelic-mode.microdose-mode .gallery-item,
+body.psychedelic-mode.microdose-mode .review-item,
+body.psychedelic-mode.microdose-mode .btn,
+body.psychedelic-mode.microdose-mode img {
+    animation: elementBreatheMicro 8s ease-in-out infinite;
+}
+
+@keyframes elementBreatheMicro {
+    0%, 100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: scale(1.005);
+        filter: brightness(1.02);
+    }
+}
+
+/* Microdose: Letters pulse very gently */
+body.psychedelic-mode.microdose-mode .psyche-letter {
+    animation: letterPulseMicro 4s ease-in-out infinite;
+}
+
+@keyframes letterPulseMicro {
+    0%, 100% {
+        transform: translateY(0);
+        filter: brightness(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-0.5px);
+        filter: brightness(1.05);
+        opacity: 0.98;
+    }
+}
+
+/* Microdose: Headers are calm */
+body.psychedelic-mode.microdose-mode h1,
+body.psychedelic-mode.microdose-mode h2,
+body.psychedelic-mode.microdose-mode h3 {
+    animation: headerTripMicro 10s ease-in-out infinite;
+    text-shadow:
+        1px 1px 0 rgba(255,0,128,0.2),
+        -1px -1px 0 rgba(0,255,255,0.2);
+}
+
+@keyframes headerTripMicro {
+    0%, 100% {
+        letter-spacing: normal;
+        transform: translateY(0);
+    }
+    50% {
+        letter-spacing: 0.3px;
+        transform: translateY(-1px);
+    }
+}
+
+/* Microdose: Images shift color very slightly */
+body.psychedelic-mode.microdose-mode img {
+    animation: imageWaveMicro 15s ease-in-out infinite;
+}
+
+@keyframes imageWaveMicro {
+    0%, 100% {
+        transform: scale(1);
+        filter: hue-rotate(0deg) saturate(1);
+    }
+    50% {
+        transform: scale(1.005);
+        filter: hue-rotate(5deg) saturate(1.05);
+    }
+}
+
+/* Microdose: Backgrounds barely shift */
+body.psychedelic-mode.microdose-mode .hero-background,
+body.psychedelic-mode.microdose-mode .location-banner {
+    animation: bgRadiateMicro 20s ease-in-out infinite;
+}
+
+@keyframes bgRadiateMicro {
+    0%, 100% {
+        filter: brightness(1) saturate(1);
+    }
+    50% {
+        filter: brightness(1.03) saturate(1.05);
+    }
+}
+
+/* Microdose: Buttons have soft glow */
+body.psychedelic-mode.microdose-mode .btn {
+    animation: btnGlowMicro 6s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(255,0,128,0.15);
+}
+
+@keyframes btnGlowMicro {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(255,0,128,0.15);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(102,126,234,0.25);
+    }
+}
+
+/* Microdose: Navigation stays mostly still */
+body.psychedelic-mode.microdose-mode .main-nav {
+    animation: navFloatMicro 12s ease-in-out infinite;
+}
+
+@keyframes navFloatMicro {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-1px); }
+}
+
+/* Microdose: Cards have minimal movement */
+body.psychedelic-mode.microdose-mode .service-card,
+body.psychedelic-mode.microdose-mode .project-card {
+    animation: cardWobbleMicro 12s ease-in-out infinite;
+}
+
+@keyframes cardWobbleMicro {
+    0%, 100% {
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+    }
+    50% {
+        transform: perspective(1000px) rotateX(0.3deg) rotateY(0.3deg);
+    }
+}
+
+/* Microdose: No rainbow border, just subtle opacity pulse */
+body.psychedelic-mode.microdose-mode section::before {
+    border: none;
+    background: radial-gradient(ellipse at center, rgba(102,126,234,0.05) 0%, transparent 70%);
+    animation: sectionGlowMicro 10s ease-in-out infinite;
+}
+
+@keyframes sectionGlowMicro {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.5; }
+}
+
+/* Microdose: Reviews scroll normally, minimal wobble */
+body.psychedelic-mode.microdose-mode .reviews-track {
+    animation-duration: 60s !important;
+}
+
+body.psychedelic-mode.microdose-mode .review-item {
+    animation: reviewWobbleMicro 8s ease-in-out infinite;
+}
+
+@keyframes reviewWobbleMicro {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(0.2deg); }
 }
